@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,7 +69,7 @@ class StatusServiceImplTest {
 
     @Test
     void listShouldReturnEmptyListWhenNoActiveStatusesAndIncludeInactiveIsFalse() {
-        when(statusRepository.findAllByActive(true)).thenReturn(java.util.Optional.of(Collections.emptyList()));
+        when(statusRepository.findAllByActive(true)).thenReturn(Optional.of(Collections.emptyList()));
 
         ResponseEntity<StatusListResponse> response = statusService.list(false);
 

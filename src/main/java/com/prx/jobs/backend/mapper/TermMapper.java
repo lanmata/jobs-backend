@@ -1,32 +1,33 @@
 package com.prx.jobs.backend.mapper;
 
 import com.prx.jobs.backend.api.to.StatusTO;
+import com.prx.jobs.backend.api.to.TermTO;
 import com.prx.jobs.backend.config.MapperAppConfig;
 import com.prx.jobs.backend.jpa.entity.StatusEntity;
+import com.prx.jobs.backend.jpa.entity.TermEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
-import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
 /**
- * Mapper for the entity {@link StatusEntity} and its DTO {@link StatusTO}.
+ * Mapper for the entity {@link TermEntity} and its DTO {@link TermTO}.
  */
 @Mapper(
         // Specifies that the mapper should be a Spring bean.
-        uses = {StatusEntity.class, StatusTO.class},
+        uses = {TermEntity.class, TermTO.class},
         // Specifies the configuration class to use for this mapper.
         config = MapperAppConfig.class
 )
 @MapperConfig(unmappedTargetPolicy = ReportingPolicy.ERROR, unmappedSourcePolicy = ReportingPolicy.ERROR)
-public interface StatusMapper {
+public interface TermMapper {
 
-    StatusTO toTarget(StatusEntity statusEntity);
+    StatusTO toTarget(TermEntity termEntity);
 
-    StatusEntity toSource(StatusTO statusTO);
+    StatusEntity toSource(TermTO statusTO);
 
-    List<StatusTO> toTarget(List<StatusEntity> statusEntity);
+    List<TermTO> toTarget(List<TermEntity> termEntity);
 
-    List<StatusEntity> toSource(List<StatusTO> statusTO);
+    List<TermEntity> toSource(List<TermTO> termTO);
 }
