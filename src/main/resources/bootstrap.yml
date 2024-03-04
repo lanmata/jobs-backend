@@ -1,0 +1,62 @@
+# This is the main configuration file for the application.
+# It uses the YAML format for easier readability and nested configuration.
+
+# Application specific configurations
+app:
+  # The name of the application
+  name: jobs-backend-api
+  # The version of the application
+  version: 0.0.1-2024
+
+# Spring Boot specific configurations
+
+spring:
+  main:
+    # Allows overriding of bean definitions
+    allow-bean-definition-overriding: true
+  profiles:
+    active: ${SPRING_BOOT_PROFILE_ACTIVE}
+  application:
+    # The name of the Spring Boot application, taken from the app.name property
+    name: ${app.name}
+  cloud:
+    # The Spring Cloud Config specific configurations
+    #<><><><><><><><><><><><><><> VAULT <><><><><><><><><><><><><><>
+    vault:
+      token: ${VAULT_TOKEN}
+      uri: ${VAULT_SERVER_URL}
+      kv:
+        backend: PRX
+        default-context: ${app.name}
+      application-name: ${app.name}
+    bootstrap:
+      # Enables the Spring Cloud Bootstrap application context
+      enabled: ${SPRING_BOOT_CLOUD_BOOTSTRAP_ENABLED}
+    # The active profile for the Spring Boot application
+    profile: ${SPRING_BOOT_PROFILE_ACTIVE}
+    config:
+      # The active profile for the Spring Cloud Config
+      profile: ${SPRING_BOOT_PROFILE_ACTIVE}
+      # The label for the Spring Cloud Config
+      label: ${SPRING_CLOUD_CONFIG_LABEL}
+      # The URI for the Spring Cloud Config server
+      uri: ${CONFIG_SERVER_URL}
+      # Enables sending of state for the Spring Cloud Config
+      send-state: true
+  jpa:
+    # Defers the initialization of the datasource
+    defer-datasource-initialization: true
+
+# Server specific configurations
+server:
+  ssl:
+    # Enables SSL for the server
+    enabled: true
+    # The SSL bundle for the server
+    bundle: config-server
+
+# Management specific configurations
+management:
+  cloudfoundry:
+    # Enables or disables Cloud Foundry management
+    enabled: false
