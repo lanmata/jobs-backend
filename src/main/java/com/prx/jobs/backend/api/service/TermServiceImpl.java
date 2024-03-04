@@ -43,9 +43,9 @@ public class TermServiceImpl implements TermService {
      */
     @Override
     public ResponseEntity<TermListResponse> list(boolean includeInactive) {
-        List<TermEntity> statusList = includeInactive ? termRepository.findAll() :
+        List<TermEntity> termEntityList = includeInactive ? termRepository.findAll() :
                 termRepository.findAllByActive(true)
                         .orElse(Collections.emptyList());
-        return ResponseEntity.ok(new TermListResponse(termMapper.toTarget(statusList)));
+        return ResponseEntity.ok(new TermListResponse(termMapper.toTarget(termEntityList)));
     }
 }
