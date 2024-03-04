@@ -15,9 +15,9 @@ import java.util.UUID;
 public interface StatusRepository extends JpaRepositoryImplementation<StatusEntity, UUID> {
 
     /**
-     * Find a status by its name
-     * @param name the name of the status
-     * @return the status
+     * Find all statuses by active status
+     * @param includeInactive whether to include inactive statuses
+     * @return the list of statuses
      */
     @Query("SELECT s FROM StatusEntity s WHERE s.active = :includeInactive ")
     Optional<List<StatusEntity>> findAllByActive(@Param("includeInactive") boolean includeInactive);
