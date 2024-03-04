@@ -1,9 +1,7 @@
 package com.prx.jobs.backend.mapper;
 
-import com.prx.jobs.backend.api.to.StatusTO;
 import com.prx.jobs.backend.api.to.TermTO;
 import com.prx.jobs.backend.config.MapperAppConfig;
-import com.prx.jobs.backend.jpa.entity.StatusEntity;
 import com.prx.jobs.backend.jpa.entity.TermEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
@@ -23,11 +21,31 @@ import java.util.List;
 @MapperConfig(unmappedTargetPolicy = ReportingPolicy.ERROR, unmappedSourcePolicy = ReportingPolicy.ERROR)
 public interface TermMapper {
 
-    StatusTO toTarget(TermEntity termEntity);
+    /**
+     * Converts a TermEntity object to a TermTO object.
+     * @param termEntity The TermEntity object to convert.
+     * @return The converted TermTO object.
+     */
+    TermTO toTarget(TermEntity termEntity);
 
-    StatusEntity toSource(TermTO statusTO);
+    /**
+     * Converts a TermTO object to a TermEntity object.
+     * @param termTO The TermTO object to convert.
+     * @return The converted TermEntity object.
+     */
+    TermEntity toSource(TermTO termTO);
 
+    /**
+     * Converts a list of TermEntity objects to a list of TermTO objects.
+     * @param termEntity The list of TermEntity objects to convert.
+     * @return The converted list of TermTO objects.
+     */
     List<TermTO> toTarget(List<TermEntity> termEntity);
 
+    /**
+     * Converts a list of TermTO objects to a list of TermEntity objects.
+     * @param termTO The list of TermTO objects to convert.
+     * @return The converted list of TermEntity objects.
+     */
     List<TermEntity> toSource(List<TermTO> termTO);
 }

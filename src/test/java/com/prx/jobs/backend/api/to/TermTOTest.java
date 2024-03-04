@@ -21,36 +21,36 @@ class TermTOTest {
     @Test
     void shouldCreateStatusWithGivenValues() {
         UUID id = UUID.randomUUID();
-        TermTO status = new TermTO(id, "name", "description", true);
+        TermTO termTO = new TermTO(id, "name", "description", true);
 
-        assertEquals(id, status.id());
-        assertEquals("name", status.name());
-        assertEquals("description", status.description());
-        assertTrue(status.active());
+        assertEquals(id, termTO.id());
+        assertEquals("name", termTO.name());
+        assertEquals("description", termTO.description());
+        assertTrue(termTO.active());
     }
 
     @Test
     void shouldHandleNullValues() {
-        TermTO status = new TermTO(null, null, null, null);
+        TermTO termTO = new TermTO(null, null, null, null);
 
-        assertNull(status.id());
-        assertNull(status.name());
-        assertNull(status.description());
-        assertNull(status.active());
+        assertNull(termTO.id());
+        assertNull(termTO.name());
+        assertNull(termTO.description());
+        assertNull(termTO.active());
     }
 
     @Test
     void shouldHandleEmptyStringValues() {
-        TermTO status = new TermTO(UUID.randomUUID(), "", "", true);
+        TermTO termTO = new TermTO(UUID.randomUUID(), "", "", true);
 
-        assertEquals("", status.name());
-        assertEquals("", status.description());
+        assertEquals("", termTO.name());
+        assertEquals("", termTO.description());
     }
 
     @Test
     void shouldHandleInactiveStatus() {
-        TermTO status = new TermTO(UUID.randomUUID(), "name", "description", false);
+        TermTO termTO = new TermTO(UUID.randomUUID(), "name", "description", false);
 
-        assertFalse(status.active());
+        assertFalse(termTO.active());
     }
 }
