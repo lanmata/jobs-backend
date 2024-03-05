@@ -28,9 +28,10 @@ public class StatusServiceImpl implements StatusService {
     private final StatusMapper statusMapper;
 
     /**
-     * The StatusServiceImpl constructor injects a StatusRepository instance.
+     * Constructs a new StatusServiceImpl with the specified StatusRepository and StatusMapper.
      *
-     * @param statusRepository The StatusRepository instance.
+     * @param statusRepository the StatusRepository
+     * @param statusMapper     the StatusMapper
      */
     public StatusServiceImpl(StatusRepository statusRepository, StatusMapper statusMapper) {
         this.statusRepository = statusRepository;

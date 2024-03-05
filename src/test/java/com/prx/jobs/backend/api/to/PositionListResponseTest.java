@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PositionListResponseTest {
 
     @Test
-    void shouldReturnEmptyCollectionWhenNoModesProvided() {
+    void shouldReturnEmptyCollectionWhenNoPositionsProvided() {
         PositionListResponse response = new PositionListResponse(Collections.emptyList());
 
         assertTrue(response.positionTOCollection().isEmpty());
     }
 
     @Test
-    void shouldReturnSingleModeWhenOneModeProvided() {
+    void shouldReturnSinglePositionWhenOnePositionProvided() {
         PositionTO positionTO = new PositionTO(UUID.randomUUID(), "name", "description", false);
         PositionListResponse response = new PositionListResponse(List.of(positionTO));
 
@@ -28,7 +28,7 @@ class PositionListResponseTest {
     }
 
     @Test
-    void shouldReturnMultipleModesWhenMultipleModesProvided() {
+    void shouldReturnMultiplePositionsWhenMultiplePositionsProvided() {
         PositionTO position1 = new PositionTO(UUID.randomUUID(), "name", "description", false);
         PositionTO position2 = new PositionTO(UUID.randomUUID(), "name", "description", false);
         PositionListResponse response = new PositionListResponse(List.of(position1, position2));

@@ -28,9 +28,10 @@ public class ModeServiceImpl implements ModeService {
     private final ModeMapper modeMapper;
 
     /**
-     * The ModeServiceImpl constructor injects a ModeRepository instance.
+     * Constructor
      *
-     * @param modeRepository The ModeRepository instance.
+     * @param modeRepository Mode Repository
+     * @param modeMapper     Mode Mapper
      */
     public ModeServiceImpl(ModeRepository modeRepository, ModeMapper modeMapper) {
         this.modeRepository = modeRepository;

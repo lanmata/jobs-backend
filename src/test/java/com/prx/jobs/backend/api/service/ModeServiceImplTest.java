@@ -2,10 +2,7 @@ package com.prx.jobs.backend.api.service;
 
 import com.prx.jobs.backend.api.to.ModeListResponse;
 import com.prx.jobs.backend.api.to.ModeTO;
-import com.prx.jobs.backend.api.to.StatusListResponse;
-import com.prx.jobs.backend.api.to.StatusTO;
 import com.prx.jobs.backend.jpa.entity.ModeEntity;
-import com.prx.jobs.backend.jpa.entity.StatusEntity;
 import com.prx.jobs.backend.jpa.repository.ModeRepository;
 import com.prx.jobs.backend.mapper.ModeMapper;
 import org.junit.jupiter.api.Test;
@@ -32,46 +29,46 @@ class ModeServiceImplTest {
     private ModeRepository modeRepository;
 
     @Mock
-    private ModeMapper modeMappersMapper;
+    private ModeMapper modeMappers;
 
     @Test
-    void listShouldReturnAllStatusesWhenIncludeInactiveIsTrue() {
+    void listShouldReturnAllModeWhenIncludeInactiveIsTrue() {
         var uuid = UUID.randomUUID();
         var modeEntity = new ModeEntity();
         modeEntity.setId(uuid);
         modeEntity.setName("name");
         modeEntity.setDescription("description");
         modeEntity.setActive(true);
-        List<ModeEntity> allStatuses = Collections.singletonList(modeEntity);
-        List<ModeTO> modeTOList = Collections.singletonList(new ModeTO(uuid, "name", "description", true));
-
-        when(modeRepository.findAll()).thenReturn(allStatuses);
-        when(modeMappersMapper.toTarget(allStatuses)).thenReturn(modeTOList);
-
-        ResponseEntity<ModeListResponse> response = modeService.list(true);
-        assertEquals(ResponseEntity.ok().body(new ModeListResponse(modeTOList)), response);
-    }
-
-    @Test
-    void listShouldReturnActiveStatusesWhenIncludeInactiveIsFalse() {
-        var uuid = UUID.randomUUID();
-        var statusEntity = new ModeEntity();
-        statusEntity.setId(uuid);
-        statusEntity.setName("name");
-        statusEntity.setDescription("description");
-        statusEntity.setActive(true);
-        List<ModeEntity> modeEntityList = Collections.singletonList(statusEntity);
+        List<ModeEntity> modeEntityList = Collections.singletonList(modeEntity);
         List<ModeTO> modeTOList = Collections.singletonList(new ModeTO(uuid, "name", "description", true));
 
         when(modeRepository.findAll()).thenReturn(modeEntityList);
-        when(modeMappersMapper.toTarget(modeEntityList)).thenReturn(modeTOList);
+        when(modeMappers.toTarget(modeEntityList)).thenReturn(modeTOList);
 
         ResponseEntity<ModeListResponse> response = modeService.list(true);
         assertEquals(ResponseEntity.ok().body(new ModeListResponse(modeTOList)), response);
     }
 
     @Test
-    void listShouldReturnEmptyListWhenNoActiveStatusesAndIncludeInactiveIsFalse() {
+    void listShouldReturnActiveModeWhenIncludeInactiveIsFalse() {
+        var uuid = UUID.randomUUID();
+        var modeEntity = new ModeEntity();
+        modeEntity.setId(uuid);
+        modeEntity.setName("name");
+        modeEntity.setDescription("description");
+        modeEntity.setActive(true);
+        List<ModeEntity> modeEntityList = Collections.singletonList(modeEntity);
+        List<ModeTO> modeTOList = Collections.singletonList(new ModeTO(uuid, "name", "description", true));
+
+        when(modeRepository.findAll()).thenReturn(modeEntityList);
+        when(modeMappers.toTarget(modeEntityList)).thenReturn(modeTOList);
+
+        ResponseEntity<ModeListResponse> response = modeService.list(true);
+        assertEquals(ResponseEntity.ok().body(new ModeListResponse(modeTOList)), response);
+    }
+
+    @Test
+    void listShouldReturnEmptyListWhenNoActiveModesAndIncludeInactiveIsFalse() {
         when(modeRepository.findAllByActive(true)).thenReturn(Optional.of(Collections.emptyList()));
 
         ResponseEntity<ModeListResponse> response = modeService.list(false);
