@@ -33,9 +33,10 @@ public class PositionServiceImpl implements PositionService {
     private final PositionMapper positionMapper;
 
     /**
-     * The PositionServiceImpl constructor injects a PositionRepository instance.
+     * Constructs a new PositionServiceImpl with the specified PositionRepository and PositionMapper.
      *
-     * @param positionRepository The PositionRepository instance.
+     * @param positionRepository the PositionRepository
+     * @param positionMapper     the PositionMapper
      */
     public PositionServiceImpl(PositionRepository positionRepository, PositionMapper positionMapper) {
         this.positionRepository = positionRepository;

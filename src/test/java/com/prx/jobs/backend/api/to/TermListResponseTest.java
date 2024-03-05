@@ -10,16 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TermListResponseTest {
-    
+
     @Test
-    void shouldReturnEmptyCollectionWhenNoModeProvided() {
+    void shouldReturnEmptyCollectionWhenNoTermProvided() {
         TermListResponse response = new TermListResponse(Collections.emptyList());
 
         assertTrue(response.termTOCollection().isEmpty());
     }
 
     @Test
-    void shouldReturnSingleModeWhenOneTermProvided() {
+    void shouldReturnSingleTermWhenOneTermProvided() {
         TermTO termTO = new TermTO(UUID.randomUUID(), "name", "description", false);
         TermListResponse response = new TermListResponse(List.of(termTO));
 

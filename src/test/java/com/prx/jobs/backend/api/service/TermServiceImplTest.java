@@ -32,7 +32,7 @@ class TermServiceImplTest {
     private TermMapper termMapper;
 
     @Test
-    void listShouldReturnAllStatusesWhenIncludeInactiveIsTrue() {
+    void listShouldReturnAllTermWhenIncludeInactiveIsTrue() {
         var uuid = UUID.randomUUID();
         var termEntity = new TermEntity();
         termEntity.setId(uuid);
@@ -50,7 +50,7 @@ class TermServiceImplTest {
     }
 
     @Test
-    void listShouldReturnActiveStatusesWhenIncludeInactiveIsFalse() {
+    void listShouldReturnActiveTermWhenIncludeInactiveIsFalse() {
         var uuid = UUID.randomUUID();
         var termEntity = new TermEntity();
         termEntity.setId(uuid);
@@ -68,7 +68,7 @@ class TermServiceImplTest {
     }
 
     @Test
-    void listShouldReturnEmptyListWhenNoActiveStatusesAndIncludeInactiveIsFalse() {
+    void listShouldReturnEmptyListWhenNoActiveTermsAndIncludeInactiveIsFalse() {
         when(termRepository.findAllByActive(true)).thenReturn(Optional.of(Collections.emptyList()));
 
         ResponseEntity<TermListResponse> response = termService.list(false);

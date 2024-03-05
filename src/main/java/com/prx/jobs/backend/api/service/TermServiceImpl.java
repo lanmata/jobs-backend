@@ -28,9 +28,10 @@ public class TermServiceImpl implements TermService {
     private final TermMapper termMapper;
 
     /**
-     * The TermServiceImpl constructor injects a TermRepository instance.
+     * Constructs a new TermServiceImpl with the specified TermRepository and TermMapper.
      *
-     * @param termRepository The TermRepository instance.
+     * @param termRepository the TermRepository
+     * @param termMapper     the TermMapper
      */
     public TermServiceImpl(TermRepository termRepository, TermMapper termMapper) {
         this.termRepository = termRepository;

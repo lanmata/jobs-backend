@@ -33,7 +33,7 @@ class PositionServiceImplTest {
     private PositionMapper positionMapper;
 
     @Test
-    void listShouldReturnAllStatusesWhenIncludeInactiveIsTrue() {
+    void listShouldReturnAllPositionWhenIncludeInactiveIsTrue() {
         var uuid = UUID.randomUUID();
         var positionEntity = new PositionEntity();
         positionEntity.setId(uuid);
@@ -51,7 +51,7 @@ class PositionServiceImplTest {
     }
 
     @Test
-    void listShouldReturnActiveStatusesWhenIncludeInactiveIsFalse() {
+    void listShouldReturnActivePositionWhenIncludeInactiveIsFalse() {
         var uuid = UUID.randomUUID();
         var positionEntity = new PositionEntity();
         positionEntity.setId(uuid);
@@ -69,7 +69,7 @@ class PositionServiceImplTest {
     }
 
     @Test
-    void listShouldReturnEmptyListWhenNoActiveStatusesAndIncludeInactiveIsFalse() {
+    void listShouldReturnEmptyListWhenNoActivePositionsAndIncludeInactiveIsFalse() {
         when(positionRepository.findAllByActive(true)).thenReturn(Optional.of(Collections.emptyList()));
 
         ResponseEntity<PositionListResponse> response = positionService.list(false);

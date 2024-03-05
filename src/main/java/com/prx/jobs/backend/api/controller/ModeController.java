@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Status Controller
+ * Mode Controller
  */
 @RestController
 @RequestMapping("/v1/modes")
 public class ModeController {
 
     /**
-     * Status Service
+     * Mode Service
      */
     private final ModeService modeService;
 
