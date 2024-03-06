@@ -1,0 +1,4 @@
+name: "jobs-backend"
+appmap_dir: "tmp/appmap"
+packages:
+- path: "com.prx.jobs.backend"
