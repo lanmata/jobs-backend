@@ -12,23 +12,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SourceTypeListResponseTest {
 
     @Test
-    void shouldReturnEmptyCollectionWhenNoStatusProvided() {
+    void shouldReturnEmptyCollectionWhenNoSourceTypeProvided() {
         SourceTypeListResponse response = new SourceTypeListResponse(Collections.emptyList());
 
         assertTrue(response.sourceTypeCollection().isEmpty());
     }
 
     @Test
-    void shouldReturnSingleStatusWhenOneStatusProvided() {
-        SourceTypeTO statusTO = new SourceTypeTO(UUID.randomUUID(), "name", "description", false);
-        SourceTypeListResponse response = new SourceTypeListResponse(List.of(statusTO));
+    void shouldReturnSingleSourceTypeWhenOneSourceTypeProvided() {
+        SourceTypeTO sourceTypeTO = new SourceTypeTO(UUID.randomUUID(), "name", "description", false);
+        SourceTypeListResponse response = new SourceTypeListResponse(List.of(sourceTypeTO));
 
         assertEquals(1, response.sourceTypeCollection().size());
-        assertTrue(response.sourceTypeCollection().contains(statusTO));
+        assertTrue(response.sourceTypeCollection().contains(sourceTypeTO));
     }
 
     @Test
-    void shouldReturnMultipleStatusWhenMultipleStatusProvided() {
+    void shouldReturnMultipleSourceTypeWhenMultipleSourceTypeProvided() {
         SourceTypeTO sourceTypeTO1 = new SourceTypeTO(UUID.randomUUID(), "name", "description", false);
         SourceTypeTO sourceType2 = new SourceTypeTO(UUID.randomUUID(), "name", "description", false);
         SourceTypeListResponse response = new SourceTypeListResponse(List.of(sourceTypeTO1, sourceType2));

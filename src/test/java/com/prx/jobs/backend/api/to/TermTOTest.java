@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TermTOTest {
 
     @Test
-    void shouldCreateStatusWithGivenValues() {
+    void shouldCreateTermWithGivenValues() {
         UUID id = UUID.randomUUID();
         TermTO termTO = new TermTO(id, "name", "description", true);
 
@@ -48,7 +48,7 @@ class TermTOTest {
     }
 
     @Test
-    void shouldHandleInactiveStatus() {
+    void shouldHandleInactiveTerm() {
         TermTO termTO = new TermTO(UUID.randomUUID(), "name", "description", false);
 
         assertFalse(termTO.active());

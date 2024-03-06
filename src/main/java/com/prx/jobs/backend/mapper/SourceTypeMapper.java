@@ -4,8 +4,6 @@ import com.prx.jobs.backend.api.to.SourceTypeTO;
 import com.prx.jobs.backend.config.MapperAppConfig;
 import com.prx.jobs.backend.jpa.entity.SourceTypeEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.MapperConfig;
-import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
@@ -18,7 +16,6 @@ import java.util.List;
         // Specifies the configuration class to use for this mapper.
         config = MapperAppConfig.class
 )
-@MapperConfig(unmappedTargetPolicy = ReportingPolicy.ERROR, unmappedSourcePolicy = ReportingPolicy.ERROR)
 public interface SourceTypeMapper {
 
     /**

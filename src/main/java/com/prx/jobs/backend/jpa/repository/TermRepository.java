@@ -15,9 +15,8 @@ import java.util.UUID;
 public interface TermRepository extends JpaRepositoryImplementation<TermEntity, UUID> {
 
     /**
-     * Find all terms by active status
-     * @param includeInactive whether to include inactive terms
-     * @return the list of terms
+     * @param includeInactive boolean value indicating whether to include inactive status records.
+     * @return Optional<List<TermEntity>> containing a list of TermEntity objects.
      */
     @Query("SELECT s FROM TermEntity s WHERE s.active = :includeInactive ")
     Optional<List<TermEntity>> findAllByActive(@Param("includeInactive") boolean includeInactive);

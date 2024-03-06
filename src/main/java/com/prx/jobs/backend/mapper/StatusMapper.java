@@ -5,7 +5,6 @@ import com.prx.jobs.backend.config.MapperAppConfig;
 import com.prx.jobs.backend.jpa.entity.StatusEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
-import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
