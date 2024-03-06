@@ -1,5 +1,8 @@
 package com.prx.jobs.backend.api.to;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.UUID;
 
 /**
@@ -12,5 +15,5 @@ import java.util.UUID;
  * - description: A String that provides a description of the Status.
  * - active: A Boolean that indicates whether the Status is active or not.
  */
-public record StatusTO(UUID id, String name, String description, Boolean active ) {
+public record StatusTO(UUID id, @NotNull @Max(60) String name, @Max(255) String description, @NotNull Boolean active ) {
 }
