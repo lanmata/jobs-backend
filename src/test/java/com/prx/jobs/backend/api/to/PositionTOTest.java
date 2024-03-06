@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PositionTOTest {
 
     @Test
-    void shouldCreateStatusWithGivenValues() {
+    void shouldCreatePositionWithGivenValues() {
         UUID id = UUID.randomUUID();
         PositionTO PositionTO = new PositionTO(id, "name", "description", true);
 
@@ -48,7 +48,7 @@ class PositionTOTest {
     }
 
     @Test
-    void shouldHandleInactiveStatus() {
+    void shouldHandleInactivePosition() {
         PositionTO PositionTO = new PositionTO(UUID.randomUUID(), "name", "description", false);
 
         assertFalse(PositionTO.active());

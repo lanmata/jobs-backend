@@ -2,7 +2,6 @@ package com.prx.jobs.backend.api.controller;
 
 import com.prx.jobs.backend.api.service.ModeService;
 import com.prx.jobs.backend.api.to.ModeListResponse;
-import com.prx.jobs.backend.api.to.StatusListResponse;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import org.springframework.http.ResponseEntity;

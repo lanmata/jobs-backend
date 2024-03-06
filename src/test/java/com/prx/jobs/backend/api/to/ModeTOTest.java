@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ModeTOTest {
 
     @Test
-    void shouldCreateStatusWithGivenValues() {
+    void shouldCreateModeWithGivenValues() {
         UUID id = UUID.randomUUID();
         ModeTO modeTO = new ModeTO(id, "name", "description", true);
 
@@ -48,7 +48,7 @@ class ModeTOTest {
     }
 
     @Test
-    void shouldHandleInactiveStatus() {
+    void shouldHandleInactiveMode() {
         ModeTO modeTO = new ModeTO(UUID.randomUUID(), "name", "description", false);
 
         assertFalse(modeTO.active());

@@ -16,8 +16,8 @@ public interface PositionRepository extends JpaRepositoryImplementation<Position
 
     /**
      * Find all positions by active status
-     * @param includeInactive whether to include inactive positions
-     * @return the list of positions
+     * @param includeInactive boolean value indicating whether to include inactive status records.
+     * @return Optional<List<PositionEntity>> containing a list of PositionEntity objects.
      */
     @Query("SELECT s FROM PositionEntity s WHERE s.active = :includeInactive ")
     Optional<List<PositionEntity>> findAllByActive(@Param("includeInactive") boolean includeInactive);

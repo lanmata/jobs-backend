@@ -14,6 +14,10 @@ import java.util.UUID;
  */
 public interface SourceTypeRepository extends JpaRepositoryImplementation<SourceTypeEntity, UUID> {
 
+    /**
+     * @param includeInactive boolean value indicating whether to include inactive status records.
+     * @return Optional<List<SourceTypeEntity>> containing a list of SourceTypeEntity objects.
+     */
     @Query("SELECT s FROM SourceTypeEntity s WHERE s.active = :includeInactive ")
     Optional<List<SourceTypeEntity>> findAllByActive(@Param("includeInactive") boolean includeInactive);
 }

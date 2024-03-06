@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CompanyTOTest {
 
     @Test
-    void shouldCreateStatusWithGivenValues() {
+    void shouldCreateCompanyWithGivenValues() {
         UUID id = UUID.randomUUID();
         CompanyTO companyTO = new CompanyTO(id, "name", "description", true);
 
@@ -48,7 +48,7 @@ class CompanyTOTest {
     }
 
     @Test
-    void shouldHandleInactiveStatus() {
+    void shouldHandleInactiveCompany() {
         CompanyTO companyTO = new CompanyTO(UUID.randomUUID(), "name", "description", false);
 
         assertFalse(companyTO.active());

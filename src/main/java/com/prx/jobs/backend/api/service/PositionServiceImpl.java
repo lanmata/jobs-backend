@@ -1,13 +1,9 @@
 package com.prx.jobs.backend.api.service;
 
 import com.prx.jobs.backend.api.to.PositionListResponse;
-import com.prx.jobs.backend.api.to.TermListResponse;
 import com.prx.jobs.backend.jpa.entity.PositionEntity;
-import com.prx.jobs.backend.jpa.entity.TermEntity;
 import com.prx.jobs.backend.jpa.repository.PositionRepository;
-import com.prx.jobs.backend.jpa.repository.TermRepository;
 import com.prx.jobs.backend.mapper.PositionMapper;
-import com.prx.jobs.backend.mapper.TermMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

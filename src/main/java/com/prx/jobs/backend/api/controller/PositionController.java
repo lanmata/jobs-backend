@@ -1,7 +1,6 @@
 package com.prx.jobs.backend.api.controller;
 
 import com.prx.jobs.backend.api.service.PositionService;
-import com.prx.jobs.backend.api.to.ModeListResponse;
 import com.prx.jobs.backend.api.to.PositionListResponse;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
