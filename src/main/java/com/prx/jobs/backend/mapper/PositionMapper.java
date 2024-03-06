@@ -37,15 +37,15 @@ public interface PositionMapper {
 
     /**
      * Converts a list of PositionEntity objects to a list of PositionTO objects.
-     * @param modeEntity The list of PositionEntity objects to convert.
+     * @param positionEntityList The list of PositionEntity objects to convert.
      * @return The converted list of PositionTO objects.
      */
-    List<PositionTO> toTarget(List<PositionEntity> modeEntity);
+    List<PositionTO> toTarget(List<PositionEntity> positionEntityList);
 
     /**
      * Converts a list of PositionTO objects to a list of PositionEntity objects.
-     * @param positionTO The list of PositionTO objects to convert.
+     * @param positionTOList The list of PositionTO objects to convert.
      * @return The converted list of PositionEntity objects.
      */
-    List<PositionEntity> toSource(List<PositionTO> positionTO);
+    List<PositionEntity> toSource(List<PositionTO> positionTOList);
 }

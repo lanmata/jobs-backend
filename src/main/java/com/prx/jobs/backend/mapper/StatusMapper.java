@@ -22,11 +22,35 @@ import java.util.List;
 @MapperConfig(unmappedTargetPolicy = ReportingPolicy.ERROR, unmappedSourcePolicy = ReportingPolicy.ERROR)
 public interface StatusMapper {
 
+    /**
+     * Maps the entity {@link StatusEntity} to the DTO {@link StatusTO}.
+     *
+     * @param statusEntity The entity to map.
+     * @return The mapped DTO.
+     */
     StatusTO toTarget(StatusEntity statusEntity);
 
+    /**
+     * Maps the DTO {@link StatusTO} to the entity {@link StatusEntity}.
+     *
+     * @param statusTO The DTO to map.
+     * @return The mapped entity.
+     */
     StatusEntity toSource(StatusTO statusTO);
 
+    /**
+     * Maps a list of entities {@link StatusEntity} to a list of DTOs {@link StatusTO}.
+     *
+     * @param statusEntity The list of entities to map.
+     * @return The mapped list of DTOs.
+     */
     List<StatusTO> toTarget(List<StatusEntity> statusEntity);
 
+    /**
+     * Maps a list of DTOs {@link StatusTO} to a list of entities {@link StatusEntity}.
+     *
+     * @param statusTO The list of DTOs to map.
+     * @return The mapped list of entities.
+     */
     List<StatusEntity> toSource(List<StatusTO> statusTO);
 }

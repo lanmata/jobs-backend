@@ -7,7 +7,7 @@ import java.util.List;
  * A record is a special kind of class in Java that is used to model plain data aggregates.
  * <p>
  * The ModeListResponse record has one field:
- * - modeCollection: A List of Mode records. Each Mode record in the list represents a unique mode.
+ * - modeCollection: A List of ModeTO records. Each ModeTO record in the list represents a unique mode.
  */
 public record ModeListResponse(List<ModeTO> modeTOCollection) {
 
