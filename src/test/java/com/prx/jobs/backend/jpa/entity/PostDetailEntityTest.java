@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,7 +45,7 @@ class PostDetailEntityTest {
 
     @Test
     void setsAndGetsDatetime() {
-        Instant datetime = Instant.now();
+        LocalDateTime datetime = LocalDateTime.now();
         postDetailEntity.setDatetime(datetime);
         assertEquals(datetime, postDetailEntity.getDatetime());
     }

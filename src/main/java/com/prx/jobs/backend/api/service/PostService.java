@@ -3,7 +3,7 @@ package com.prx.jobs.backend.api.service;
 import com.prx.jobs.backend.api.to.PostContentTO;
 import org.springframework.http.ResponseEntity;
 
-import java.util.UUID;
+import java.util.List;
 
 /**
  * This is the PostService interface.
@@ -12,12 +12,11 @@ import java.util.UUID;
 public interface PostService {
 
     /**
-     * The findPostContentByPostId method returns a PostContentEntity object.
+     * Finds post content by post id.
      *
-     * @param postId A UUID value representing the post identifier.
-     * @return A ResponseEntity containing a PostContentEntity object.
+     * @return ResponseEntity<List<PostContentTO>>.
      */
-    default ResponseEntity<PostContentTO> findPostContentByPostId(UUID postId) {
+    default ResponseEntity<List<PostContentTO>> findPostContent() {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 }

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -26,7 +26,7 @@ public class PostDetailEntity {
 
     @NotNull
     @Column(name = "datetime", nullable = false)
-    private Instant datetime;
+    private LocalDateTime datetime;
 
     @NotNull
     @Column(name = "mount_rate", nullable = false, precision = 10, scale = 2)
@@ -62,11 +62,11 @@ public class PostDetailEntity {
         this.description = description;
     }
 
-    public Instant getDatetime() {
+    public LocalDateTime getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Instant datetime) {
+    public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }
 

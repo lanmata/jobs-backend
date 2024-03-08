@@ -1,8 +1,8 @@
 package com.prx.jobs.backend.jpa.repository;
 
 import com.prx.jobs.backend.jpa.entity.SourceEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.UUID;
 /**
  * SourceRepository
  */
-public interface SourceRepository extends JpaRepositoryImplementation<SourceEntity, UUID> {
+public interface SourceRepository extends JpaRepository<SourceEntity, UUID> {
 
     /**
      * @param includeInactive boolean value indicating whether to include inactive status records.
