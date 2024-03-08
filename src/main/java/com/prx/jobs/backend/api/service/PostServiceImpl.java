@@ -8,38 +8,51 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
 
-
+    /**
+     * Constructor
+     *
+     * @param postRepository The PostRepository object.
+     */
     public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
+    /**{@inheritDoc}*/
     @Override
-    public ResponseEntity<PostContentTO> findPostContentByPostId(UUID postId) {
-        var optionalResult = postRepository.findPostEntitiesByPostId(postId);
-        return optionalResult.map(objects -> ResponseEntity.ok(mapToObjectArrayToPostContentTO(objects[0]))).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<List<PostContentTO>> findPostContent() {
+        var optionalResult = postRepository.findPostEntitiesByPostId();
+        return optionalResult.map(objects -> ResponseEntity.ok(mapToObjectArrayToPostContentTO(objects.stream().toList()))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    private PostContentTO mapToObjectArrayToPostContentTO(Object... result) {
+    /**
+     * Maps a list of Object[][] to a list of PostContentTO.
+     *
+     * @param list List of Object[][].
+     * @return List of PostContentTO.
+     */
+    private List<PostContentTO> mapToObjectArrayToPostContentTO(List<Object[][]> list) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S", Locale.ROOT);
-        return new PostContentTO(
-                UUID.fromString(result[0].toString()),
-                new BigDecimal(result[1].toString()),
-                LocalDateTime.parse(result[2].toString(), dateTimeFormatter),
-                LocalDateTime.parse(result[3].toString(), dateTimeFormatter),
-                result[4].toString(),
-                result[5].toString(),
-                result[6].toString(),
-                result[7].toString(),
-                result[8].toString(),
-                result[9].toString()
-        );
+        return list.stream().map(objects -> new PostContentTO(
+                UUID.fromString(objects[0][0].toString()),
+                new BigDecimal(objects[1][0].toString()),
+                LocalDateTime.parse(objects[2][0].toString(), dateTimeFormatter),
+                LocalDateTime.parse(objects[3][0].toString(), dateTimeFormatter),
+                objects[4][0].toString(),
+                objects[5][0].toString(),
+                objects[6][0].toString(),
+                objects[7][0].toString(),
+                objects[8][0].toString(),
+                objects[9][0].toString())).collect(Collectors.toCollection(ArrayList::new));
     }
 }
