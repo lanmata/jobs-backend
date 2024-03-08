@@ -20,5 +20,5 @@ public interface PostRepository extends JpaRepository<PostEntity, UUID> {
      * @return A list of post entities.
      */
     @Query(nativeQuery = true, value = JobsConstants.POST_CONTENT_DETAIL)
-    Optional<List<Object[][]>> findPostEntitiesByPostId();
+    Optional<List<Object[][]>> findPostEntities();
 }

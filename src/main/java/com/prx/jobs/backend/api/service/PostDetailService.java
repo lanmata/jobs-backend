@@ -4,6 +4,7 @@ import com.prx.jobs.backend.api.to.PostDetailTO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -19,6 +20,10 @@ public interface PostDetailService {
      * @return ResponseEntity<List<PostDetailTO>>.
      */
     default ResponseEntity<List<PostDetailTO>> findPostDetailByPostId(UUID postId) {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    default Optional<List<PostDetailTO>> findPostDetailTOByPostId(UUID postId) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 }
