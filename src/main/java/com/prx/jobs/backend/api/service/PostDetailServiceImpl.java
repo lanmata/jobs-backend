@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -38,6 +39,12 @@ public class PostDetailServiceImpl implements PostDetailService {
     public ResponseEntity<List<PostDetailTO>> findPostDetailByPostId(UUID postId) {
         var optionalResult = postDetailRepository.findPostDetailEntitiesByPostId(postId);
         return optionalResult.map(postDetailMapper::toTarget).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    /**{@inheritDoc}*/
+    @Override
+    public Optional<List<PostDetailTO>> findPostDetailTOByPostId(UUID postId) {
+        return postDetailRepository.findPostDetailEntitiesByPostId(postId).map(postDetailMapper::toTarget);
     }
 
 

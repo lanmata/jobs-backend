@@ -1,7 +1,9 @@
 package com.prx.jobs.backend.api.service;
 
+import com.prx.jobs.backend.api.to.GetPostResponse;
 import com.prx.jobs.backend.api.to.PostContentTO;
 import com.prx.jobs.backend.jpa.repository.PostRepository;
+import com.prx.jobs.backend.mapper.PostMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,22 +19,46 @@ import java.util.stream.Collectors;
 @Service
 public class PostServiceImpl implements PostService {
 
+    /** The PostDetailService object. */
+    private final PostDetailService postDetailService;
+    /** The PostRepository object. */
     private final PostRepository postRepository;
+    /** The PostMapper object. */
+    private final PostMapper postMapper;
 
     /**
      * Constructor
      *
      * @param postRepository The PostRepository object.
      */
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, PostDetailService postDetailService, PostMapper postMapper) {
         this.postRepository = postRepository;
+        this.postDetailService = postDetailService;
+        this.postMapper = postMapper;
     }
 
     /**{@inheritDoc}*/
     @Override
     public ResponseEntity<List<PostContentTO>> findPostContent() {
-        var optionalResult = postRepository.findPostEntitiesByPostId();
+        var optionalResult = postRepository.findPostEntities();
         return optionalResult.map(objects -> ResponseEntity.ok(mapToObjectArrayToPostContentTO(objects.stream().toList()))).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    /**{@inheritDoc}*/
+    @Override
+    public ResponseEntity<GetPostResponse> findPostContentByPostId(UUID uuid) {
+        var optionalResult = postRepository.findById(uuid);
+        GetPostResponse getPostResponse = null;
+        if(optionalResult.isPresent()) {
+            getPostResponse = postMapper.toTarget(optionalResult.get());
+            getPostDetailByPostId(getPostResponse);
+            return ResponseEntity.ok(getPostResponse);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    private void getPostDetailByPostId(GetPostResponse getPostResponse) {
+        postDetailService.findPostDetailTOByPostId(getPostResponse.id()).ifPresent(postDetailTOList -> getPostResponse.postDetailList().addAll(postDetailTOList));
     }
 
     /**
