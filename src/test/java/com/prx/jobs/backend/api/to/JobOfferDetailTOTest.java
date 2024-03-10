@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PostDetailTOTest {
+class JobOfferDetailTOTest {
 
     @Test
     void shouldCreatePostDetailTOWithValidData() {
@@ -19,15 +19,15 @@ class PostDetailTOTest {
         UUID postId = UUID.randomUUID();
         UUID statusId = UUID.randomUUID();
 
-        PostDetailTO postDetailTO = new PostDetailTO(id, description, datetime, mountRate, postId, statusId);
+        JobOfferDetailTO jobOfferDetailTO = new JobOfferDetailTO(id, description, datetime, mountRate, postId, statusId);
 
-        assertNotNull(postDetailTO);
-        assertEquals(id, postDetailTO.id());
-        assertEquals(description, postDetailTO.description());
-        assertEquals(datetime, postDetailTO.datetime());
-        assertEquals(mountRate, postDetailTO.mountRate());
-        assertEquals(postId, postDetailTO.postId());
-        assertEquals(statusId, postDetailTO.statusId());
+        assertNotNull(jobOfferDetailTO);
+        assertEquals(id, jobOfferDetailTO.id());
+        assertEquals(description, jobOfferDetailTO.description());
+        assertEquals(datetime, jobOfferDetailTO.datetime());
+        assertEquals(mountRate, jobOfferDetailTO.mountRate());
+        assertEquals(postId, jobOfferDetailTO.jobOfferId());
+        assertEquals(statusId, jobOfferDetailTO.statusId());
     }
 
 }

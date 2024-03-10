@@ -7,12 +7,12 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GetPostResponseTest {
+class GetJobOfferResponseTest {
 
     @Test
     void shouldCreateGetPostResponseWithNonNullId() {
         UUID id = UUID.randomUUID();
-        GetPostResponse response = new GetPostResponse(id, "title", "description",
+        GetJobOfferResponse response = new GetJobOfferResponse(id, "title", "description",
                 "reference", UUID.randomUUID(), "company",
                 UUID.randomUUID(), "position",
                 UUID.randomUUID(), "term", UUID.randomUUID(), "mode",
@@ -24,7 +24,7 @@ class GetPostResponseTest {
     @Test
     void shouldCreateGetPostResponseWithNonNullTitle() {
         String title = "Test Title";
-        GetPostResponse response = new GetPostResponse(UUID.randomUUID(), title, "description",
+        GetJobOfferResponse response = new GetJobOfferResponse(UUID.randomUUID(), title, "description",
                 "reference", UUID.randomUUID(), "company",
                 UUID.randomUUID(), "position",
                 UUID.randomUUID(), "term", UUID.randomUUID(), "mode",
@@ -36,7 +36,7 @@ class GetPostResponseTest {
     @Test
     void shouldCreateGetPostResponseWithNonNullDescription() {
         String description = "Test Description";
-        GetPostResponse response = new GetPostResponse(UUID.randomUUID(), "title", description,
+        GetJobOfferResponse response = new GetJobOfferResponse(UUID.randomUUID(), "title", description,
                 "reference", UUID.randomUUID(), "company",
                 UUID.randomUUID(), "position",
                 UUID.randomUUID(), "term", UUID.randomUUID(), "mode",
@@ -47,7 +47,7 @@ class GetPostResponseTest {
 
     @Test
     void shouldCreateGetPostResponseWithEmptyPostDetailListWhenNullIsPassed() {
-        GetPostResponse response = new GetPostResponse(UUID.randomUUID(), "title", "description",
+        GetJobOfferResponse response = new GetJobOfferResponse(UUID.randomUUID(), "title", "description",
                 "reference", UUID.randomUUID(), "company",
                 UUID.randomUUID(), "position",
                 UUID.randomUUID(), "term", UUID.randomUUID(), "mode",

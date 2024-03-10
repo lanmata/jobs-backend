@@ -1,7 +1,7 @@
 package com.prx.jobs.backend.util;
 
 public final class JobsConstants {
-    public static final String POST_CONTENT_DETAIL = """ 
+    public static final String JOB_OFFER_CONTENT_DETAIL = """ 
             SELECT
                     pp.id,
                     pd3.mount_rate AS "mount",

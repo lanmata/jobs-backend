@@ -21,13 +21,13 @@ public class PositionEntity {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Size(max = 60)
     @NotNull
+    @Size(max = 60)
     @Column(name = "name", nullable = false, length = 60)
     private String name;
 
-    @Size(max = 255)
     @NotNull
+    @Size(max = 255)
     @Column(name = "description", nullable = false)
     private String description;
 
