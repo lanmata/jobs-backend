@@ -1,8 +1,8 @@
 package com.prx.jobs.backend.mapper;
 
-import com.prx.jobs.backend.api.to.PostDetailTO;
+import com.prx.jobs.backend.api.to.JobOfferDetailTO;
 import com.prx.jobs.backend.config.MapperAppConfig;
-import com.prx.jobs.backend.jpa.entity.PostDetailEntity;
+import com.prx.jobs.backend.jpa.entity.JobOfferDetailEntity;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,36 +13,36 @@ import java.util.List;
         // Specifies the configuration class to use for this mapper.
         config = MapperAppConfig.class
 )
-public interface PostDetailMapper {
+public interface JobOfferDetailMapper {
 
     /**
      * Converts a PostDetailEntity object to a PostDetailTO object.
-     * @param postDetailEntity The PostDetailEntity object to convert.
+     * @param jobOfferDetailEntity The PostDetailEntity object to convert.
      * @return The converted PostDetailTO object.
      */
-    @Mapping(target = "postId", source = "post.id")
+    @Mapping(target = "jobOfferId", source = "post.id")
     @Mapping(target = "statusId", source = "status.id")
-    PostDetailTO toTarget(PostDetailEntity postDetailEntity);
+    JobOfferDetailTO toTarget(JobOfferDetailEntity jobOfferDetailEntity);
 
     /**
      * Converts a PostDetailTO object to a PostDetailEntity object.
-     * @param postDetailTO The PostDetailTO object to convert.
+     * @param jobOfferDetailTO The PostDetailTO object to convert.
      * @return The converted PostDetailEntity object.
      */
     @InheritInverseConfiguration
-    PostDetailEntity toSource(PostDetailTO postDetailTO);
+    JobOfferDetailEntity toSource(JobOfferDetailTO jobOfferDetailTO);
 
     /**
      * Converts a list of PostDetailEntity objects to a list of PostDetailTO objects.
-     * @param postDetailEntityList The list of PostDetailEntity objects to convert.
+     * @param jobOfferDetailEntityList The list of PostDetailEntity objects to convert.
      * @return The converted list of PostDetailTO objects.
      */
-    List<PostDetailTO> toTarget(List<PostDetailEntity> postDetailEntityList);
+    List<JobOfferDetailTO> toTarget(List<JobOfferDetailEntity> jobOfferDetailEntityList);
 
     /**
      * Converts a list of PostDetailTO objects to a list of PostDetailEntity objects.
-     * @param postDetailTOList The list of PostDetailTO objects to convert.
+     * @param jobOfferDetailTOList The list of PostDetailTO objects to convert.
      * @return The converted list of PostDetailEntity objects.
      */
-    List<PostDetailEntity> toSource(List<PostDetailTO> postDetailTOList);
+    List<JobOfferDetailEntity> toSource(List<JobOfferDetailTO> jobOfferDetailTOList);
 }

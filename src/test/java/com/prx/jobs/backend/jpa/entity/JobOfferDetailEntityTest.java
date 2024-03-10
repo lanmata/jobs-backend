@@ -13,63 +13,63 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
-class PostDetailEntityTest {
+class JobOfferDetailEntityTest {
 
     @Mock
-    private PostEntity postEntity;
+    private JobOfferEntity jobOfferEntity;
 
     @Mock
     private StatusEntity statusEntity;
 
-    private PostDetailEntity postDetailEntity;
+    private JobOfferDetailEntity jobOfferDetailEntity;
 
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
-        postDetailEntity = new PostDetailEntity();
+        jobOfferDetailEntity = new JobOfferDetailEntity();
     }
 
     @Test
     void setsAndGetsId() {
         UUID id = UUID.randomUUID();
-        postDetailEntity.setId(id);
-        assertEquals(id, postDetailEntity.getId());
+        jobOfferDetailEntity.setId(id);
+        assertEquals(id, jobOfferDetailEntity.getId());
     }
 
     @Test
     void setsAndGetsDescription() {
         String description = "Test Description";
-        postDetailEntity.setDescription(description);
-        assertEquals(description, postDetailEntity.getDescription());
+        jobOfferDetailEntity.setDescription(description);
+        assertEquals(description, jobOfferDetailEntity.getDescription());
     }
 
     @Test
     void setsAndGetsDatetime() {
         LocalDateTime datetime = LocalDateTime.now();
-        postDetailEntity.setDatetime(datetime);
-        assertEquals(datetime, postDetailEntity.getDatetime());
+        jobOfferDetailEntity.setDatetime(datetime);
+        assertEquals(datetime, jobOfferDetailEntity.getDatetime());
     }
 
     @Test
     void setsAndGetsMountRate() {
         BigDecimal mountRate = new BigDecimal("10.00");
-        postDetailEntity.setMountRate(mountRate);
-        assertEquals(mountRate, postDetailEntity.getMountRate());
+        jobOfferDetailEntity.setMountRate(mountRate);
+        assertEquals(mountRate, jobOfferDetailEntity.getMountRate());
     }
 
     @Test
     void setsAndGetsPost() {
-        when(postEntity.getId()).thenReturn(UUID.randomUUID());
-        postDetailEntity.setPost(postEntity);
-        assertNotNull(postDetailEntity.getPost());
-        assertEquals(postEntity.getId(), postDetailEntity.getPost().getId());
+        when(jobOfferEntity.getId()).thenReturn(UUID.randomUUID());
+        jobOfferDetailEntity.setPost(jobOfferEntity);
+        assertNotNull(jobOfferDetailEntity.getPost());
+        assertEquals(jobOfferEntity.getId(), jobOfferDetailEntity.getPost().getId());
     }
 
     @Test
     void setsAndGetsStatus() {
         when(statusEntity.getId()).thenReturn(UUID.randomUUID());
-        postDetailEntity.setStatus(statusEntity);
-        assertNotNull(postDetailEntity.getStatus());
-        assertEquals(statusEntity.getId(), postDetailEntity.getStatus().getId());
+        jobOfferDetailEntity.setStatus(statusEntity);
+        assertNotNull(jobOfferDetailEntity.getStatus());
+        assertEquals(statusEntity.getId(), jobOfferDetailEntity.getStatus().getId());
     }
 }

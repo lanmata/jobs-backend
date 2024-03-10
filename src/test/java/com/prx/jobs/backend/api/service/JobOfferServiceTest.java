@@ -6,13 +6,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-class PostServiceTest {
+class JobOfferServiceTest {
 
-    private final PostService postService = new PostService() {
+    private final JobOfferService jobOfferService = new JobOfferService() {
     };
 
     @Test
     void testList() {
-        assertThrows(UnsupportedOperationException.class, postService::findPostContent);
+        assertThrows(UnsupportedOperationException.class, jobOfferService::findJobOfferContent);
     }
 }

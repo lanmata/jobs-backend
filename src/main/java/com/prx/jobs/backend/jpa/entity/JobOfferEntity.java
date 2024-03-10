@@ -7,15 +7,16 @@ import jakarta.validation.constraints.Size;
 import java.util.UUID;
 
 /**
- * This is the PostEntity class.
+ * This is the JobOfferEntity class.
  * It is annotated with @Entity to indicate that it is a JPA entity.
  * It is annotated with @Table to specify the table to which this entity is mapped.
  */
 @Entity
-@Table(name = "post", schema = "jobs")
-public class PostEntity {
+@Table(name = "job_offer", schema = "jobs")
+public class JobOfferEntity {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Size(max = 60)
@@ -56,7 +57,7 @@ public class PostEntity {
     @JoinColumn(name = "fk_source", nullable = false)
     private SourceEntity source;
 
-    public PostEntity() {
+    public JobOfferEntity() {
         //  Default constructor
     }
 

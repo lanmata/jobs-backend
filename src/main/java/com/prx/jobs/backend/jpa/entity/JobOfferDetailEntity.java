@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
- * This is the PostDetailEntity class.
+ * This is the JobOfferDetailEntity class.
  * It is annotated with @Entity to indicate that it is a JPA entity.
  * It is annotated with @Table to specify the table to which this entity is mapped.
  */
 @Entity
-@Table(name = "post_detail", schema = "jobs")
-public class PostDetailEntity {
+@Table(name = "job_offer_detail", schema = "jobs")
+public class JobOfferDetailEntity {
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
@@ -35,14 +35,14 @@ public class PostDetailEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "fk_post", nullable = false)
-    private PostEntity post;
+    private JobOfferEntity post;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "fk_status", nullable = false)
     private StatusEntity status;
 
-    public PostDetailEntity() {
+    public JobOfferDetailEntity() {
         // Default constructor
     }
 
@@ -78,11 +78,11 @@ public class PostDetailEntity {
         this.mountRate = mountRate;
     }
 
-    public PostEntity getPost() {
+    public JobOfferEntity getPost() {
         return post;
     }
 
-    public void setPost(PostEntity post) {
+    public void setPost(JobOfferEntity post) {
         this.post = post;
     }
 
