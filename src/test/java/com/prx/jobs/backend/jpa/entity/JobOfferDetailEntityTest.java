@@ -60,9 +60,9 @@ class JobOfferDetailEntityTest {
     @Test
     void setsAndGetsPost() {
         when(jobOfferEntity.getId()).thenReturn(UUID.randomUUID());
-        jobOfferDetailEntity.setPost(jobOfferEntity);
-        assertNotNull(jobOfferDetailEntity.getPost());
-        assertEquals(jobOfferEntity.getId(), jobOfferDetailEntity.getPost().getId());
+        jobOfferDetailEntity.setOfferEntity(jobOfferEntity);
+        assertNotNull(jobOfferDetailEntity.getOfferEntity());
+        assertEquals(jobOfferEntity.getId(), jobOfferDetailEntity.getOfferEntity().getId());
     }
 
     @Test

@@ -16,4 +16,14 @@ class JobOfferDetailServiceTest {
         assertThrows(UnsupportedOperationException.class, () -> jobOfferDetailService.findOfferDetailByJobOfferId(UUID.randomUUID()));
     }
 
+    @Test
+    void testFind() {
+        assertThrows(UnsupportedOperationException.class, () -> jobOfferDetailService.findJobOfferDetailTOByJobOfferId(UUID.randomUUID()));
+    }
+
+    @Test
+    void testPost() {
+        assertThrows(UnsupportedOperationException.class, () -> jobOfferDetailService.postJobOfferDetail(UUID.randomUUID(), null));
+    }
+
 }
