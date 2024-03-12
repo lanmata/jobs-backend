@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
@@ -121,10 +120,9 @@ class JobOfferDetailServiceImplTest {
         when(jobOfferDetailMapper.toSource(request)).thenReturn(jobOfferDetailEntity);
         when(jobOfferDetailRepository.save(jobOfferDetailEntity)).thenReturn(jobOfferDetailEntity);
 
-        ResponseEntity<PostJobOfferDetailResponse> response = jobOfferDetailService.postJobOfferDetail(jobOfferId, request);
+        PostJobOfferDetailResponse response = jobOfferDetailService.postJobOfferDetail(jobOfferId, request);
 
         assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -139,9 +137,8 @@ class JobOfferDetailServiceImplTest {
         when(jobOfferDetailMapper.toSource(request)).thenReturn(jobOfferDetailEntity);
         when(jobOfferDetailRepository.save(jobOfferDetailEntity)).thenReturn(jobOfferDetailEntity);
 
-        ResponseEntity<PostJobOfferDetailResponse> response = jobOfferDetailService.postJobOfferDetail(jobOfferId, request);
+        PostJobOfferDetailResponse response = jobOfferDetailService.postJobOfferDetail(jobOfferId, request);
 
         assertNotNull(response);
-        assertEquals(HttpStatus.NOT_ACCEPTABLE, response.getStatusCode());
     }
 }

@@ -3,6 +3,8 @@ package com.prx.jobs.backend.api.service;
 import com.prx.jobs.backend.api.to.SourceTypeListResponse;
 import org.springframework.http.ResponseEntity;
 
+import static com.prx.jobs.backend.util.JobsConstants.NOT_IMPLEMENTED;
+
 /**
  * This is the SourceTypeService interface.
  * It provides methods for managing term records.
@@ -16,6 +18,6 @@ public interface SourceTypeService {
      * @return A ResponseEntity containing a list of SourceTypeTO objects.
      */
     default ResponseEntity<SourceTypeListResponse> list(boolean includeInactive) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 }

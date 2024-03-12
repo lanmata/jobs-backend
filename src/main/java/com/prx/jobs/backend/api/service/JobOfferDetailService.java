@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.prx.jobs.backend.util.JobsConstants.NOT_IMPLEMENTED;
+
 /**
  * This is the JobOfferDetailService interface.
  * It provides methods for managing job offer records.
@@ -22,7 +24,7 @@ public interface JobOfferDetailService {
      * @return ResponseEntity<List < JobOfferDetailTO>>.
      */
     default ResponseEntity<List<JobOfferDetailTO>> findOfferDetailByJobOfferId(UUID jobOfferId) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 
     /**
@@ -32,7 +34,7 @@ public interface JobOfferDetailService {
      * @return Optional<List < JobOfferDetailTO>> The list of job offer details.
      */
     default Optional<List<JobOfferDetailTO>> findJobOfferDetailTOByJobOfferId(UUID jobOfferId) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 
     /**
@@ -40,9 +42,9 @@ public interface JobOfferDetailService {
      *
      * @param jobOfferId                The job offer id.
      * @param postJobOfferDetailRequest The post job offer detail request.
-     * @return ResponseEntity<PostJobOfferDetailResponse> The post job offer detail response.
+     * @return PostJobOfferDetailResponse The post job offer detail response.
      */
-    default ResponseEntity<PostJobOfferDetailResponse> postJobOfferDetail(UUID jobOfferId, PostJobOfferDetailRequest postJobOfferDetailRequest) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    default PostJobOfferDetailResponse postJobOfferDetail(UUID jobOfferId, PostJobOfferDetailRequest postJobOfferDetailRequest) {
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 }

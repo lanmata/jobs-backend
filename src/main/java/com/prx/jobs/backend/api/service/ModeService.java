@@ -3,6 +3,8 @@ package com.prx.jobs.backend.api.service;
 import com.prx.jobs.backend.api.to.ModeListResponse;
 import org.springframework.http.ResponseEntity;
 
+import static com.prx.jobs.backend.util.JobsConstants.NOT_IMPLEMENTED;
+
 /**
  * This is the ModeService interface.
  * It provides methods for managing mode records.
@@ -16,6 +18,6 @@ public interface ModeService {
      * @return A ResponseEntity containing a list of ModeTO objects.
      */
     default ResponseEntity<ModeListResponse> list(boolean includeInactive) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 }
