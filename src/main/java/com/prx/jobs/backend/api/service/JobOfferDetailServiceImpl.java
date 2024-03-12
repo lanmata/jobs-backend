@@ -61,16 +61,16 @@ public class JobOfferDetailServiceImpl implements JobOfferDetailService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<PostJobOfferDetailResponse> postJobOfferDetail(UUID jobOfferId, PostJobOfferDetailRequest postJobOfferDetailRequest) {
+    public PostJobOfferDetailResponse postJobOfferDetail(UUID jobOfferId, PostJobOfferDetailRequest postJobOfferDetailRequest) {
         var jobOfferEntity = new JobOfferEntity();
         var jobOfferDetailEntity = jobOfferDetailMapper.toSource(postJobOfferDetailRequest);
         jobOfferEntity.setId(jobOfferId);
         jobOfferDetailEntity.setOfferEntity(jobOfferEntity);
         var savedJobOfferDetailEntity = jobOfferDetailRepository.save(jobOfferDetailEntity);
         if (Objects.nonNull(savedJobOfferDetailEntity.getId())) {
-            return ResponseEntity.ok(new PostJobOfferDetailResponse(savedJobOfferDetailEntity.getId(), LocalDateTime.now(), null));
+            return new PostJobOfferDetailResponse(savedJobOfferDetailEntity.getId(), LocalDateTime.now(), null);
         }
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        return new PostJobOfferDetailResponse(null, LocalDateTime.now(), "Job offer detail not created");
     }
 
 }

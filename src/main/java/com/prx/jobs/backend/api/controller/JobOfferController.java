@@ -1,10 +1,7 @@
 package com.prx.jobs.backend.api.controller;
 
 import com.prx.jobs.backend.api.service.JobOfferService;
-import com.prx.jobs.backend.api.to.GetJobOfferResponse;
-import com.prx.jobs.backend.api.to.JobOfferContentTO;
-import com.prx.jobs.backend.api.to.PostJobOfferRequest;
-import com.prx.jobs.backend.api.to.PostJobOfferResponse;
+import com.prx.jobs.backend.api.to.*;
 import jakarta.ws.rs.PathParam;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -53,8 +50,26 @@ public class JobOfferController {
         return jobOfferService.findJobOfferContentByJobOfferId(UUID.fromString(jobOfferId));
     }
 
+    /**
+     * Posts a job offer.
+     *
+     * @param postJobOfferRequest The post job offer request.
+     * @return ResponseEntity<PostJobOfferResponse>.
+     */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PostJobOfferResponse> postJobOffer(@RequestBody PostJobOfferRequest postJobOfferRequest) {
+    public ResponseEntity<JobOfferResponse> postJobOffer(@RequestBody PostJobOfferRequest postJobOfferRequest) {
         return jobOfferService.createJobOffer(postJobOfferRequest);
+    }
+
+    /**
+     * Puts a job offer.
+     *
+     * @param jobOfferId         The job offer id.
+     * @param putJobOfferRequest The put job offer request.
+     * @return ResponseEntity<JobOfferResponse>.
+     */
+    @PutMapping(path = "/{jobOfferId}/detail", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PutJobOfferResponse> putJobOffer(@PathVariable("jobOfferId") String jobOfferId, @RequestBody PutJobOfferRequest putJobOfferRequest) {
+        return jobOfferService.updateJobOffer(UUID.fromString(jobOfferId), putJobOfferRequest);
     }
 }

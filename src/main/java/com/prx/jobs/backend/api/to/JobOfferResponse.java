@@ -7,7 +7,7 @@ import java.util.UUID;
 /**
  * Response for post job offer operation.
  */
-public record PostJobOfferResponse(UUID id, LocalDateTime createdDate, String message) {
+public record JobOfferResponse(UUID id, LocalDateTime createdDate, String message) {
 
     /**
      * The PostJobOfferResponse constructor.
@@ -16,7 +16,7 @@ public record PostJobOfferResponse(UUID id, LocalDateTime createdDate, String me
      * @param createdDate The created date.
      * @param message     The message.
      */
-    public PostJobOfferResponse {
+    public JobOfferResponse {
         if (Objects.nonNull(id)) {
             if (Objects.isNull(message)) {
                 message = "Job offer created successfully";
