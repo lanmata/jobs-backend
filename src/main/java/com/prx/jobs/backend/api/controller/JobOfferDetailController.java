@@ -17,7 +17,7 @@ import java.util.UUID;
  * The JobOfferDetailController class.
  */
 @RestController
-@RequestMapping("/v1/post-details")
+@RequestMapping("/v1/job-offer-details")
 public class JobOfferDetailController {
 
     /**
@@ -37,13 +37,13 @@ public class JobOfferDetailController {
     /**
      * Find post detail by post id.
      *
-     * @param postId The post id.
-     * @return The list of post details.
+     * @param jobOffer The job offer id.
+     * @return The list of job offer details.
      */
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<List<JobOfferDetailTO>> findPostDetailByPostId(
-            @PathParam(value = "jobOfferId") @NotNull String postId) {
-        return jobOfferDetailService.findOfferDetailByJobOfferId(UUID.fromString(postId));
+    public ResponseEntity<List<JobOfferDetailTO>> findJobOfferDetailByJobOfferId(
+            @PathParam(value = "jobOfferId") @NotNull String jobOffer) {
+        return jobOfferDetailService.findOfferDetailByJobOfferId(UUID.fromString(jobOffer));
     }
 
 }

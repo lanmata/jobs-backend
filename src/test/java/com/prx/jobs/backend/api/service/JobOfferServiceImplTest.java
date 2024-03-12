@@ -65,7 +65,6 @@ class JobOfferServiceImplTest {
 
     @Test
     void findPostContentReturnsNotFoundWhenPostDoesNotExist() {
-        UUID postId = UUID.randomUUID();
         when(jobOfferRepository.findJobOfferEntities()).thenReturn(Optional.empty());
 
         ResponseEntity<List<JobOfferContentTO>> response = jobOfferService.findJobOfferContent();

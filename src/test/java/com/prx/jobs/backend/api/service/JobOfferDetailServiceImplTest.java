@@ -1,6 +1,8 @@
 package com.prx.jobs.backend.api.service;
 
 import com.prx.jobs.backend.api.to.JobOfferDetailTO;
+import com.prx.jobs.backend.api.to.PostJobOfferDetailRequest;
+import com.prx.jobs.backend.api.to.PostJobOfferDetailResponse;
 import com.prx.jobs.backend.jpa.entity.JobOfferDetailEntity;
 import com.prx.jobs.backend.jpa.entity.JobOfferEntity;
 import com.prx.jobs.backend.jpa.entity.StatusEntity;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
@@ -20,8 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -44,7 +46,7 @@ class JobOfferDetailServiceImplTest {
         var statusEntity = new StatusEntity();
         statusEntity.setId(UUID.randomUUID());
         postEntity.setId(postId);
-        postDetailEntity.setPost(postEntity);
+        postDetailEntity.setOfferEntity(postEntity);
         postDetailEntity.setDescription("content");
         postDetailEntity.setDatetime(LocalDateTime.now());
         postDetailEntity.setMountRate(BigDecimal.ONE);
@@ -104,5 +106,42 @@ class JobOfferDetailServiceImplTest {
         Optional<List<JobOfferDetailTO>> result = jobOfferDetailService.findJobOfferDetailTOByJobOfferId(jobOfferId);
 
         assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void shouldPostJobOfferDetailSuccessfully() {
+        UUID jobOfferId = UUID.randomUUID();
+        var request = new PostJobOfferDetailRequest("Job description", LocalDateTime.now(), new BigDecimal("100.00"), jobOfferId);
+        JobOfferEntity jobOfferEntity = new JobOfferEntity();
+        jobOfferEntity.setId(jobOfferId);
+        JobOfferDetailEntity jobOfferDetailEntity = new JobOfferDetailEntity();
+        jobOfferDetailEntity.setOfferEntity(jobOfferEntity);
+        jobOfferDetailEntity.setId(UUID.randomUUID());
+
+        when(jobOfferDetailMapper.toSource(request)).thenReturn(jobOfferDetailEntity);
+        when(jobOfferDetailRepository.save(jobOfferDetailEntity)).thenReturn(jobOfferDetailEntity);
+
+        ResponseEntity<PostJobOfferDetailResponse> response = jobOfferDetailService.postJobOfferDetail(jobOfferId, request);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    void shouldReturnNotAcceptableWhenPostJobOfferDetailFails() {
+        UUID jobOfferId = UUID.randomUUID();
+        PostJobOfferDetailRequest request = new PostJobOfferDetailRequest("Job description", LocalDateTime.now(), new BigDecimal("100.00"), jobOfferId);
+        JobOfferEntity jobOfferEntity = new JobOfferEntity();
+        jobOfferEntity.setId(jobOfferId);
+        JobOfferDetailEntity jobOfferDetailEntity = new JobOfferDetailEntity();
+        jobOfferDetailEntity.setOfferEntity(jobOfferEntity);
+
+        when(jobOfferDetailMapper.toSource(request)).thenReturn(jobOfferDetailEntity);
+        when(jobOfferDetailRepository.save(jobOfferDetailEntity)).thenReturn(jobOfferDetailEntity);
+
+        ResponseEntity<PostJobOfferDetailResponse> response = jobOfferDetailService.postJobOfferDetail(jobOfferId, request);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.NOT_ACCEPTABLE, response.getStatusCode());
     }
 }

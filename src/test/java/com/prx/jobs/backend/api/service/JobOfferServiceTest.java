@@ -15,4 +15,14 @@ class JobOfferServiceTest {
     void testList() {
         assertThrows(UnsupportedOperationException.class, jobOfferService::findJobOfferContent);
     }
+
+    @Test
+    void testFind() {
+        assertThrows(UnsupportedOperationException.class, () -> jobOfferService.findJobOfferContentByJobOfferId(null));
+    }
+
+    @Test
+    void testCreate() {
+        assertThrows(UnsupportedOperationException.class, () -> jobOfferService.createJobOffer(null));
+    }
 }

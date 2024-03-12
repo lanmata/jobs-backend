@@ -18,6 +18,7 @@ import java.util.UUID;
 public class JobOfferDetailEntity {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Size(max = 1000)
@@ -34,8 +35,8 @@ public class JobOfferDetailEntity {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "fk_post", nullable = false)
-    private JobOfferEntity post;
+    @JoinColumn(name = "fk_job_offer", nullable = false)
+    private JobOfferEntity offerEntity;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -78,12 +79,12 @@ public class JobOfferDetailEntity {
         this.mountRate = mountRate;
     }
 
-    public JobOfferEntity getPost() {
-        return post;
+    public JobOfferEntity getOfferEntity() {
+        return offerEntity;
     }
 
-    public void setPost(JobOfferEntity post) {
-        this.post = post;
+    public void setOfferEntity(JobOfferEntity jobOffer) {
+        this.offerEntity = jobOffer;
     }
 
     public StatusEntity getStatus() {
