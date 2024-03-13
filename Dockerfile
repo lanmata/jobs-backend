@@ -1,4 +1,4 @@
-FROM amazoncorretto:17.0.10-alpine3.19
+FROM amazoncorretto:17.0.10-alpine
 LABEL version="1.1"
 LABEL description="Jobs Backend API"
 LABEL mantainer="Luis Mata luis.antonio.mata@gmail.com"
@@ -16,7 +16,6 @@ COPY ${TARGET_FILE}${JAR_FILE} ${JAR_FILE}
 COPY ${RESOURCE_PATH}${CRT_QA_DOCKER_FILE}.crt ${CRT_QA_DOCKER_FILE}.crt
 COPY ${RESOURCE_PATH}${CRT_QA_DOCKER_FILE}.p12 ${CRT_QA_DOCKER_FILE}.p12
 
-EXPOSE 8191
 RUN addgroup -S appmng && adduser -S jvapps -G appmng
 RUN chown -R jvapps:appmng .
 RUN chmod -R 740 .
@@ -27,4 +26,4 @@ RUN rm *.crt
 USER jvapps:appmng
 
 EXPOSE 8191
-ENTRYPOINT ["java", "-Dspring.application.name=jobs-backend", "-jar", "jobs-backend.jar" ]
+ENTRYPOINT ["java", "-Dspring.application.name=jobs-backend-api", "-jar", "jobs-backend.jar" ]
