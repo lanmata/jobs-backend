@@ -37,13 +37,13 @@ public class JobOfferDetailController {
     /**
      * Find post detail by post id.
      *
-     * @param jobOffer The job offer id.
+     * @param jobOfferId The job offer id.
      * @return The list of job offer details.
      */
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<JobOfferDetailTO>> findJobOfferDetailByJobOfferId(
-            @PathParam(value = "jobOfferId") @NotNull String jobOffer) {
-        return jobOfferDetailService.findOfferDetailByJobOfferId(UUID.fromString(jobOffer));
+            @PathParam(value = "jobOfferId") @NotNull String jobOfferId) {
+        return jobOfferDetailService.findOfferDetailByJobOfferId(UUID.fromString(jobOfferId));
     }
 
 }
