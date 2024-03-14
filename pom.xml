@@ -63,9 +63,8 @@
         <mockserver.junit.jupiter.version>5.11.2</mockserver.junit.jupiter.version>
         <mockito.junit.jupiter.version>4.8.0</mockito.junit.jupiter.version>
         <mockito.version>5.2.0</mockito.version>
-        <sonar.organization>prx-open</sonar.organization>
         <!--        Coverage and Sonar-->
-        <sonar.organization>prx-open</sonar.organization>
+        <sonar.organization>jobs-board</sonar.organization>
         <sonar.exclusions>**/*.xml,**/*Application.*,**/config/*,**/mapper/*</sonar.exclusions>
         <project.ruleset>${project.basedir}/ruleset.xml</project.ruleset>
     </properties>
