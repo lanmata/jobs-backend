@@ -2,7 +2,6 @@ package com.prx.jobs.backend.mapper;
 
 import com.prx.jobs.backend.api.to.GetJobOfferResponse;
 import com.prx.jobs.backend.api.to.JobOfferResponse;
-import com.prx.jobs.backend.api.to.PostJobOfferDetailResponse;
 import com.prx.jobs.backend.api.to.PutJobOfferResponse;
 import com.prx.jobs.backend.jpa.entity.JobOfferEntity;
 import org.mapstruct.*;

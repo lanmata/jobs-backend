@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/positions")
 public class PositionController {
 
+
     /**
      * Position Service
      */

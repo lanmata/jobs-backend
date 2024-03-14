@@ -6,7 +6,6 @@ import com.prx.jobs.backend.api.to.PostJobOfferDetailResponse;
 import com.prx.jobs.backend.jpa.entity.JobOfferEntity;
 import com.prx.jobs.backend.jpa.repository.JobOfferDetailRepository;
 import com.prx.jobs.backend.mapper.JobOfferDetailMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

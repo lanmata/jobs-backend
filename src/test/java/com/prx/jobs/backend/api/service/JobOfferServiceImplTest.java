@@ -1,9 +1,6 @@
 package com.prx.jobs.backend.api.service;
 
-import com.prx.jobs.backend.api.to.GetJobOfferResponse;
-import com.prx.jobs.backend.api.to.JobOfferContentTO;
-import com.prx.jobs.backend.api.to.JobOfferResponse;
-import com.prx.jobs.backend.api.to.PostJobOfferRequest;
+import com.prx.jobs.backend.api.to.*;
 import com.prx.jobs.backend.jpa.entity.*;
 import com.prx.jobs.backend.jpa.repository.JobOfferRepository;
 import com.prx.jobs.backend.mapper.JobOfferMapper;
@@ -23,8 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -59,8 +56,8 @@ class JobOfferServiceImplTest {
 
         ResponseEntity<List<JobOfferContentTO>> response = jobOfferService.findJobOfferContent();
 
-        assertTrue(response.getStatusCode().equals(HttpStatus.OK));
-        assertTrue(!response.getBody().isEmpty()); // Assuming the mapping function is not yet implemented
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertFalse(response.getBody().isEmpty()); // Assuming the mapping function is not yet implemented
     }
 
     @Test
@@ -218,5 +215,91 @@ class JobOfferServiceImplTest {
         ResponseEntity<JobOfferResponse> result = jobOfferService.createJobOffer(request);
 
         assertEquals(HttpStatus.NOT_ACCEPTABLE, result.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("Should return updated job offer when valid request is provided")
+    void shouldReturnUpdatedJobOfferWhenValidRequestIsProvided() {
+        UUID uuid = UUID.randomUUID();
+        PutJobOfferRequest putJobOfferRequest = new PutJobOfferRequest(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+                UUID.randomUUID(), UUID.randomUUID(), BigDecimal.TEN, "description", LocalDateTime.now());
+        JobOfferEntity jobOfferEntity = new JobOfferEntity();
+        jobOfferEntity.setId(UUID.randomUUID());
+        jobOfferEntity.setTitle("title");
+        jobOfferEntity.setDescription("description");
+        jobOfferEntity.setReference("reference");
+        jobOfferEntity.setCompany(new CompanyEntity());
+        jobOfferEntity.setPosition(new PositionEntity());
+        jobOfferEntity.setMode(new ModeEntity());
+        jobOfferEntity.setTerm(new TermEntity());
+        jobOfferEntity.setSource(new SourceEntity());
+        PutJobOfferResponse putJobOfferResponse = new PutJobOfferResponse();
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdDate = LocalDateTime.now();
+        String message = "Job offer detail created successfully";
+        PostJobOfferDetailResponse postJobOfferDetailResponse = new PostJobOfferDetailResponse(id, createdDate, message);
+        putJobOfferResponse.setId(UUID.randomUUID());
+        putJobOfferResponse.setCreatedDate(LocalDateTime.now());
+        putJobOfferResponse.setMessage("Job offer updated");
+        putJobOfferResponse.setJobOfferDetailId(postJobOfferDetailResponse.id());
+
+        when(jobOfferRepository.findById(uuid)).thenReturn(Optional.of(jobOfferEntity));
+        when(jobOfferRepository.save(any(JobOfferEntity.class))).thenReturn(jobOfferEntity);
+        when(jobOfferMapper.toPutJobOfferResponse(any(JobOfferEntity.class))).thenReturn(putJobOfferResponse);
+        when(jobOfferDetailService.postJobOfferDetail(any(UUID.class), any(PostJobOfferDetailRequest.class))).thenReturn(postJobOfferDetailResponse);
+
+        ResponseEntity<PutJobOfferResponse> response = jobOfferService.updateJobOffer(uuid, putJobOfferRequest);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("Should return not acceptable status when job offer update fails")
+    void shouldReturnNotAcceptableStatusWhenJobOfferUpdateFails() {
+        UUID uuid = UUID.randomUUID();
+        PutJobOfferRequest putJobOfferRequest = new PutJobOfferRequest(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+                UUID.randomUUID(), UUID.randomUUID(), BigDecimal.TEN, "description", LocalDateTime.now());
+        JobOfferEntity jobOfferEntity = new JobOfferEntity();
+        jobOfferEntity.setId(UUID.randomUUID());
+        jobOfferEntity.setTitle("title");
+        jobOfferEntity.setDescription("description");
+        jobOfferEntity.setReference("reference");
+        jobOfferEntity.setCompany(new CompanyEntity());
+        jobOfferEntity.setPosition(new PositionEntity());
+        jobOfferEntity.setMode(new ModeEntity());
+        jobOfferEntity.setTerm(new TermEntity());
+        jobOfferEntity.setSource(new SourceEntity());
+        PutJobOfferResponse putJobOfferResponse = new PutJobOfferResponse();
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdDate = LocalDateTime.now();
+        String message = "Job offer detail created successfully";
+        PostJobOfferDetailResponse postJobOfferDetailResponse = new PostJobOfferDetailResponse(id, createdDate, message);
+        putJobOfferResponse.setId(UUID.randomUUID());
+        putJobOfferResponse.setCreatedDate(LocalDateTime.now());
+        putJobOfferResponse.setMessage("Job offer updated");
+        putJobOfferResponse.setJobOfferDetailId(postJobOfferDetailResponse.id());
+
+        when(jobOfferRepository.save(any(JobOfferEntity.class))).thenReturn(jobOfferEntity);
+        when(jobOfferRepository.findById(uuid)).thenReturn(Optional.of(jobOfferEntity));
+        when(jobOfferMapper.toPutJobOfferResponse(any(JobOfferEntity.class))).thenReturn(putJobOfferResponse);
+        when(jobOfferDetailService.postJobOfferDetail(any(UUID.class), any(PostJobOfferDetailRequest.class))).thenReturn(null);
+
+        ResponseEntity<PutJobOfferResponse> response = jobOfferService.updateJobOffer(uuid, putJobOfferRequest);
+
+        assertEquals(HttpStatus.NOT_ACCEPTABLE, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("Should return bad request status when job offer is not found")
+    void shouldReturnBadRequestStatusWhenJobOfferIsNotFound() {
+        UUID uuid = UUID.randomUUID();
+        PutJobOfferRequest putJobOfferRequest = new PutJobOfferRequest(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+                UUID.randomUUID(), UUID.randomUUID(), BigDecimal.TEN, "description", LocalDateTime.now());
+
+        when(jobOfferRepository.findById(uuid)).thenReturn(Optional.empty());
+
+        ResponseEntity<PutJobOfferResponse> response = jobOfferService.updateJobOffer(uuid, putJobOfferRequest);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 }
