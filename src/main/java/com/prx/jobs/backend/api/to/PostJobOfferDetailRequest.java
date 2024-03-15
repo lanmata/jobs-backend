@@ -8,8 +8,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static com.prx.commons.util.DateUtil.PATTERN_DATE_TIME;
+
 public record PostJobOfferDetailRequest(@NotNull @NotBlank String description,
-                                        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") @NotNull LocalDateTime datetime,
+                                        @JsonFormat(pattern = PATTERN_DATE_TIME) @NotNull LocalDateTime datetime,
                                         @NotNull BigDecimal mountRate,
                                         @NotNull UUID statusId){
 

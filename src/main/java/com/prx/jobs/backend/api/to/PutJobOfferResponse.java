@@ -1,7 +1,11 @@
 package com.prx.jobs.backend.api.to;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static com.prx.commons.util.DateUtil.PATTERN_DATE_TIME;
 
 /**
  * Response for put job offer operation.
@@ -9,6 +13,7 @@ import java.util.UUID;
 public class PutJobOfferResponse {
     private UUID id;
     private UUID jobOfferDetailId;
+    @JsonFormat(pattern = PATTERN_DATE_TIME)
     private LocalDateTime createdDate;
     private String message;
 

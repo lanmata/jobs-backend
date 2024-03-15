@@ -1,13 +1,19 @@
 package com.prx.jobs.backend.api.to;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.prx.commons.util.DateUtil.PATTERN_DATE_TIME;
+
 /**
  * Response for post job offer operation.
  */
-public record JobOfferResponse(UUID id, LocalDateTime createdDate, String message) {
+public record JobOfferResponse(UUID id,
+                               @JsonFormat(pattern = PATTERN_DATE_TIME)LocalDateTime createdDate,
+                               String message) {
 
     /**
      * The PostJobOfferResponse constructor.
