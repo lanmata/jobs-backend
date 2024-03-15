@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Term Controller
  */
 @RestController
-@RequestMapping("/v1/term")
+@RequestMapping("/v1/terms")
 public class TermController {
 
     /**
@@ -23,6 +23,7 @@ public class TermController {
 
     /**
      * Constructor
+     *
      * @param termService Term Service
      */
     public TermController(TermService termService) {
@@ -31,6 +32,7 @@ public class TermController {
 
     /**
      * List all terms
+     *
      * @param includeInactive Include Inactive
      * @return Term List Response
      */
