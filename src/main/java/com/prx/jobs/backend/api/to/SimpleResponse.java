@@ -11,9 +11,9 @@ import static com.prx.commons.util.DateUtil.PATTERN_DATE_TIME;
 /**
  * Response for post job offer operation.
  */
-public record JobOfferResponse(UUID id,
-                               @JsonFormat(pattern = PATTERN_DATE_TIME)LocalDateTime createdDate,
-                               String message) {
+public record SimpleResponse(UUID id,
+                             @JsonFormat(pattern = PATTERN_DATE_TIME)LocalDateTime createdDate,
+                             String message) {
 
     /**
      * The PostJobOfferResponse constructor.
@@ -22,7 +22,7 @@ public record JobOfferResponse(UUID id,
      * @param createdDate The created date.
      * @param message     The message.
      */
-    public JobOfferResponse {
+    public SimpleResponse {
         if (Objects.nonNull(id)) {
             if (Objects.isNull(message)) {
                 message = "Job offer created successfully";

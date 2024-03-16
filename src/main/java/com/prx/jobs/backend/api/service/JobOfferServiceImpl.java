@@ -74,7 +74,7 @@ public class JobOfferServiceImpl implements JobOfferService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<JobOfferResponse> createJobOffer(PostJobOfferRequest postJobOfferRequest) {
+    public ResponseEntity<SimpleResponse> createJobOffer(PostJobOfferRequest postJobOfferRequest) {
         var jobOfferEntity = new JobOfferEntity();
         var companyEntity = new CompanyEntity();
         var modeEntity = new ModeEntity();

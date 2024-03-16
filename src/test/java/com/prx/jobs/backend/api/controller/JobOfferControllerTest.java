@@ -108,8 +108,8 @@ class JobOfferControllerTest extends MockLoaderBase {
         LocalDateTime now = LocalDateTime.now();
         String message = "Test message";
 
-        JobOfferResponse jobOfferResponse = new JobOfferResponse(id, now, message);
-        when(jobOfferService.createJobOffer(postJobOfferRequest)).thenReturn(ResponseEntity.ok(jobOfferResponse));
+        SimpleResponse simpleResponse = new SimpleResponse(id, now, message);
+        when(jobOfferService.createJobOffer(postJobOfferRequest)).thenReturn(ResponseEntity.ok(simpleResponse));
 
         given().contentType(MediaType.APPLICATION_JSON_VALUE).body(postJobOfferRequest)
                 .accept(MediaType.APPLICATION_JSON_VALUE).when().post(PATH)

@@ -8,11 +8,11 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class JobOfferResponseTest {
+class SimpleResponseTest {
 
     @Test
     void shouldSetDefaultValuesWhenNullsProvided() {
-        JobOfferResponse response = new JobOfferResponse(UUID.randomUUID(), null, null);
+        SimpleResponse response = new SimpleResponse(UUID.randomUUID(), null, null);
         assertNotNull(response.id());
         assertNotNull(response.createdDate());
         assertEquals("Job offer created successfully", response.message());
@@ -24,7 +24,7 @@ class JobOfferResponseTest {
         LocalDateTime now = LocalDateTime.now();
         String message = "Test message";
 
-        JobOfferResponse response = new JobOfferResponse(id, now, message);
+        SimpleResponse response = new SimpleResponse(id, now, message);
 
         assertEquals(id, response.id());
         assertEquals(now, response.createdDate());
@@ -36,7 +36,7 @@ class JobOfferResponseTest {
         UUID id = UUID.randomUUID();
         LocalDateTime now = LocalDateTime.now();
 
-        JobOfferResponse response = new JobOfferResponse(id, now, null);
+        SimpleResponse response = new SimpleResponse(id, now, null);
 
         assertEquals(id, response.id());
         assertEquals(now, response.createdDate());
@@ -48,7 +48,7 @@ class JobOfferResponseTest {
         UUID id = UUID.randomUUID();
         String message = "Test message";
 
-        JobOfferResponse response = new JobOfferResponse(id, null, message);
+        SimpleResponse response = new SimpleResponse(id, null, message);
 
         assertEquals(id, response.id());
         assertNotNull(response.createdDate());

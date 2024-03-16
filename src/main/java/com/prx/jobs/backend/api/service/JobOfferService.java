@@ -39,7 +39,7 @@ public interface JobOfferService {
      * @param postJobOfferRequest The post job offer request.
      * @return ResponseEntity<PostJobOfferResponse>.
      */
-    default ResponseEntity<JobOfferResponse> createJobOffer(PostJobOfferRequest postJobOfferRequest) {
+    default ResponseEntity<SimpleResponse> createJobOffer(PostJobOfferRequest postJobOfferRequest) {
         throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 

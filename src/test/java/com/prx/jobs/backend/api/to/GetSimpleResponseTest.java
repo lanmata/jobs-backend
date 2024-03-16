@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GetJobOfferResponseTest {
+class GetSimpleResponseTest {
 
     @Test
     void shouldCreateGetPostResponseWithNonNullId() {

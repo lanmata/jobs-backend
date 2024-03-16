@@ -57,7 +57,7 @@ public class JobOfferController {
      * @return ResponseEntity<PostJobOfferResponse>.
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JobOfferResponse> postJobOffer(@RequestBody PostJobOfferRequest postJobOfferRequest) {
+    public ResponseEntity<SimpleResponse> postJobOffer(@RequestBody PostJobOfferRequest postJobOfferRequest) {
         return jobOfferService.createJobOffer(postJobOfferRequest);
     }
 
