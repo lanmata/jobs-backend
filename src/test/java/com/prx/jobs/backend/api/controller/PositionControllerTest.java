@@ -4,6 +4,8 @@ import com.prx.jobs.backend.api.mock.MockLoaderBase;
 import com.prx.jobs.backend.api.service.PositionService;
 import com.prx.jobs.backend.api.to.PositionListResponse;
 import com.prx.jobs.backend.api.to.PositionTO;
+import com.prx.jobs.backend.api.to.PostPositionRequest;
+import com.prx.jobs.backend.api.to.SimpleResponse;
 import com.prx.jobs.backend.jpa.repository.PositionRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -52,6 +55,20 @@ class PositionControllerTest extends MockLoaderBase {
         given().contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=false")
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
+    }
+
+    @Test
+    @DisplayName("Should return CREATED status when valid position request is posted")
+    void shouldReturnCreatedStatusWhenValidPositionRequestIsPosted() {
+        // Given
+        PostPositionRequest request = new PostPositionRequest("Position1", "Description1", true);
+        SimpleResponse expectedResponse = new SimpleResponse(UUID.randomUUID(), LocalDateTime.now(), "Position created successfully");
+        // When
+        when(positionService.save(request)).thenReturn(ResponseEntity.status(HttpStatus.CREATED).body(expectedResponse));
+        // Given
+        given().contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).body(request).when().post(PATH)
+                .then().assertThat().statusCode(HttpStatus.CREATED.value()).expect(MvcResult::getResponse);
     }
 
 }

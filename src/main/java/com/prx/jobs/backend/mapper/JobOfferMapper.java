@@ -1,7 +1,7 @@
 package com.prx.jobs.backend.mapper;
 
 import com.prx.jobs.backend.api.to.GetJobOfferResponse;
-import com.prx.jobs.backend.api.to.JobOfferResponse;
+import com.prx.jobs.backend.api.to.SimpleResponse;
 import com.prx.jobs.backend.api.to.PutJobOfferResponse;
 import com.prx.jobs.backend.jpa.entity.JobOfferEntity;
 import org.mapstruct.*;
@@ -9,7 +9,7 @@ import org.mapstruct.*;
 @Mapper(
         // Specifies that the mapper should be a Spring bean.
         componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = {JobOfferEntity.class, GetJobOfferResponse.class, JobOfferResponse.class}
+        uses = {JobOfferEntity.class, GetJobOfferResponse.class, SimpleResponse.class}
 )
 @MapperConfig(
         // Specifies that the mapper should fail if there are any unmapped properties.
@@ -47,7 +47,7 @@ public interface JobOfferMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "message", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
-    JobOfferResponse toPostJobOfferResponse(JobOfferEntity jobOfferEntity);
+    SimpleResponse toPostJobOfferResponse(JobOfferEntity jobOfferEntity);
 
     /**
      * Converts a PostEntity object to a PostPostResponse object.
