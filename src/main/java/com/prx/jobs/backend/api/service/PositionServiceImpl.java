@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -61,6 +62,11 @@ public class PositionServiceImpl implements PositionService {
         Objects.requireNonNull(request.name(), "Position name is required");
         Objects.requireNonNull(request.description(), "Position description is required");
         Objects.requireNonNull(request.active(), "Position active status is required");
+        if (request.name().isEmpty() || request.description().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).
+                    body(new SimpleResponse(null, LocalDateTime.now(),
+                            "All position values are required."));
+        }
         PositionEntity positionEntity = positionMapper.toSource(request);
         positionRepository.save(positionEntity);
         return ResponseEntity.status(HttpStatus.CREATED).

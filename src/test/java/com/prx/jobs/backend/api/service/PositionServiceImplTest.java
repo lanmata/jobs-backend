@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -132,6 +131,40 @@ class PositionServiceImplTest {
     void shouldThrowNullPointerExceptionWhenPositionActiveStatusIsNull() {
         PostPositionRequest request = new PostPositionRequest("Position1", "Description1", null);
         assertThrows(NullPointerException.class, () -> positionService.save(request));
+    }
+
+    @Test
+    @DisplayName("Should save position when valid request is provided")
+    void shouldSavePositionWhenValidRequestIsProvided() {
+        PostPositionRequest request = new PostPositionRequest("name", "description", true);
+        PositionEntity positionEntity = new PositionEntity();
+        positionEntity.setId(UUID.randomUUID());
+
+        when(positionMapper.toSource(request)).thenReturn(positionEntity);
+        when(positionRepository.save(positionEntity)).thenReturn(positionEntity);
+
+        ResponseEntity<SimpleResponse> response = positionService.save(request);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals("Position created successfully", response.getBody().message());
+    }
+
+    @Test
+    @DisplayName("Should return bad request when request is null")
+    void shouldReturnBadRequestWhenRequestIsNull() {
+        assertThrows(NullPointerException.class, () -> positionService.save(null));
+    }
+
+    @Test
+    @DisplayName("Should return bad request when request fields are empty")
+    void shouldReturnBadRequestWhenRequestFieldsAreEmpty() {
+        var result1 = positionService.save(new PostPositionRequest("", "", true));
+        var result2 = positionService.save(new PostPositionRequest("name", "", true));
+        var result3 = positionService.save(new PostPositionRequest("", "description", true));
+        assertEquals(HttpStatus.BAD_REQUEST, result1.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, result2.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, result3.getStatusCode());
     }
 
 }
