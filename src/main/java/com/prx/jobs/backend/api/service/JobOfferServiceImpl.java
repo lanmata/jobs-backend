@@ -61,9 +61,8 @@ public class JobOfferServiceImpl implements JobOfferService {
     @Override
     public ResponseEntity<GetJobOfferResponse> findJobOfferContentByJobOfferId(UUID jobOfferId) {
         var optionalResult = jobOfferRepository.findById(jobOfferId);
-        GetJobOfferResponse getJobOfferResponse = null;
         if (optionalResult.isPresent()) {
-            getJobOfferResponse = jobOfferMapper.toTarget(optionalResult.get());
+            var getJobOfferResponse = jobOfferMapper.toTarget(optionalResult.get());
             getJobOfferDetailByJobOfferId(getJobOfferResponse);
             return ResponseEntity.ok(getJobOfferResponse);
         }
@@ -86,6 +85,7 @@ public class JobOfferServiceImpl implements JobOfferService {
                 jobOfferResponse.setJobOfferDetailId(jobOfferDetail.id());
                 return ResponseEntity.status(HttpStatus.CREATED).body(jobOfferResponse);
             }
+            jobOfferResponse.setCreatedDate(LocalDateTime.now());
             jobOfferResponse.setMessage("Job offer without offer detail was created");
             return ResponseEntity.status(HttpStatus.CREATED).body(jobOfferResponse);
         }
