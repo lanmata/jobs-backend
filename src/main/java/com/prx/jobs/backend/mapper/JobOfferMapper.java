@@ -1,6 +1,7 @@
 package com.prx.jobs.backend.mapper;
 
 import com.prx.jobs.backend.api.to.GetJobOfferResponse;
+import com.prx.jobs.backend.api.to.PostJobOfferResponse;
 import com.prx.jobs.backend.api.to.SimpleResponse;
 import com.prx.jobs.backend.api.to.PutJobOfferResponse;
 import com.prx.jobs.backend.jpa.entity.JobOfferEntity;
@@ -47,7 +48,7 @@ public interface JobOfferMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "message", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
-    SimpleResponse toPostJobOfferResponse(JobOfferEntity jobOfferEntity);
+    PostJobOfferResponse toPostJobOfferResponse(JobOfferEntity jobOfferEntity);
 
     /**
      * Converts a PostEntity object to a PostPostResponse object.

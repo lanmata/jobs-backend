@@ -74,7 +74,25 @@ public class JobOfferServiceImpl implements JobOfferService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<SimpleResponse> createJobOffer(PostJobOfferRequest postJobOfferRequest) {
+    public ResponseEntity<PostJobOfferResponse> createJobOffer(PostJobOfferRequest postJobOfferRequest) {
+        final var jobOfferEntity = getJobOfferEntity(postJobOfferRequest);
+
+        var jobOfferResponse = jobOfferMapper.toPostJobOfferResponse(jobOfferRepository.save(jobOfferEntity));
+        if (Objects.nonNull(jobOfferResponse) && Objects.nonNull(jobOfferResponse.getId())) {
+            var jobOfferDetail = jobOfferDetailService.postJobOfferDetail(jobOfferEntity.getId(), new PostJobOfferDetailRequest(postJobOfferRequest.description(),
+                    postJobOfferRequest.dateTime(), postJobOfferRequest.mountRate(), postJobOfferRequest.statusId()));
+            if (Objects.nonNull(jobOfferDetail) && Objects.nonNull(jobOfferDetail.id())) {
+                jobOfferResponse.setMessage("Job offer created");
+                jobOfferResponse.setJobOfferDetailId(jobOfferDetail.id());
+                return ResponseEntity.status(HttpStatus.CREATED).body(jobOfferResponse);
+            }
+            jobOfferResponse.setMessage("Job offer without offer detail was created");
+            return ResponseEntity.status(HttpStatus.CREATED).body(jobOfferResponse);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    }
+
+    private static JobOfferEntity getJobOfferEntity(PostJobOfferRequest postJobOfferRequest) {
         var jobOfferEntity = new JobOfferEntity();
         var companyEntity = new CompanyEntity();
         var modeEntity = new ModeEntity();
@@ -94,12 +112,7 @@ public class JobOfferServiceImpl implements JobOfferService {
         jobOfferEntity.setMode(modeEntity);
         jobOfferEntity.setTerm(termEntity);
         jobOfferEntity.setSource(sourceEntity);
-
-        var postJobOfferResponse = jobOfferMapper.toPostJobOfferResponse(jobOfferRepository.save(jobOfferEntity));
-        if (Objects.nonNull(postJobOfferResponse) && Objects.nonNull(postJobOfferResponse.id())) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(postJobOfferResponse);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        return jobOfferEntity;
     }
 
     /**
