@@ -15,13 +15,11 @@ import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -30,7 +28,7 @@ class JobOfferServiceImplTest {
     @InjectMocks
     private JobOfferServiceImpl jobOfferService;
     @Mock
-    private JobOfferDetailServiceImpl jobOfferDetailService;
+    private JobOfferDetailService jobOfferDetailService;
     @Mock
     private JobOfferRepository jobOfferRepository;
     @Mock
@@ -153,12 +151,26 @@ class JobOfferServiceImplTest {
         PostJobOfferRequest request = new PostJobOfferRequest("title", "description", "reference",
                 UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
                 BigDecimal.valueOf(200000), LocalDateTime.now());
-        SimpleResponse response = new SimpleResponse(UUID.randomUUID(), LocalDateTime.now(), "Job offer created successfully");
+        PostJobOfferResponse response = new PostJobOfferResponse();
+        response.setId(UUID.randomUUID());
+        response.setCreatedDate(LocalDateTime.now());
+        response.setMessage("Job offer created");
+        response.setJobOfferDetailId(UUID.randomUUID());
 
         when(jobOfferRepository.save(Mockito.any(JobOfferEntity.class))).thenReturn(entity);
         when(jobOfferMapper.toPostJobOfferResponse(Mockito.any(JobOfferEntity.class))).thenReturn(response);
+        doAnswer(invocation -> {
+            Object[] args = invocation.getArguments();
+            PostJobOfferDetailRequest postJobOfferDetailRequest = (PostJobOfferDetailRequest) args[1];
+            if (Objects.nonNull(postJobOfferDetailRequest))
+                return new PostJobOfferDetailResponse(UUID.randomUUID(), LocalDateTime.now(), "Job offer detail created successfully");
+            return null;
+        }).when(jobOfferDetailService).postJobOfferDetail(Mockito.any(UUID.class), Mockito.any(PostJobOfferDetailRequest.class));
 
-        ResponseEntity<SimpleResponse> result = jobOfferService.createJobOffer(request);
+//        doReturn(new PostJobOfferDetailResponse(UUID.randomUUID(), LocalDateTime.now(), "Job offer detail created successfully")).
+//                when(jobOfferDetailService.postJobOfferDetail(Mockito.any(UUID.class), Mockito.any(PostJobOfferDetailRequest.class)));
+
+        ResponseEntity<PostJobOfferResponse> result = jobOfferService.createJobOffer(request);
 
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
         assertEquals(response, result.getBody());
@@ -189,12 +201,13 @@ class JobOfferServiceImplTest {
         PostJobOfferRequest request = new PostJobOfferRequest("title", "description", "reference",
                 UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
                 BigDecimal.valueOf(200000), LocalDateTime.now());
-        SimpleResponse response = new SimpleResponse(null, LocalDateTime.now(), null);
+        PostJobOfferResponse response = new PostJobOfferResponse();
+        response.setCreatedDate(LocalDateTime.now());
 
         when(jobOfferRepository.save(Mockito.any(JobOfferEntity.class))).thenReturn(entity);
         when(jobOfferMapper.toPostJobOfferResponse(Mockito.any(JobOfferEntity.class))).thenReturn(response);
 
-        ResponseEntity<SimpleResponse> result = jobOfferService.createJobOffer(request);
+        ResponseEntity<PostJobOfferResponse> result = jobOfferService.createJobOffer(request);
 
         assertEquals(HttpStatus.NOT_ACCEPTABLE, result.getStatusCode());
         assertEquals(null, result.getBody());
@@ -207,12 +220,13 @@ class JobOfferServiceImplTest {
                 UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
                 BigDecimal.valueOf(200000), LocalDateTime.now());
         JobOfferEntity entity = new JobOfferEntity();
-        SimpleResponse response = new SimpleResponse(UUID.randomUUID(), null, null);
+        PostJobOfferResponse response = new PostJobOfferResponse();
+        response.setId(UUID.randomUUID());
 
         when(jobOfferRepository.save(entity)).thenReturn(entity);
         when(jobOfferMapper.toPostJobOfferResponse(entity)).thenReturn(response);
 
-        ResponseEntity<SimpleResponse> result = jobOfferService.createJobOffer(request);
+        ResponseEntity<PostJobOfferResponse> result = jobOfferService.createJobOffer(request);
 
         assertEquals(HttpStatus.NOT_ACCEPTABLE, result.getStatusCode());
     }

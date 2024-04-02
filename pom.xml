@@ -65,7 +65,7 @@
         <mockito.version>5.2.0</mockito.version>
         <!--        Coverage and Sonar-->
         <sonar.organization>jobs-board</sonar.organization>
-        <sonar.exclusions>**/*.xml,**/*Application.*,**/config/*,**/mapper/*</sonar.exclusions>
+        <sonar.exclusions>**/*.xml,**/*Application.*,**/config/*,**/mapper/*, **/*Test.*</sonar.exclusions>
         <project.ruleset>${project.basedir}/ruleset.xml</project.ruleset>
     </properties>
 

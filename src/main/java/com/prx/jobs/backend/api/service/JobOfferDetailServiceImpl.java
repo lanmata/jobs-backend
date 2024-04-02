@@ -65,9 +65,9 @@ public class JobOfferDetailServiceImpl implements JobOfferDetailService {
         var jobOfferDetailEntity = jobOfferDetailMapper.toSource(postJobOfferDetailRequest);
         jobOfferEntity.setId(jobOfferId);
         jobOfferDetailEntity.setOfferEntity(jobOfferEntity);
-        var savedJobOfferDetailEntity = jobOfferDetailRepository.save(jobOfferDetailEntity);
-        if (Objects.nonNull(savedJobOfferDetailEntity.getId())) {
-            return new PostJobOfferDetailResponse(savedJobOfferDetailEntity.getId(), LocalDateTime.now(), null);
+        var jobOfferDetailEntityResult = jobOfferDetailRepository.save(jobOfferDetailEntity);
+        if (Objects.nonNull(jobOfferDetailEntityResult.getId())) {
+            return new PostJobOfferDetailResponse(jobOfferDetailEntityResult.getId(), LocalDateTime.now(), null);
         }
         return new PostJobOfferDetailResponse(null, LocalDateTime.now(), "Job offer detail not created");
     }
