@@ -80,12 +80,12 @@ public class JobOfferServiceImpl implements JobOfferService {
         if (Objects.nonNull(jobOfferResponse) && Objects.nonNull(jobOfferResponse.getId())) {
             var jobOfferDetail = jobOfferDetailService.postJobOfferDetail(jobOfferEntity.getId(), new PostJobOfferDetailRequest(postJobOfferRequest.description(),
                     postJobOfferRequest.dateTime(), postJobOfferRequest.mountRate(), postJobOfferRequest.statusId()));
+            jobOfferResponse.setCreatedDate(LocalDateTime.now());
             if (Objects.nonNull(jobOfferDetail) && Objects.nonNull(jobOfferDetail.id())) {
                 jobOfferResponse.setMessage("Job offer created");
                 jobOfferResponse.setJobOfferDetailId(jobOfferDetail.id());
                 return ResponseEntity.status(HttpStatus.CREATED).body(jobOfferResponse);
             }
-            jobOfferResponse.setCreatedDate(LocalDateTime.now());
             jobOfferResponse.setMessage("Job offer without offer detail was created");
             return ResponseEntity.status(HttpStatus.CREATED).body(jobOfferResponse);
         }
