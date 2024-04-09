@@ -3,6 +3,7 @@ package com.prx.jobs.backend.api.service;
 import com.prx.jobs.backend.api.to.JobOfferDetailTO;
 import com.prx.jobs.backend.api.to.PostJobOfferDetailRequest;
 import com.prx.jobs.backend.api.to.PostJobOfferDetailResponse;
+import com.prx.jobs.backend.api.to.SimpleResponse;
 import com.prx.jobs.backend.jpa.entity.JobOfferDetailEntity;
 import com.prx.jobs.backend.jpa.entity.JobOfferEntity;
 import com.prx.jobs.backend.jpa.entity.StatusEntity;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
@@ -23,7 +25,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class JobOfferDetailServiceImplTest {
@@ -140,5 +142,31 @@ class JobOfferDetailServiceImplTest {
         PostJobOfferDetailResponse response = jobOfferDetailService.postJobOfferDetail(jobOfferId, request);
 
         assertNotNull(response);
+    }
+
+    @Test
+    @DisplayName("Should return NOT_FOUND status when job offer detail does not exist")
+    void shouldReturnNotFoundWhenJobOfferDetailDoesNotExist() {
+        UUID jobOfferDetailId = UUID.randomUUID();
+        when(jobOfferDetailRepository.findById(jobOfferDetailId)).thenReturn(Optional.empty());
+
+        ResponseEntity<SimpleResponse> response = jobOfferDetailService.deleteOfferDetail(jobOfferDetailId);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        verify(jobOfferDetailRepository, times(1)).findById(jobOfferDetailId);
+        verify(jobOfferDetailRepository, times(0)).deleteById(jobOfferDetailId);
+    }
+
+    @Test
+    @DisplayName("Should return OK status and delete job offer detail when it exists")
+    void shouldReturnOkAndDeleteJobOfferDetailWhenItExists() {
+        UUID jobOfferDetailId = UUID.randomUUID();
+        when(jobOfferDetailRepository.findById(jobOfferDetailId)).thenReturn(Optional.of(new JobOfferDetailEntity()));
+
+        ResponseEntity<SimpleResponse> response = jobOfferDetailService.deleteOfferDetail(jobOfferDetailId);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(jobOfferDetailRepository, times(1)).findById(jobOfferDetailId);
+        verify(jobOfferDetailRepository, times(1)).deleteById(jobOfferDetailId);
     }
 }

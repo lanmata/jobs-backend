@@ -23,6 +23,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@DisplayName("JobOfferServiceImpl tests")
 class JobOfferServiceImplTest {
 
     @InjectMocks
@@ -35,6 +36,7 @@ class JobOfferServiceImplTest {
     private JobOfferMapper jobOfferMapper;
 
     @Test
+    @DisplayName("Should return job offer content when job offer exists")
     void findPostReturnsOkWhenPostExists() {
         UUID postId = UUID.randomUUID();
         List<Object[][]> postEntities = new ArrayList<>();
@@ -59,6 +61,7 @@ class JobOfferServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should return not found when job offer does not exist")
     void findPostContentReturnsNotFoundWhenPostDoesNotExist() {
         when(jobOfferRepository.findJobOfferEntities()).thenReturn(Optional.empty());
 
@@ -68,6 +71,7 @@ class JobOfferServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should return job offer content when job offer exists")
     void findPostContentByPostIdReturnsPostContentWhenPostExists() {
         UUID uuid = UUID.randomUUID();
         var companyEntity = new CompanyEntity();
@@ -117,6 +121,7 @@ class JobOfferServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should return not found when job offer does not exist")
     void findPostContentByPostIdReturnsNotFoundWhenPostDoesNotExist() {
         UUID uuid = UUID.randomUUID();
         when(jobOfferRepository.findById(uuid)).thenReturn(Optional.empty());

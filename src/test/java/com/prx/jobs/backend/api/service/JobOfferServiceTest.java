@@ -25,4 +25,9 @@ class JobOfferServiceTest {
     void testCreate() {
         assertThrows(UnsupportedOperationException.class, () -> jobOfferService.createJobOffer(null));
     }
+
+    @Test
+    void testPut() {
+        assertThrows(UnsupportedOperationException.class, () -> jobOfferService.updateJobOffer(null, null));
+    }
 }
