@@ -3,9 +3,11 @@ package com.prx.jobs.backend.api.service;
 import com.prx.jobs.backend.api.to.JobOfferDetailTO;
 import com.prx.jobs.backend.api.to.PostJobOfferDetailRequest;
 import com.prx.jobs.backend.api.to.PostJobOfferDetailResponse;
+import com.prx.jobs.backend.api.to.SimpleResponse;
 import com.prx.jobs.backend.jpa.entity.JobOfferEntity;
 import com.prx.jobs.backend.jpa.repository.JobOfferDetailRepository;
 import com.prx.jobs.backend.mapper.JobOfferDetailMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -70,6 +72,18 @@ public class JobOfferDetailServiceImpl implements JobOfferDetailService {
             return new PostJobOfferDetailResponse(jobOfferDetailEntityResult.getId(), LocalDateTime.now(), null);
         }
         return new PostJobOfferDetailResponse(null, LocalDateTime.now(), "Job offer detail not created");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ResponseEntity<SimpleResponse> deleteOfferDetail(UUID jobOfferDetailId) {
+        if (jobOfferDetailRepository.findById(jobOfferDetailId).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new SimpleResponse(jobOfferDetailId, LocalDateTime.now(),  "The job offer detail was not found."));
+        }
+        jobOfferDetailRepository.deleteById(jobOfferDetailId);
+        return ResponseEntity.ok(new SimpleResponse(jobOfferDetailId, LocalDateTime.now(), "The job offer detail was successfully deleted."));
     }
 
 }

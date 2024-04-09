@@ -3,6 +3,7 @@ package com.prx.jobs.backend.api.service;
 import com.prx.jobs.backend.api.to.JobOfferDetailTO;
 import com.prx.jobs.backend.api.to.PostJobOfferDetailRequest;
 import com.prx.jobs.backend.api.to.PostJobOfferDetailResponse;
+import com.prx.jobs.backend.api.to.SimpleResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -45,6 +46,16 @@ public interface JobOfferDetailService {
      * @return PostJobOfferDetailResponse The post job offer detail response.
      */
     default PostJobOfferDetailResponse postJobOfferDetail(UUID jobOfferId, PostJobOfferDetailRequest postJobOfferDetailRequest) {
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+    }
+
+    /**
+     * Deletes job offer detail.
+     *
+     * @param jobOfferDetailId The job offer detail id.
+     * @return ResponseEntity<SimpleResponse> The simple response.
+     */
+    default ResponseEntity<SimpleResponse> deleteOfferDetail(UUID jobOfferDetailId) {
         throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 }
