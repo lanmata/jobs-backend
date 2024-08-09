@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TermServiceTest {
 
-    private final TermService termService = new TermService() {};
+    private final TermService termService = new TermService() {
+    };
 
     @Test
     void testList() {

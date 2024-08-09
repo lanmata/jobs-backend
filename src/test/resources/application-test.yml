@@ -9,6 +9,10 @@ server:
     enabled: true
 #<><><><><><><><><><><><><><> SPRING <><><><><><><><><><><><><><>
 spring:
+  test:
+    context:
+      failure:
+        threshold: 10000000
   application:
     name: ${app.name}
     description: Jobs Backend API

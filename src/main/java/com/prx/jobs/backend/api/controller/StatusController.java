@@ -23,6 +23,7 @@ public class StatusController {
 
     /**
      * Constructor
+     *
      * @param statusService
      */
     public StatusController(StatusService statusService) {
@@ -31,6 +32,7 @@ public class StatusController {
 
     /**
      * List all statuses
+     *
      * @param includeInactive Include Inactive
      * @return Status List Response
      */

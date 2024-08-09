@@ -13,6 +13,6 @@ import static com.prx.commons.util.DateUtil.PATTERN_DATE_TIME;
 public record PostJobOfferDetailRequest(@NotNull @NotBlank String description,
                                         @JsonFormat(pattern = PATTERN_DATE_TIME) @NotNull LocalDateTime datetime,
                                         @NotNull BigDecimal mountRate,
-                                        @NotNull UUID statusId){
+                                        @NotNull UUID statusId) {
 
 }

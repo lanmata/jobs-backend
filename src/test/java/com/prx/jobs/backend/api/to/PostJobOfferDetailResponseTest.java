@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PostJobOfferDetailResponseTest {
 
@@ -42,8 +41,8 @@ class PostJobOfferDetailResponseTest {
     void shouldCreatePostJobOfferDetailResponseWithNullId() {
         PostJobOfferDetailResponse response = new PostJobOfferDetailResponse(null, null, null);
 
-        assertEquals(null, response.id());
-        assertEquals(null, response.createdDate());
-        assertEquals(null, response.message());
+        assertNull(response.id());
+        assertNull(response.createdDate());
+        assertNull(response.message());
     }
 }

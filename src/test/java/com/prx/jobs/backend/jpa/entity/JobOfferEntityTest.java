@@ -1,8 +1,10 @@
 package com.prx.jobs.backend.jpa.entity;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JobOfferEntityTest {
 

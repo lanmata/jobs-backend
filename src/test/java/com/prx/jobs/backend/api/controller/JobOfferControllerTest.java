@@ -1,22 +1,18 @@
 package com.prx.jobs.backend.api.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prx.jobs.backend.api.mock.MockLoaderBase;
-import com.prx.jobs.backend.api.service.JobOfferDetailService;
-import com.prx.jobs.backend.api.service.JobOfferService;
+import com.prx.jobs.backend.api.service.JobOfferDetailServiceImpl;
+import com.prx.jobs.backend.api.service.JobOfferServiceImpl;
 import com.prx.jobs.backend.api.to.*;
-import com.prx.jobs.backend.jpa.repository.JobOfferDetailRepository;
-import com.prx.jobs.backend.jpa.repository.JobOfferRepository;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.math.BigDecimal;
@@ -28,22 +24,8 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-class JobOfferControllerTest extends MockLoaderBase {
-
-    @MockBean
-    private JobOfferService jobOfferService;
-
-    @MockBean
-    private JobOfferDetailService jobOfferDetailService;
-
-    @Mock
-    private JobOfferRepository jobOfferRepository;
-
-    @Mock
-    private JobOfferDetailRepository jobOfferDetailRepository;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+@ExtendWith(value = {SpringExtension.class})
+class JobOfferControllerTest {
 
     private static final String PATH;
 
@@ -51,9 +33,14 @@ class JobOfferControllerTest extends MockLoaderBase {
         PATH = "/v1/job-offers";
     }
 
+    @MockBean
+    private JobOfferServiceImpl jobOfferService;
+    @MockBean
+    private JobOfferDetailServiceImpl jobOfferDetailService;
+
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    public void setUp() {
+        RestAssuredMockMvc.standaloneSetup(new JobOfferController(jobOfferService));
     }
 
     @Test

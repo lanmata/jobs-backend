@@ -21,6 +21,10 @@ spring:
     ssl:
       enabled: true
       bundle: config-server
+  test:
+    context:
+      failure:
+        threshold: 10000000
   #<><><><><><><><><><><><><><> SSL <><><><><><><><><><><><><><>
   ssl:
     bundle:

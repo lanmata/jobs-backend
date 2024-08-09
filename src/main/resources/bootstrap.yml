@@ -11,6 +11,10 @@ app:
 # Spring Boot specific configurations
 
 spring:
+  test:
+    context:
+      failure:
+        threshold: 10000000
   main:
     # Allows overriding of bean definitions
     allow-bean-definition-overriding: true

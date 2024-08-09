@@ -80,7 +80,7 @@ public class JobOfferDetailServiceImpl implements JobOfferDetailService {
     @Override
     public ResponseEntity<SimpleResponse> deleteOfferDetail(UUID jobOfferDetailId) {
         if (jobOfferDetailRepository.findById(jobOfferDetailId).isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new SimpleResponse(jobOfferDetailId, LocalDateTime.now(),  "The job offer detail was not found."));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new SimpleResponse(jobOfferDetailId, LocalDateTime.now(), "The job offer detail was not found."));
         }
         jobOfferDetailRepository.deleteById(jobOfferDetailId);
         return ResponseEntity.ok(new SimpleResponse(jobOfferDetailId, LocalDateTime.now(), "The job offer detail was successfully deleted."));

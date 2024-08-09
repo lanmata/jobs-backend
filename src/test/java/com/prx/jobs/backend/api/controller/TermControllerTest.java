@@ -1,17 +1,18 @@
 package com.prx.jobs.backend.api.controller;
 
-import com.prx.jobs.backend.api.mock.MockLoaderBase;
-import com.prx.jobs.backend.api.service.TermService;
+import com.prx.jobs.backend.api.service.TermServiceImpl;
 import com.prx.jobs.backend.api.to.TermListResponse;
 import com.prx.jobs.backend.api.to.TermTO;
-import com.prx.jobs.backend.jpa.repository.TermRepository;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Collections;
@@ -20,18 +21,21 @@ import java.util.UUID;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.Mockito.when;
 
-class TermControllerTest extends MockLoaderBase {
-
-    @MockBean
-    private TermService termService;
-
-    @Mock
-    private TermRepository termRepository;
+@ExtendWith(value = {SpringExtension.class})
+class TermControllerTest {
 
     private static final String PATH;
 
     static {
         PATH = "/v1/terms";
+    }
+
+    @MockBean
+    private TermServiceImpl termService;
+
+    @BeforeEach
+    void setUp() {
+        RestAssuredMockMvc.standaloneSetup(new TermController(termService));
     }
 
     @Test
