@@ -16,8 +16,9 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, UUID> {
 
     /**
      * Find all companies by active status
+     *
      * @param includeInactive boolean value indicating whether to include inactive status records.
-     * @return Optional<List<CompanyEntity>> containing a list of CompanyEntity objects.
+     * @return Optional<List < CompanyEntity>> containing a list of CompanyEntity objects.
      */
     @Query("SELECT s FROM CompanyEntity s WHERE s.active = :includeInactive ")
     Optional<List<CompanyEntity>> findAllByActive(@Param("includeInactive") boolean includeInactive);

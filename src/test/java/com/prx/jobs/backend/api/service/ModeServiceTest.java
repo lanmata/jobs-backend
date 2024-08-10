@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ModeServiceTest {
 
-    private final ModeService modeService = new ModeService() {};
+    private final ModeService modeService = new ModeService() {
+    };
 
     @Test
     void testList() {

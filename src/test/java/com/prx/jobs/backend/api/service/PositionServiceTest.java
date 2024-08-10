@@ -7,7 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PositionServiceTest {
 
-    private final PositionService positionService = new PositionService() {};
+    private final PositionService positionService = new PositionService() {
+    };
 
     @Test
     @DisplayName("Test list method")

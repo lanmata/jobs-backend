@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CompanyServiceTest {
 
-    private final CompanyService companyService = new CompanyService() {};
+    private final CompanyService companyService = new CompanyService() {
+    };
 
     @Test
     void testList() {

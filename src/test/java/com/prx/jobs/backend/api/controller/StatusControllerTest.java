@@ -1,17 +1,18 @@
 package com.prx.jobs.backend.api.controller;
 
-import com.prx.jobs.backend.api.mock.MockLoaderBase;
-import com.prx.jobs.backend.api.service.StatusService;
+import com.prx.jobs.backend.api.service.StatusServiceImpl;
 import com.prx.jobs.backend.api.to.StatusListResponse;
 import com.prx.jobs.backend.api.to.StatusTO;
-import com.prx.jobs.backend.jpa.repository.StatusRepository;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Collections;
@@ -20,18 +21,21 @@ import java.util.UUID;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.Mockito.when;
 
-class StatusControllerTest extends MockLoaderBase {
-
-    @MockBean
-    private StatusService statusService;
-
-    @Mock
-    private StatusRepository statusRepository;
+@ExtendWith(value = {SpringExtension.class})
+class StatusControllerTest {
 
     private static final String PATH;
 
     static {
         PATH = "/v1/status";
+    }
+
+    @MockBean
+    private StatusServiceImpl statusService;
+
+    @BeforeEach
+    void setUp() {
+        RestAssuredMockMvc.standaloneSetup(new StatusController(statusService));
     }
 
     @Test

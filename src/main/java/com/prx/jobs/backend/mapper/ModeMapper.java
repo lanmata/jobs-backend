@@ -23,6 +23,7 @@ public interface ModeMapper {
 
     /**
      * Converts a ModeEntity object to a ModeTO object.
+     *
      * @param modeEntity The ModeEntity object to convert.
      * @return The converted ModeTO object.
      */
@@ -30,6 +31,7 @@ public interface ModeMapper {
 
     /**
      * Converts a ModeTO object to a ModeEntity object.
+     *
      * @param modeTO The ModeTO object to convert.
      * @return The converted ModeEntity object.
      */
@@ -37,6 +39,7 @@ public interface ModeMapper {
 
     /**
      * Converts a list of ModeEntity objects to a list of ModeTO objects.
+     *
      * @param modeEntity The list of ModeEntity objects to convert.
      * @return The converted list of ModeTO objects.
      */
@@ -44,6 +47,7 @@ public interface ModeMapper {
 
     /**
      * Converts a list of ModeTO objects to a list of ModeEntity objects.
+     *
      * @param modeTO The list of ModeTO objects to convert.
      * @return The converted list of ModeEntity objects.
      */

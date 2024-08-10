@@ -23,6 +23,7 @@ public interface TermMapper {
 
     /**
      * Converts a TermEntity object to a TermTO object.
+     *
      * @param termEntity The TermEntity object to convert.
      * @return The converted TermTO object.
      */
@@ -30,6 +31,7 @@ public interface TermMapper {
 
     /**
      * Converts a TermTO object to a TermEntity object.
+     *
      * @param termTO The TermTO object to convert.
      * @return The converted TermEntity object.
      */
@@ -37,6 +39,7 @@ public interface TermMapper {
 
     /**
      * Converts a list of TermEntity objects to a list of TermTO objects.
+     *
      * @param termEntity The list of TermEntity objects to convert.
      * @return The converted list of TermTO objects.
      */
@@ -44,6 +47,7 @@ public interface TermMapper {
 
     /**
      * Converts a list of TermTO objects to a list of TermEntity objects.
+     *
      * @param termTO The list of TermTO objects to convert.
      * @return The converted list of TermEntity objects.
      */

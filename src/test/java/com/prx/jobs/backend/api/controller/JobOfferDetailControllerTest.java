@@ -1,19 +1,16 @@
 package com.prx.jobs.backend.api.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prx.jobs.backend.api.mock.MockLoaderBase;
-import com.prx.jobs.backend.api.service.JobOfferDetailService;
+import com.prx.jobs.backend.api.service.JobOfferDetailServiceImpl;
 import com.prx.jobs.backend.api.to.JobOfferDetailTO;
-import com.prx.jobs.backend.jpa.repository.JobOfferRepository;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.math.BigDecimal;
@@ -24,16 +21,8 @@ import java.util.UUID;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.Mockito.when;
 
-class JobOfferDetailControllerTest extends MockLoaderBase {
-
-    @MockBean
-    private JobOfferDetailService jobOfferDetailService;
-
-    @Mock
-    private JobOfferRepository jobOfferRepository;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+@ExtendWith(value = {SpringExtension.class})
+class JobOfferDetailControllerTest {
 
     private static final String PATH;
 
@@ -41,9 +30,12 @@ class JobOfferDetailControllerTest extends MockLoaderBase {
         PATH = "/v1/job-offer-details";
     }
 
+    @MockBean
+    JobOfferDetailServiceImpl jobOfferDetailService;
+
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        RestAssuredMockMvc.standaloneSetup(new JobOfferDetailController(jobOfferDetailService));
     }
 
     @Test
@@ -59,7 +51,7 @@ class JobOfferDetailControllerTest extends MockLoaderBase {
                 .thenReturn(ResponseEntity.ok(Collections.singletonList(new JobOfferDetailTO(id, description, datetime, mountRate, jobOfferId, statusId))));
 
         given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?jobOfferId=" + jobOfferId.toString())
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?jobOfferId=" + jobOfferId)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
@@ -69,7 +61,7 @@ class JobOfferDetailControllerTest extends MockLoaderBase {
         when(jobOfferDetailService.findOfferDetailByJobOfferId(UUID.fromString(jobOfferId))).thenReturn(ResponseEntity.ok(Collections.emptyList()));
 
         given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?jobOfferId=" + jobOfferId.toString())
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?jobOfferId=" + jobOfferId)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 }

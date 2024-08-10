@@ -12,7 +12,7 @@ import static com.prx.commons.util.DateUtil.PATTERN_DATE_TIME;
  * Response for post job offer operation.
  */
 public record SimpleResponse(UUID id,
-                             @JsonFormat(pattern = PATTERN_DATE_TIME)LocalDateTime createdDate,
+                             @JsonFormat(pattern = PATTERN_DATE_TIME) LocalDateTime createdDate,
                              String message) {
 
     /**

@@ -3,7 +3,7 @@ before_script:
 variables:
   SPRING_BOOT_CLOUD_BOOTSTRAP_ENABLED: "false"
   SPRING_BOOT_PROFILE_ACTIVE: "test"
-  SPRING_CLOUD_CONFIG_LABEL:  Develop
+  SPRING_CLOUD_CONFIG_LABEL: Develop
   VAULT_SERVER_URL: "http://vault.qa.prx.test"
   VAULT_TOKEN: "hvs.CAESIF4fkDi-3a7-n9tYnCUf8Y8vTcb5xNQJYNtw4iZ55AMkGh4KHGh2cy5ZNTFTc1dCeVRzYnhsRVRJUDJ4Q09pZGs"
   SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache

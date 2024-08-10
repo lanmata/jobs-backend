@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.prx</groupId>
     <artifactId>jobs-backend</artifactId>
-    <version>0.0.1-2023</version>
+    <version>0.0.1-2024</version>
     <name>Jobs Backend API</name>
     <description>Management service to system entities</description>
     <packaging>jar</packaging>
@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.2</version>
+        <version>3.3.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -31,7 +31,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <postgresql.version>42.7.0</postgresql.version>
+        <postgresql.version>42.7.3</postgresql.version>
         <google.gson.version>2.10.1</google.gson.version>
         <!--        PRX Commons-->
         <com.prx.commons.version>0.0.2-2023</com.prx.commons.version>
@@ -49,20 +49,21 @@
         <repsy.account.password>1$Pormenos</repsy.account.password>
         <!--        SPRING -->
         <spring-core.version>6.0.6</spring-core.version>
-        <spring-boot.version>3.1.2</spring-boot.version>
-        <spring-cloud.version>2022.0.3</spring-cloud.version>
+        <spring-boot.version>3.3.2</spring-boot.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-security-aouth2-autoconfigure.version>2.4.2</spring-security-aouth2-autoconfigure.version>
-        <spring-cloud-dep.version>4.0.4</spring-cloud-dep.version>
+        <spring-cloud-dep.version>4.1.3</spring-cloud-dep.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <!--        Test Dependencies-->
         <!--        JUnit 4.x-->
         <junit-core.version>4.13.1</junit-core.version>
         <!--        JUnit 5.x-->
-        <junit.jupiter.version>5.9.3</junit.jupiter.version>
+        <junit.jupiter.version>5.10.3</junit.jupiter.version>
         <junit.jupiter.core.version>5.9.3</junit.jupiter.core.version>
         <!--        Mockito-->
         <mockserver.junit.jupiter.version>5.11.2</mockserver.junit.jupiter.version>
         <mockito.junit.jupiter.version>4.8.0</mockito.junit.jupiter.version>
-        <mockito.version>5.2.0</mockito.version>
+        <mockito.version>5.12.0</mockito.version>
         <!--        Coverage and Sonar-->
         <sonar.organization>jobs-board</sonar.organization>
         <sonar.exclusions>**/*.xml,**/*Application.*,**/config/*,**/mapper/*, **/*Test.*</sonar.exclusions>
@@ -95,16 +96,16 @@
             <artifactId>spring-boot-starter-jersey</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>4.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>${spring-cloud-dep.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+<!--            <version>${spring-cloud-dep.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
+<!--            <version>${spring-cloud-dep.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -125,19 +126,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <version>${spring-boot.version}</version>
-            <scope>runtime</scope>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <!--        Converter-->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-            <version>1.5.3.Final</version>
+            <version>${mapstruct.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
-            <version>1.5.3.Final</version>
+            <version>${mapstruct.version}</version>
         </dependency>
         <!--        PRX Dependencies-->
         <dependency>
@@ -172,29 +172,18 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mock-server</groupId>
-            <artifactId>mockserver-junit-jupiter</artifactId>
-            <scope>resources</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jsr305</artifactId>
-                    <groupId>com.google.code.findbugs</groupId>
-                </exclusion>
-            </exclusions>
-            <version>5.13.2</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <scope>resources</scope>
-            <version>4.8.0</version>
+            <scope>test</scope>
+            <version>${mockito.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <scope>resources</scope>
+            <scope>test</scope>
             <version>${junit.jupiter.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
@@ -202,13 +191,13 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.jupiter.version}</version>
-            <scope>resources</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
-            <scope>resources</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -216,22 +205,15 @@
             <version>5.2.3</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>resources</scope>
-        </dependency>
-        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring-boot.version}</version>
-            <scope>resources</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -241,13 +223,14 @@
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
-            <scope>resources</scope>
+            <scope>test</scope>
             <version>${junit.jupiter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit</groupId>
             <artifactId>junit-bom</artifactId>
             <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
             <type>pom</type>
         </dependency>
         <dependency>
@@ -260,9 +243,8 @@
             <artifactId>spring-cloud-starter-vault-config</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>2.2.220</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
     </dependencies>
 
@@ -271,7 +253,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2022.0.2</version>
+                <version>2023.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -303,7 +285,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.3.2</version>
+                <configuration>
+                    <mainClass>com.prx.jobs.backend.JobsBackendApplication</mainClass>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -393,6 +378,19 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <id>build-classpath</id>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.plugin.javadoc.version}</version>
                 <configuration>
@@ -418,5 +416,4 @@
             <url>https://repo.repsy.io/mvn/${repsy.account.user}/${repsy.account.password}</url>
         </repository>
     </distributionManagement>
-
 </project>

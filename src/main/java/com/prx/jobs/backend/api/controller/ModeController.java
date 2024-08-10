@@ -23,6 +23,7 @@ public class ModeController {
 
     /**
      * Constructor
+     *
      * @param modeService Mode Service
      */
     public ModeController(ModeService modeService) {
@@ -31,6 +32,7 @@ public class ModeController {
 
     /**
      * List all modes
+     *
      * @param includeInactive Include Inactive
      * @return Mode List Response
      */

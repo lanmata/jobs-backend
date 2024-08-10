@@ -6,30 +6,34 @@ import com.prx.jobs.backend.jpa.repository.JobOfferRepository;
 import com.prx.jobs.backend.mapper.JobOfferMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(value = {SpringExtension.class})
 @DisplayName("JobOfferServiceImpl tests")
 class JobOfferServiceImplTest {
 
     @InjectMocks
     private JobOfferServiceImpl jobOfferService;
     @Mock
-    private JobOfferDetailService jobOfferDetailService;
+    private JobOfferDetailServiceImpl jobOfferDetailService;
     @Mock
     private JobOfferRepository jobOfferRepository;
     @Mock
@@ -139,6 +143,9 @@ class JobOfferServiceImplTest {
         var termEntity = new TermEntity();
         var modeEntity = new ModeEntity();
         var sourceEntity = new SourceEntity();
+        var postJobOfferDetailResponse = new PostJobOfferDetailResponse(
+                UUID.randomUUID(), LocalDateTime.now(),
+                "Job offer detail created successfully");
         positionEntity.setId(UUID.randomUUID());
         termEntity.setId(UUID.randomUUID());
         modeEntity.setId(UUID.randomUUID());
@@ -162,15 +169,10 @@ class JobOfferServiceImplTest {
         response.setMessage("Job offer created");
         response.setJobOfferDetailId(UUID.randomUUID());
 
+        doReturn(postJobOfferDetailResponse).
+                when(jobOfferDetailService).postJobOfferDetail(Mockito.any(UUID.class), Mockito.any(PostJobOfferDetailRequest.class));
         when(jobOfferRepository.save(Mockito.any(JobOfferEntity.class))).thenReturn(entity);
         when(jobOfferMapper.toPostJobOfferResponse(Mockito.any(JobOfferEntity.class))).thenReturn(response);
-        doAnswer(invocation -> {
-            Object[] args = invocation.getArguments();
-            PostJobOfferDetailRequest postJobOfferDetailRequest = (PostJobOfferDetailRequest) args[1];
-            if (Objects.nonNull(postJobOfferDetailRequest))
-                return new PostJobOfferDetailResponse(UUID.randomUUID(), LocalDateTime.now(), "Job offer detail created successfully");
-            return null;
-        }).when(jobOfferDetailService).postJobOfferDetail(Mockito.any(UUID.class), Mockito.any(PostJobOfferDetailRequest.class));
 
 //        doReturn(new PostJobOfferDetailResponse(UUID.randomUUID(), LocalDateTime.now(), "Job offer detail created successfully")).
 //                when(jobOfferDetailService.postJobOfferDetail(Mockito.any(UUID.class), Mockito.any(PostJobOfferDetailRequest.class)));
@@ -215,7 +217,7 @@ class JobOfferServiceImplTest {
         ResponseEntity<PostJobOfferResponse> result = jobOfferService.createJobOffer(request);
 
         assertEquals(HttpStatus.NOT_ACCEPTABLE, result.getStatusCode());
-        assertEquals(null, result.getBody());
+        assertNull(result.getBody());
     }
 
     @Test

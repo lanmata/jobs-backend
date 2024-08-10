@@ -3,7 +3,9 @@ package com.prx.jobs.backend.mapper;
 import com.prx.jobs.backend.api.to.CompanyTO;
 import com.prx.jobs.backend.config.MapperAppConfig;
 import com.prx.jobs.backend.jpa.entity.CompanyEntity;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.MapperConfig;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 

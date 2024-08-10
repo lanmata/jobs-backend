@@ -1,11 +1,12 @@
 package com.prx.jobs.backend.api.service;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest
+@DisplayName("JobOfferServiceTest")
 class JobOfferServiceTest {
 
     private final JobOfferService jobOfferService = new JobOfferService() {

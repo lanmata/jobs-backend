@@ -11,6 +11,10 @@ app:
 # Spring Boot specific configurations
 
 spring:
+  test:
+    context:
+      failure:
+        threshold: 10000000
   main:
     # Allows overriding of bean definitions
     allow-bean-definition-overriding: true
@@ -44,6 +48,10 @@ spring:
       # Enables sending of state for the Spring Cloud Config
       send-state: true
   jpa:
+    properties:
+      hibernate:
+        boot:
+          allow_jdbc_metadata_access: true
     # Defers the initialization of the datasource
     defer-datasource-initialization: true
 

@@ -6,10 +6,11 @@ import com.prx.jobs.backend.jpa.entity.CompanyEntity;
 import com.prx.jobs.backend.jpa.repository.CompanyRepository;
 import com.prx.jobs.backend.mapper.CompanyMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(value = {SpringExtension.class})
 class CompanyServiceImplTest {
 
     @InjectMocks

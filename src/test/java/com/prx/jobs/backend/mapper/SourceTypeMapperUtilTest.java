@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SourceTypeMapperUtilTest {
 
@@ -44,6 +43,6 @@ class SourceTypeMapperUtilTest {
         SourceTypeEntity actualEntity = sourceTypeMapperUtil.toSource(null);
 
         assertNotNull(actualEntity);
-        assertEquals(null, actualEntity.getId());
+        assertNull(actualEntity.getId());
     }
 }

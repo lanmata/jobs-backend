@@ -18,6 +18,7 @@ public interface JobOfferDetailMapper {
 
     /**
      * Converts a PostDetailEntity object to a PostDetailTO object.
+     *
      * @param jobOfferDetailEntity The PostDetailEntity object to convert.
      * @return The converted PostDetailTO object.
      */
@@ -27,6 +28,7 @@ public interface JobOfferDetailMapper {
 
     /**
      * Converts a PostDetailTO object to a PostDetailEntity object.
+     *
      * @param jobOfferDetailTO The PostDetailTO object to convert.
      * @return The converted PostDetailEntity object.
      */
@@ -35,6 +37,7 @@ public interface JobOfferDetailMapper {
 
     /**
      * Converts a PostDetailRequest object to a PostDetailEntity object.
+     *
      * @param postJobOfferDetailRequest The PostDetailRequest object to convert.
      * @return The converted PostDetailEntity object.
      */
@@ -45,6 +48,7 @@ public interface JobOfferDetailMapper {
 
     /**
      * Converts a list of PostDetailEntity objects to a list of PostDetailTO objects.
+     *
      * @param jobOfferDetailEntityList The list of PostDetailEntity objects to convert.
      * @return The converted list of PostDetailTO objects.
      */
@@ -52,6 +56,7 @@ public interface JobOfferDetailMapper {
 
     /**
      * Converts a list of PostDetailTO objects to a list of PostDetailEntity objects.
+     *
      * @param jobOfferDetailTOList The list of PostDetailTO objects to convert.
      * @return The converted list of PostDetailEntity objects.
      */

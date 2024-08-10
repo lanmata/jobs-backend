@@ -1,19 +1,20 @@
 package com.prx.jobs.backend.api.controller;
 
-import com.prx.jobs.backend.api.mock.MockLoaderBase;
-import com.prx.jobs.backend.api.service.PositionService;
+import com.prx.jobs.backend.api.service.PositionServiceImpl;
 import com.prx.jobs.backend.api.to.PositionListResponse;
 import com.prx.jobs.backend.api.to.PositionTO;
 import com.prx.jobs.backend.api.to.PostPositionRequest;
 import com.prx.jobs.backend.api.to.SimpleResponse;
-import com.prx.jobs.backend.jpa.repository.PositionRepository;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
@@ -23,18 +24,21 @@ import java.util.UUID;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.Mockito.when;
 
-class PositionControllerTest extends MockLoaderBase {
-
-    @MockBean
-    private PositionService positionService;
-
-    @Mock
-    private PositionRepository positionRepository;
+@ExtendWith(value = {SpringExtension.class})
+class PositionControllerTest {
 
     private static final String PATH;
 
     static {
         PATH = "/v1/positions";
+    }
+
+    @MockBean
+    private PositionServiceImpl positionService;
+
+    @BeforeEach
+    void setUp() {
+        RestAssuredMockMvc.standaloneSetup(new PositionController(positionService));
     }
 
     @Test

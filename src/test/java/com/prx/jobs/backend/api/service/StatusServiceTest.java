@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StatusServiceTest {
 
-    private final StatusService statusService = new StatusService() {};
+    private final StatusService statusService = new StatusService() {
+    };
 
     @Test
     void testList() {

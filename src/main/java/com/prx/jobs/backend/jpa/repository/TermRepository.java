@@ -16,7 +16,7 @@ public interface TermRepository extends JpaRepository<TermEntity, UUID> {
 
     /**
      * @param includeInactive boolean value indicating whether to include inactive status records.
-     * @return Optional<List<TermEntity>> containing a list of TermEntity objects.
+     * @return Optional<List < TermEntity>> containing a list of TermEntity objects.
      */
     @Query("SELECT s FROM TermEntity s WHERE s.active = :includeInactive ")
     Optional<List<TermEntity>> findAllByActive(@Param("includeInactive") boolean includeInactive);
