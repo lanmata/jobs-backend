@@ -48,6 +48,10 @@ spring:
       # Enables sending of state for the Spring Cloud Config
       send-state: true
   jpa:
+    properties:
+      hibernate:
+        boot:
+          allow_jdbc_metadata_access: true
     # Defers the initialization of the datasource
     defer-datasource-initialization: true
 

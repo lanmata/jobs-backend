@@ -4,6 +4,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import static com.prx.jobs.backend.util.JobsConstants.ENTITY_PACKAGE;
+import static com.prx.jobs.backend.util.JobsConstants.REPOSITORY_PACKAGE;
+
 /**
  * This is the DataBaseConfig class.
  * It is annotated with @Configuration to indicate that it is a configuration class.
@@ -11,7 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * It uses @EnableJpaRepositories to specify the base packages to scan for JPA repositories.
  */
 @Configuration
-@EntityScan(basePackages = {"com.prx.jobs.backend.jpa.entity"})
-@EnableJpaRepositories(basePackages = {"com.prx.jobs.backend.jpa.repository"})
+@EntityScan(basePackages = {ENTITY_PACKAGE})
+@EnableJpaRepositories(basePackages = {REPOSITORY_PACKAGE})
 public class DataBaseConfig {
 }
