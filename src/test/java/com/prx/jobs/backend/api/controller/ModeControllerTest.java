@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.Mockito.when;
 
@@ -28,7 +29,7 @@ class ModeControllerTest {
     private static final String PATH;
 
     static {
-        PATH = "/v1/modes";
+        PATH = JOBS_PATH + "/modes";
     }
 
     @MockBean

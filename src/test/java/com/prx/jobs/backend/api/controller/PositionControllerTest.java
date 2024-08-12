@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.UUID;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +31,7 @@ class PositionControllerTest {
     private static final String PATH;
 
     static {
-        PATH = "/v1/positions";
+        PATH = JOBS_PATH + "/positions";
     }
 
     @MockBean

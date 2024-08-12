@@ -46,6 +46,29 @@ public class JobOfferServiceImpl implements JobOfferService {
         this.jobOfferMapper = jobOfferMapper;
     }
 
+    private static JobOfferEntity getJobOfferEntity(PostJobOfferRequest postJobOfferRequest) {
+        var jobOfferEntity = new JobOfferEntity();
+        var companyEntity = new CompanyEntity();
+        var modeEntity = new ModeEntity();
+        var termEntity = new TermEntity();
+        var sourceEntity = new SourceEntity();
+        var positionEntity = new PositionEntity();
+        companyEntity.setId(postJobOfferRequest.companyId());
+        modeEntity.setId(postJobOfferRequest.modeId());
+        termEntity.setId(postJobOfferRequest.termId());
+        sourceEntity.setId(postJobOfferRequest.sourceId());
+        positionEntity.setId(postJobOfferRequest.positionId());
+        jobOfferEntity.setTitle(postJobOfferRequest.title());
+        jobOfferEntity.setDescription(postJobOfferRequest.description());
+        jobOfferEntity.setReference(postJobOfferRequest.reference());
+        jobOfferEntity.setCompany(companyEntity);
+        jobOfferEntity.setPosition(positionEntity);
+        jobOfferEntity.setMode(modeEntity);
+        jobOfferEntity.setTerm(termEntity);
+        jobOfferEntity.setSource(sourceEntity);
+        return jobOfferEntity;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -90,29 +113,6 @@ public class JobOfferServiceImpl implements JobOfferService {
             return ResponseEntity.status(HttpStatus.CREATED).body(jobOfferResponse);
         }
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-    }
-
-    private static JobOfferEntity getJobOfferEntity(PostJobOfferRequest postJobOfferRequest) {
-        var jobOfferEntity = new JobOfferEntity();
-        var companyEntity = new CompanyEntity();
-        var modeEntity = new ModeEntity();
-        var termEntity = new TermEntity();
-        var sourceEntity = new SourceEntity();
-        var positionEntity = new PositionEntity();
-        companyEntity.setId(postJobOfferRequest.companyId());
-        modeEntity.setId(postJobOfferRequest.modeId());
-        termEntity.setId(postJobOfferRequest.termId());
-        sourceEntity.setId(postJobOfferRequest.sourceId());
-        positionEntity.setId(postJobOfferRequest.positionId());
-        jobOfferEntity.setTitle(postJobOfferRequest.title());
-        jobOfferEntity.setDescription(postJobOfferRequest.description());
-        jobOfferEntity.setReference(postJobOfferRequest.reference());
-        jobOfferEntity.setCompany(companyEntity);
-        jobOfferEntity.setPosition(positionEntity);
-        jobOfferEntity.setMode(modeEntity);
-        jobOfferEntity.setTerm(termEntity);
-        jobOfferEntity.setSource(sourceEntity);
-        return jobOfferEntity;
     }
 
     /**

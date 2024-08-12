@@ -1,8 +1,10 @@
 package com.prx.jobs.backend.api.service;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CompanyServiceTest {
 
@@ -11,6 +13,7 @@ class CompanyServiceTest {
 
     @Test
     void testList() {
-        assertThrows(UnsupportedOperationException.class, () -> companyService.list(true));
+        var responseEntity = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        assertEquals(responseEntity, companyService.list(true));
     }
 }

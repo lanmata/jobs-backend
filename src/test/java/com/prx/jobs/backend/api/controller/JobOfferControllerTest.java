@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.UUID;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -30,7 +31,7 @@ class JobOfferControllerTest {
     private static final String PATH;
 
     static {
-        PATH = "/v1/job-offers";
+        PATH = JOBS_PATH + "/job-offers";
     }
 
     @MockBean
@@ -179,7 +180,7 @@ class JobOfferControllerTest {
         when(jobOfferService.createJobOffer(request)).thenReturn(ResponseEntity.ok(response));
         when(jobOfferDetailService.postJobOfferDetail(any(), any())).thenReturn(null);
 
-        ResponseEntity<PostJobOfferResponse> result = jobOfferService.createJobOffer(request);
+        jobOfferService.createJobOffer(request);
         given().contentType(MediaType.APPLICATION_JSON_VALUE).body(request)
                 .accept(MediaType.APPLICATION_JSON_VALUE).when().post(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);

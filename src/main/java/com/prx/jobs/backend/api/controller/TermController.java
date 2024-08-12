@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
+
 /**
  * Term Controller
  */
 @RestController
-@RequestMapping("/v1/terms")
+@RequestMapping(JOBS_PATH + "/terms")
 public class TermController {
 
     /**

@@ -19,16 +19,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(value = {SpringExtension.class})
-class CompanyControllerTest {
+class CompanyApiControllerTest {
 
     private static final String PATH;
 
     static {
-        PATH = "/v1/companies";
+        PATH = JOBS_PATH + "/companies";
     }
 
     @MockBean
@@ -36,7 +37,7 @@ class CompanyControllerTest {
 
     @BeforeEach
     public void setUp() {
-        RestAssuredMockMvc.standaloneSetup(new CompanyController(companyService));
+        RestAssuredMockMvc.standaloneSetup(new CompanyApiController(companyService));
     }
 
     @Test
