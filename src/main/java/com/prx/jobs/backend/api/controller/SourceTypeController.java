@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
+
 /**
  * Company Controller
  */
 @Validated
 @RestController
-@RequestMapping("/v1/source-types")
+@RequestMapping(JOBS_PATH + "/source-types")
 public class SourceTypeController {
 
     /**

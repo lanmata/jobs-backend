@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
+
 /**
  * Mode Controller
  */
 @RestController
-@RequestMapping("/v1/modes")
+@RequestMapping(JOBS_PATH + "/modes")
 public class ModeController {
 
     /**

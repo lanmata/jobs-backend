@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
+
 /**
  * The JobOfferDetailController class.
  */
 @RestController
-@RequestMapping("/v1/job-offer-details")
+@RequestMapping(JOBS_PATH + "/job-offer-details")
 public class JobOfferDetailController {
 
     /**

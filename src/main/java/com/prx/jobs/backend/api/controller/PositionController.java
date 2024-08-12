@@ -9,11 +9,13 @@ import jakarta.ws.rs.core.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
+
 /**
  * Position Controller
  */
 @RestController
-@RequestMapping("/v1/positions")
+@RequestMapping(JOBS_PATH + "/positions")
 public class PositionController {
 
 

@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
+
 /**
  * The JobOfferController class.
  */
 @RestController
-@RequestMapping("/v1/job-offers")
+@RequestMapping(JOBS_PATH + "/job-offers")
 public class JobOfferController {
 
     private final JobOfferService jobOfferService;

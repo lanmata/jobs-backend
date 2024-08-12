@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 
 import static com.prx.commons.util.DateUtil.PATTERN_DATE_TIME;
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 
 /**
  * This is the JobReportController class.
  * It provides methods for generating job offer reports.
  */
 @RestController
-@RequestMapping("/v1/job-offers/reports")
+@RequestMapping(JOBS_PATH + "/reports")
 public class JobReportController {
 
     /**

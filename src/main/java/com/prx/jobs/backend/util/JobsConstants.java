@@ -4,6 +4,7 @@ public final class JobsConstants {
     public static final String ENTITY_PACKAGE = "com.prx.jobs.backend.jpa.entity";
     public static final String REPOSITORY_PACKAGE = "com.prx.jobs.backend.jpa.repository";
     public static final String NOT_IMPLEMENTED = "Not implemented yet";
+    public static final String JOBS_PATH = "/api/jobs-backend/v1";
     public static final String JOB_OFFER_CONTENT_DETAIL = """ 
             SELECT
                     pp.id,

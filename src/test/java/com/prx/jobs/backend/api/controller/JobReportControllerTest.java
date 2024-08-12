@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -32,7 +33,7 @@ class JobReportControllerTest {
         when(jobReportService.generateJobsReport(any(), any()))
                 .thenReturn(ResponseEntity.ok(new byte[0]));
 
-        given().when().get("/v1/job-offers/reports")
+        given().when().get(JOBS_PATH + "/reports")
                 .then().assertThat().statusCode(HttpStatus.OK.value());
     }
 

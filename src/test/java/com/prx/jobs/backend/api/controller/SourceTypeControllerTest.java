@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.Collections;
 import java.util.UUID;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +28,7 @@ class SourceTypeControllerTest {
     private static final String PATH;
 
     static {
-        PATH = "/v1/source-types";
+        PATH = JOBS_PATH + "/source-types";
     }
 
     @MockBean

@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
+
 /**
  * Status Controller
  */
 @RestController
-@RequestMapping("/v1/status")
+@RequestMapping(JOBS_PATH + "/status")
 public class StatusController {
 
     /**
@@ -24,7 +26,7 @@ public class StatusController {
     /**
      * Constructor
      *
-     * @param statusService
+     * @param statusService boolean value
      */
     public StatusController(StatusService statusService) {
         this.statusService = statusService;
