@@ -57,6 +57,15 @@ spring:
           allow_jdbc_metadata_access: true
     # Defers the initialization of the datasource
     defer-datasource-initialization: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_DEFAULT_ZONE}
+    enabled: false
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
 # Server specific configurations
 server:
   ssl:
