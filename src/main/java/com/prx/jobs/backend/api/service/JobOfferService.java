@@ -1,12 +1,11 @@
 package com.prx.jobs.backend.api.service;
 
 import com.prx.jobs.backend.api.to.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.UUID;
-
-import static com.prx.jobs.backend.util.JobsConstants.NOT_IMPLEMENTED;
 
 /**
  * This is the JobOfferService interface.
@@ -20,7 +19,7 @@ public interface JobOfferService {
      * @return ResponseEntity<List < JobOfferContentTO>>.
      */
     default ResponseEntity<List<JobOfferContentTO>> findJobOfferContent() {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -30,7 +29,7 @@ public interface JobOfferService {
      * @return ResponseEntity<GetJobOfferResponse>.
      */
     default ResponseEntity<GetJobOfferResponse> findJobOfferContentByJobOfferId(UUID jobOfferId) {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -40,7 +39,7 @@ public interface JobOfferService {
      * @return ResponseEntity<PostJobOfferResponse>.
      */
     default ResponseEntity<PostJobOfferResponse> createJobOffer(PostJobOfferRequest postJobOfferRequest) {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -51,6 +50,6 @@ public interface JobOfferService {
      * @return ResponseEntity<PutJobOfferResponse> The job offer response.
      */
     default ResponseEntity<PutJobOfferResponse> updateJobOffer(UUID uuid, PutJobOfferRequest putJobOfferRequest) {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 }

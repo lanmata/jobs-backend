@@ -2,10 +2,13 @@ package com.prx.jobs.backend.api.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.http.HttpStatus.NOT_IMPLEMENTED;
 
 @DisplayName("JobOfferDetailServiceTest")
 class JobOfferDetailServiceTest {
@@ -16,7 +19,8 @@ class JobOfferDetailServiceTest {
     @Test
     @DisplayName("Test list method")
     void testList() {
-        assertThrows(UnsupportedOperationException.class, () -> jobOfferDetailService.findOfferDetailByJobOfferId(UUID.randomUUID()));
+        var response = new ResponseEntity<>(NOT_IMPLEMENTED);
+        assertEquals(response, jobOfferDetailService.findOfferDetailByJobOfferId(UUID.randomUUID()));
     }
 
     @Test
@@ -34,7 +38,8 @@ class JobOfferDetailServiceTest {
     @Test
     @DisplayName("Test delete method")
     void testDelete() {
-        assertThrows(UnsupportedOperationException.class, () -> jobOfferDetailService.deleteOfferDetail(UUID.randomUUID()));
+        var response = new ResponseEntity<>(NOT_IMPLEMENTED);
+        assertEquals(response, jobOfferDetailService.deleteOfferDetail(UUID.randomUUID()));
     }
 
 }

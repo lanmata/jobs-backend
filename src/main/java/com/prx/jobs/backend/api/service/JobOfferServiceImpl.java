@@ -101,7 +101,7 @@ public class JobOfferServiceImpl implements JobOfferService {
 
         var jobOfferResponse = jobOfferMapper.toPostJobOfferResponse(jobOfferRepository.save(jobOfferEntity));
         if (Objects.nonNull(jobOfferResponse) && Objects.nonNull(jobOfferResponse.getId())) {
-            var jobOfferDetail = jobOfferDetailService.postJobOfferDetail(jobOfferEntity.getId(), new PostJobOfferDetailRequest(postJobOfferRequest.description(),
+            var jobOfferDetail = jobOfferDetailService.postJobOfferDetail(jobOfferResponse.getId(), new PostJobOfferDetailRequest(postJobOfferRequest.description(),
                     postJobOfferRequest.dateTime(), postJobOfferRequest.mountRate(), postJobOfferRequest.statusId()));
             jobOfferResponse.setCreatedDate(LocalDateTime.now());
             if (Objects.nonNull(jobOfferDetail) && Objects.nonNull(jobOfferDetail.id())) {

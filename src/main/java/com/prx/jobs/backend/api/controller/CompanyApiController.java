@@ -7,28 +7,34 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 
 /**
- * Company Controller
+ * The CompanyApiController class.
+ * This class handles HTTP requests related to companies.
  */
 @RestController
 @RequestMapping(JOBS_PATH + "/companies")
 public class CompanyApiController implements CompanyApi {
 
     /**
-     * Company Service
+     * The CompanyService instance.
      */
     private final CompanyService companyService;
 
     /**
-     * Constructor
+     * The CompanyApiController constructor.
      *
-     * @param companyService Company Service
+     * @param companyService The company service.
      */
     public CompanyApiController(CompanyService companyService) {
         this.companyService = companyService;
     }
 
+    /**
+     * Gets the company service.
+     *
+     * @return The company service.
+     */
     @Override
     public CompanyService getService() {
-        return companyService;
+        return this.companyService;
     }
 }

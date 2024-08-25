@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(value = {SpringExtension.class})
-class JobOfferControllerTest {
+class JobOfferApiControllerTest {
 
     private static final String PATH;
 
@@ -41,7 +41,7 @@ class JobOfferControllerTest {
 
     @BeforeEach
     public void setUp() {
-        RestAssuredMockMvc.standaloneSetup(new JobOfferController(jobOfferService));
+        RestAssuredMockMvc.standaloneSetup(new JobOfferApiController(jobOfferService));
     }
 
     @Test

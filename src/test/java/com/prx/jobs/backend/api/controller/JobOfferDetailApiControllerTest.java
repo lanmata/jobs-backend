@@ -2,6 +2,7 @@ package com.prx.jobs.backend.api.controller;
 
 import com.prx.jobs.backend.api.service.JobOfferDetailServiceImpl;
 import com.prx.jobs.backend.api.to.JobOfferDetailTO;
+import com.prx.jobs.backend.api.to.SimpleResponse;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,10 +21,11 @@ import java.util.UUID;
 
 import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(value = {SpringExtension.class})
-class JobOfferDetailControllerTest {
+class JobOfferDetailApiControllerTest {
 
     private static final String PATH;
 
@@ -36,7 +38,13 @@ class JobOfferDetailControllerTest {
 
     @BeforeEach
     void setUp() {
-        RestAssuredMockMvc.standaloneSetup(new JobOfferDetailController(jobOfferDetailService));
+        RestAssuredMockMvc.standaloneSetup(new JobOfferDetailApiController(jobOfferDetailService));
+    }
+
+    @Test
+    void getServiceTest() {
+        var apiController = new JobOfferDetailApiController(jobOfferDetailService);
+        assertNotNull(apiController.getService());
     }
 
     @Test
@@ -63,6 +71,17 @@ class JobOfferDetailControllerTest {
 
         given().contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?jobOfferId=" + jobOfferId)
+                .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
+    }
+
+    @Test
+    void deleteOfferDetail() {
+        var jobOfferId = UUID.randomUUID();
+        SimpleResponse simpleResponse = new SimpleResponse(jobOfferId, LocalDateTime.now(), "The job offer detail was successfully deleted.");
+        when(jobOfferDetailService.deleteOfferDetail(jobOfferId)).thenReturn(ResponseEntity.ok(simpleResponse));
+
+        given().contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().delete(PATH + "/" + jobOfferId)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 }
