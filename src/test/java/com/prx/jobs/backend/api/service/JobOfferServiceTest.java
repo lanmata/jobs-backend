@@ -1,10 +1,17 @@
 package com.prx.jobs.backend.api.service;
 
+import com.prx.jobs.backend.api.to.PostJobOfferRequest;
+import com.prx.jobs.backend.api.to.PutJobOfferRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("JobOfferServiceTest")
 class JobOfferServiceTest {
@@ -14,21 +21,29 @@ class JobOfferServiceTest {
 
     @Test
     void testList() {
-        assertThrows(UnsupportedOperationException.class, jobOfferService::findJobOfferContent);
+        var response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        assertEquals(response, jobOfferService.findJobOfferContent());
     }
 
     @Test
     void testFind() {
-        assertThrows(UnsupportedOperationException.class, () -> jobOfferService.findJobOfferContentByJobOfferId(null));
+        var response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        assertEquals(response, jobOfferService.findJobOfferContentByJobOfferId(UUID.randomUUID()));
     }
 
     @Test
     void testCreate() {
-        assertThrows(UnsupportedOperationException.class, () -> jobOfferService.createJobOffer(null));
+        var response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        assertEquals(response, jobOfferService.createJobOffer(new PostJobOfferRequest("Title", "Description",
+                "Reference", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+                UUID.randomUUID(), UUID.randomUUID(), BigDecimal.ONE, LocalDateTime.MAX)));
     }
 
     @Test
     void testPut() {
-        assertThrows(UnsupportedOperationException.class, () -> jobOfferService.updateJobOffer(null, null));
+        var response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        assertEquals(response, jobOfferService.updateJobOffer(UUID.randomUUID(), new PutJobOfferRequest(UUID.randomUUID(),
+                UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), BigDecimal.ONE,
+                "Description", LocalDateTime.MAX)));
     }
 }

@@ -7,6 +7,7 @@ import com.prx.jobs.backend.mapper.JobOfferMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -33,7 +34,7 @@ class JobOfferServiceImplTest {
     @InjectMocks
     private JobOfferServiceImpl jobOfferService;
     @Mock
-    private JobOfferDetailServiceImpl jobOfferDetailService;
+    private JobOfferDetailService jobOfferDetailService;
     @Mock
     private JobOfferRepository jobOfferRepository;
     @Mock
@@ -170,12 +171,98 @@ class JobOfferServiceImplTest {
         response.setJobOfferDetailId(UUID.randomUUID());
 
         doReturn(postJobOfferDetailResponse).
-                when(jobOfferDetailService).postJobOfferDetail(Mockito.any(UUID.class), Mockito.any(PostJobOfferDetailRequest.class));
+                when(jobOfferDetailService).postJobOfferDetail(ArgumentMatchers.any(UUID.class),
+                        ArgumentMatchers.any(PostJobOfferDetailRequest.class));
         when(jobOfferRepository.save(Mockito.any(JobOfferEntity.class))).thenReturn(entity);
         when(jobOfferMapper.toPostJobOfferResponse(Mockito.any(JobOfferEntity.class))).thenReturn(response);
 
-//        doReturn(new PostJobOfferDetailResponse(UUID.randomUUID(), LocalDateTime.now(), "Job offer detail created successfully")).
-//                when(jobOfferDetailService.postJobOfferDetail(Mockito.any(UUID.class), Mockito.any(PostJobOfferDetailRequest.class)));
+        ResponseEntity<PostJobOfferResponse> result = jobOfferService.createJobOffer(request);
+
+        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+        assertEquals(response, result.getBody());
+    }
+
+    @Test
+    @DisplayName("Should return CREATED response when creating a job offer with Offer detail id null")
+    void shouldReturnOkResponseWhenCreatingJobOfferWithOfferDetailIdNull() {
+        var companyEntity = new CompanyEntity();
+        var positionEntity = new PositionEntity();
+        var termEntity = new TermEntity();
+        var modeEntity = new ModeEntity();
+        var sourceEntity = new SourceEntity();
+        var postJobOfferDetailResponse = new PostJobOfferDetailResponse(
+                null, LocalDateTime.now(),
+                "Job offer detail created successfully");
+        positionEntity.setId(UUID.randomUUID());
+        termEntity.setId(UUID.randomUUID());
+        modeEntity.setId(UUID.randomUUID());
+        sourceEntity.setId(UUID.randomUUID());
+        JobOfferEntity entity = new JobOfferEntity();
+        entity.setId(UUID.randomUUID());
+        entity.setCompany(companyEntity);
+        entity.setPosition(positionEntity);
+        entity.setTerm(termEntity);
+        entity.setMode(modeEntity);
+        entity.setSource(sourceEntity);
+        entity.setReference("reference");
+        entity.setDescription("description");
+        entity.setTitle("title");
+        PostJobOfferRequest request = new PostJobOfferRequest("title", "description", "reference",
+                UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+                BigDecimal.valueOf(200000), LocalDateTime.now());
+        PostJobOfferResponse response = new PostJobOfferResponse();
+        response.setId(UUID.randomUUID());
+        response.setCreatedDate(LocalDateTime.now());
+        response.setMessage("Job offer created");
+        response.setJobOfferDetailId(UUID.randomUUID());
+
+        doReturn(postJobOfferDetailResponse).
+                when(jobOfferDetailService).postJobOfferDetail(ArgumentMatchers.any(UUID.class),
+                        ArgumentMatchers.any(PostJobOfferDetailRequest.class));
+        when(jobOfferRepository.save(Mockito.any(JobOfferEntity.class))).thenReturn(entity);
+        when(jobOfferMapper.toPostJobOfferResponse(Mockito.any(JobOfferEntity.class))).thenReturn(response);
+
+        ResponseEntity<PostJobOfferResponse> result = jobOfferService.createJobOffer(request);
+
+        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+        assertEquals(response, result.getBody());
+    }
+
+    @Test
+    @DisplayName("It will call createJobOffer method to create a Job Offer without Job offer detail")
+    void shouldReturnOkResponseWhenCreatingJobOfferWithoutOfferDetail() {
+        var companyEntity = new CompanyEntity();
+        var positionEntity = new PositionEntity();
+        var termEntity = new TermEntity();
+        var modeEntity = new ModeEntity();
+        var sourceEntity = new SourceEntity();
+        positionEntity.setId(UUID.randomUUID());
+        termEntity.setId(UUID.randomUUID());
+        modeEntity.setId(UUID.randomUUID());
+        sourceEntity.setId(UUID.randomUUID());
+        JobOfferEntity entity = new JobOfferEntity();
+        entity.setId(UUID.randomUUID());
+        entity.setCompany(companyEntity);
+        entity.setPosition(positionEntity);
+        entity.setTerm(termEntity);
+        entity.setMode(modeEntity);
+        entity.setSource(sourceEntity);
+        entity.setReference("reference");
+        entity.setDescription("description");
+        entity.setTitle("title");
+        PostJobOfferRequest request = new PostJobOfferRequest("title", "description", "reference",
+                UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+                BigDecimal.valueOf(200000), LocalDateTime.now());
+        PostJobOfferResponse response = new PostJobOfferResponse();
+        response.setId(UUID.randomUUID());
+        response.setCreatedDate(LocalDateTime.now());
+        response.setMessage("Job offer created");
+        response.setJobOfferDetailId(UUID.randomUUID());
+
+        when(jobOfferDetailService.postJobOfferDetail(ArgumentMatchers.any(UUID.class),
+                ArgumentMatchers.any(PostJobOfferDetailRequest.class))).thenReturn(null);
+        when(jobOfferRepository.save(Mockito.any(JobOfferEntity.class))).thenReturn(entity);
+        when(jobOfferMapper.toPostJobOfferResponse(Mockito.any(JobOfferEntity.class))).thenReturn(response);
 
         ResponseEntity<PostJobOfferResponse> result = jobOfferService.createJobOffer(request);
 
@@ -244,6 +331,186 @@ class JobOfferServiceImplTest {
         UUID uuid = UUID.randomUUID();
         PutJobOfferRequest putJobOfferRequest = new PutJobOfferRequest(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
                 UUID.randomUUID(), UUID.randomUUID(), BigDecimal.TEN, "description", LocalDateTime.now());
+        JobOfferEntity jobOfferEntity = new JobOfferEntity();
+        jobOfferEntity.setId(UUID.randomUUID());
+        jobOfferEntity.setTitle("title");
+        jobOfferEntity.setDescription("description");
+        jobOfferEntity.setReference("reference");
+        jobOfferEntity.setCompany(new CompanyEntity());
+        jobOfferEntity.setPosition(new PositionEntity());
+        jobOfferEntity.setMode(new ModeEntity());
+        jobOfferEntity.setTerm(new TermEntity());
+        jobOfferEntity.setSource(new SourceEntity());
+        PutJobOfferResponse putJobOfferResponse = new PutJobOfferResponse();
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdDate = LocalDateTime.now();
+        String message = "Job offer detail created successfully";
+        PostJobOfferDetailResponse postJobOfferDetailResponse = new PostJobOfferDetailResponse(id, createdDate, message);
+        putJobOfferResponse.setId(UUID.randomUUID());
+        putJobOfferResponse.setCreatedDate(LocalDateTime.now());
+        putJobOfferResponse.setMessage("Job offer updated");
+        putJobOfferResponse.setJobOfferDetailId(postJobOfferDetailResponse.id());
+
+        when(jobOfferRepository.findById(uuid)).thenReturn(Optional.of(jobOfferEntity));
+        when(jobOfferRepository.save(any(JobOfferEntity.class))).thenReturn(jobOfferEntity);
+        when(jobOfferMapper.toPutJobOfferResponse(any(JobOfferEntity.class))).thenReturn(putJobOfferResponse);
+        when(jobOfferDetailService.postJobOfferDetail(any(UUID.class), any(PostJobOfferDetailRequest.class))).thenReturn(postJobOfferDetailResponse);
+
+        ResponseEntity<PutJobOfferResponse> response = jobOfferService.updateJobOffer(uuid, putJobOfferRequest);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("Should return updated job offer when valid request is provided and return with offer id null ")
+    void putJobOfferOkReturnJobOfferIdNull() {
+        UUID uuid = UUID.randomUUID();
+        PutJobOfferRequest putJobOfferRequest = new PutJobOfferRequest(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+                UUID.randomUUID(), UUID.randomUUID(), BigDecimal.TEN, "description", LocalDateTime.now());
+        JobOfferEntity jobOfferEntity = new JobOfferEntity();
+        jobOfferEntity.setId(UUID.randomUUID());
+        jobOfferEntity.setTitle("title");
+        jobOfferEntity.setDescription("description");
+        jobOfferEntity.setReference("reference");
+        jobOfferEntity.setCompany(new CompanyEntity());
+        jobOfferEntity.setPosition(new PositionEntity());
+        jobOfferEntity.setMode(new ModeEntity());
+        jobOfferEntity.setTerm(new TermEntity());
+        jobOfferEntity.setSource(new SourceEntity());
+        PutJobOfferResponse putJobOfferResponse = new PutJobOfferResponse();
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdDate = LocalDateTime.now();
+        String message = "Job offer detail created successfully";
+        PostJobOfferDetailResponse postJobOfferDetailResponse = new PostJobOfferDetailResponse(id, createdDate, message);
+        putJobOfferResponse.setId(null);
+        putJobOfferResponse.setCreatedDate(LocalDateTime.now());
+        putJobOfferResponse.setMessage("Job offer updated");
+        putJobOfferResponse.setJobOfferDetailId(postJobOfferDetailResponse.id());
+
+        when(jobOfferRepository.findById(uuid)).thenReturn(Optional.of(jobOfferEntity));
+        when(jobOfferRepository.save(any(JobOfferEntity.class))).thenReturn(jobOfferEntity);
+        when(jobOfferMapper.toPutJobOfferResponse(any(JobOfferEntity.class))).thenReturn(putJobOfferResponse);
+        when(jobOfferDetailService.postJobOfferDetail(any(UUID.class), any(PostJobOfferDetailRequest.class))).thenReturn(postJobOfferDetailResponse);
+
+        ResponseEntity<PutJobOfferResponse> response = jobOfferService.updateJobOffer(uuid, putJobOfferRequest);
+
+        assertEquals(HttpStatus.NOT_ACCEPTABLE, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("It call updateJobOffer without company id")
+    void updateJobOfferWithoutCompanyId() {
+        UUID uuid = UUID.randomUUID();
+        PutJobOfferRequest putJobOfferRequest = new PutJobOfferRequest(null, UUID.randomUUID(), UUID.randomUUID(),
+                UUID.randomUUID(), UUID.randomUUID(), BigDecimal.TEN, "description", LocalDateTime.now());
+        JobOfferEntity jobOfferEntity = new JobOfferEntity();
+        jobOfferEntity.setId(UUID.randomUUID());
+        jobOfferEntity.setTitle("title");
+        jobOfferEntity.setDescription("description");
+        jobOfferEntity.setReference("reference");
+        jobOfferEntity.setCompany(new CompanyEntity());
+        jobOfferEntity.setPosition(new PositionEntity());
+        jobOfferEntity.setMode(new ModeEntity());
+        jobOfferEntity.setTerm(new TermEntity());
+        jobOfferEntity.setSource(new SourceEntity());
+        PutJobOfferResponse putJobOfferResponse = new PutJobOfferResponse();
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdDate = LocalDateTime.now();
+        String message = "Job offer detail created successfully";
+        PostJobOfferDetailResponse postJobOfferDetailResponse = new PostJobOfferDetailResponse(id, createdDate, message);
+        putJobOfferResponse.setId(UUID.randomUUID());
+        putJobOfferResponse.setCreatedDate(LocalDateTime.now());
+        putJobOfferResponse.setMessage("Job offer updated");
+        putJobOfferResponse.setJobOfferDetailId(postJobOfferDetailResponse.id());
+
+        when(jobOfferRepository.findById(uuid)).thenReturn(Optional.of(jobOfferEntity));
+        when(jobOfferRepository.save(any(JobOfferEntity.class))).thenReturn(jobOfferEntity);
+        when(jobOfferMapper.toPutJobOfferResponse(any(JobOfferEntity.class))).thenReturn(putJobOfferResponse);
+        when(jobOfferDetailService.postJobOfferDetail(any(UUID.class), any(PostJobOfferDetailRequest.class))).thenReturn(postJobOfferDetailResponse);
+
+        ResponseEntity<PutJobOfferResponse> response = jobOfferService.updateJobOffer(uuid, putJobOfferRequest);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("It call updateJobOffer without mode id")
+    void updateJobOfferWithoutModeId() {
+        UUID uuid = UUID.randomUUID();
+        PutJobOfferRequest putJobOfferRequest = new PutJobOfferRequest(UUID.randomUUID(), null, UUID.randomUUID(),
+                UUID.randomUUID(), UUID.randomUUID(), BigDecimal.TEN, "description", LocalDateTime.now());
+        JobOfferEntity jobOfferEntity = new JobOfferEntity();
+        jobOfferEntity.setId(UUID.randomUUID());
+        jobOfferEntity.setTitle("title");
+        jobOfferEntity.setDescription("description");
+        jobOfferEntity.setReference("reference");
+        jobOfferEntity.setCompany(new CompanyEntity());
+        jobOfferEntity.setPosition(new PositionEntity());
+        jobOfferEntity.setMode(new ModeEntity());
+        jobOfferEntity.setTerm(new TermEntity());
+        jobOfferEntity.setSource(new SourceEntity());
+        PutJobOfferResponse putJobOfferResponse = new PutJobOfferResponse();
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdDate = LocalDateTime.now();
+        String message = "Job offer detail created successfully";
+        PostJobOfferDetailResponse postJobOfferDetailResponse = new PostJobOfferDetailResponse(id, createdDate, message);
+        putJobOfferResponse.setId(UUID.randomUUID());
+        putJobOfferResponse.setCreatedDate(LocalDateTime.now());
+        putJobOfferResponse.setMessage("Job offer updated");
+        putJobOfferResponse.setJobOfferDetailId(postJobOfferDetailResponse.id());
+
+        when(jobOfferRepository.findById(uuid)).thenReturn(Optional.of(jobOfferEntity));
+        when(jobOfferRepository.save(any(JobOfferEntity.class))).thenReturn(jobOfferEntity);
+        when(jobOfferMapper.toPutJobOfferResponse(any(JobOfferEntity.class))).thenReturn(putJobOfferResponse);
+        when(jobOfferDetailService.postJobOfferDetail(any(UUID.class), any(PostJobOfferDetailRequest.class))).thenReturn(postJobOfferDetailResponse);
+
+        ResponseEntity<PutJobOfferResponse> response = jobOfferService.updateJobOffer(uuid, putJobOfferRequest);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("It call updateJobOffer without term id")
+    void updateJobOfferWithoutTermId() {
+        UUID uuid = UUID.randomUUID();
+        PutJobOfferRequest putJobOfferRequest = new PutJobOfferRequest(UUID.randomUUID(), UUID.randomUUID(), null,
+                UUID.randomUUID(), UUID.randomUUID(), BigDecimal.TEN, "description", LocalDateTime.now());
+        JobOfferEntity jobOfferEntity = new JobOfferEntity();
+        jobOfferEntity.setId(UUID.randomUUID());
+        jobOfferEntity.setTitle("title");
+        jobOfferEntity.setDescription("description");
+        jobOfferEntity.setReference("reference");
+        jobOfferEntity.setCompany(new CompanyEntity());
+        jobOfferEntity.setPosition(new PositionEntity());
+        jobOfferEntity.setMode(new ModeEntity());
+        jobOfferEntity.setTerm(new TermEntity());
+        jobOfferEntity.setSource(new SourceEntity());
+        PutJobOfferResponse putJobOfferResponse = new PutJobOfferResponse();
+        UUID id = UUID.randomUUID();
+        LocalDateTime createdDate = LocalDateTime.now();
+        String message = "Job offer detail created successfully";
+        PostJobOfferDetailResponse postJobOfferDetailResponse = new PostJobOfferDetailResponse(id, createdDate, message);
+        putJobOfferResponse.setId(UUID.randomUUID());
+        putJobOfferResponse.setCreatedDate(LocalDateTime.now());
+        putJobOfferResponse.setMessage("Job offer updated");
+        putJobOfferResponse.setJobOfferDetailId(postJobOfferDetailResponse.id());
+
+        when(jobOfferRepository.findById(uuid)).thenReturn(Optional.of(jobOfferEntity));
+        when(jobOfferRepository.save(any(JobOfferEntity.class))).thenReturn(jobOfferEntity);
+        when(jobOfferMapper.toPutJobOfferResponse(any(JobOfferEntity.class))).thenReturn(putJobOfferResponse);
+        when(jobOfferDetailService.postJobOfferDetail(any(UUID.class), any(PostJobOfferDetailRequest.class))).thenReturn(postJobOfferDetailResponse);
+
+        ResponseEntity<PutJobOfferResponse> response = jobOfferService.updateJobOffer(uuid, putJobOfferRequest);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("It call updateJobOffer without source id")
+    void updateJobOfferWithoutSourceId() {
+        UUID uuid = UUID.randomUUID();
+        PutJobOfferRequest putJobOfferRequest = new PutJobOfferRequest(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(),
+                null, UUID.randomUUID(), BigDecimal.TEN, "description", LocalDateTime.now());
         JobOfferEntity jobOfferEntity = new JobOfferEntity();
         jobOfferEntity.setId(UUID.randomUUID());
         jobOfferEntity.setTitle("title");

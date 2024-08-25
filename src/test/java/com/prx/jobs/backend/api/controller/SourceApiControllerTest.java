@@ -1,8 +1,8 @@
 package com.prx.jobs.backend.api.controller;
 
-import com.prx.jobs.backend.api.service.StatusServiceImpl;
-import com.prx.jobs.backend.api.to.StatusListResponse;
-import com.prx.jobs.backend.api.to.StatusTO;
+import com.prx.jobs.backend.api.service.SourceServiceImpl;
+import com.prx.jobs.backend.api.to.SourceListResponse;
+import com.prx.jobs.backend.api.to.SourceTO;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,42 +20,47 @@ import java.util.UUID;
 
 import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(value = {SpringExtension.class})
-class StatusControllerTest {
+class SourceApiControllerTest {
 
     private static final String PATH;
 
     static {
-        PATH = JOBS_PATH + "/status";
+        PATH = JOBS_PATH + "/sources";
     }
 
     @MockBean
-    private StatusServiceImpl statusService;
+    private SourceServiceImpl sourceService;
 
     @BeforeEach
     void setUp() {
-        RestAssuredMockMvc.standaloneSetup(new StatusController(statusService));
+        RestAssuredMockMvc.standaloneSetup(new SourceApiController(sourceService));
     }
 
     @Test
-    @DisplayName("Should return status list when includeInactive is true")
-    void listIncludesInactiveStatusesWhenRequested() {
-        when(statusService.list(true)).thenReturn(ResponseEntity.ok(new StatusListResponse(
-                Collections.singletonList(new StatusTO(UUID.randomUUID(), "Test", "Test", false)))));
+    void getServiceTest() {
+        var apiController = new SourceApiController(sourceService);
+        assertNotNull(apiController.getService());
+    }
 
+    @Test
+    @DisplayName("Should return source list when includeInactive is true")
+    void listIncludesInactiveSourcesWhenRequested() {
+        when(sourceService.list(true)).thenReturn(ResponseEntity.ok(new SourceListResponse(
+                Collections.singletonList(new SourceTO(UUID.randomUUID(), "Test", "Test", false, UUID.randomUUID())))));
         given().contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=true")
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
     @Test
-    @DisplayName("Should return status list when includeInactive is false")
-    void listExcludesInactiveStatusesWhenRequested() {
-        when(statusService.list(false)).thenReturn(ResponseEntity.ok(new StatusListResponse(
-                Collections.singletonList(new StatusTO(UUID.randomUUID(), "Test", "Test", true)))));
-
+    @DisplayName("Should return source list when includeInactive is false")
+    void listExcludesInactiveSourcesWhenRequested() {
+        when(sourceService.list(false)).thenReturn(ResponseEntity.ok(new SourceListResponse(
+                Collections.singletonList(new SourceTO(UUID.randomUUID(), "Test", "Test", true, UUID.randomUUID())))));
         given().contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=false")
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);

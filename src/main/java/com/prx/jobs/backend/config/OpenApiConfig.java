@@ -40,8 +40,17 @@ public class OpenApiConfig {
                     return operation;
                 })
                 .addOpenApiCustomizer(openApi -> openApi.info(new Info().title("Users API").version(appVersion)))
-                .packagesToScan("com.prx.jobs.backend")
+                .packagesToScan("com.prx.jobs.backend.api")
+                .pathsToMatch("v1/job-offers/**")
                 .pathsToMatch("v1/companies/**")
+                .pathsToMatch("v1/modes/**")
+                .pathsToMatch("v1/job-offers/**")
+                .pathsToMatch("v1/reports/**")
+                .pathsToMatch("v1/positions/**")
+                .pathsToMatch("v1/terms/**")
+                .pathsToMatch("v1/sources/**")
+                .pathsToMatch("v1/sources-types/**")
+                .pathsToMatch("v1/status/**")
                 .build();
     }
 }
