@@ -23,10 +23,11 @@ import java.util.UUID;
 
 import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(value = {SpringExtension.class})
-class PositionControllerTest {
+class PositionApiControllerTest {
 
     private static final String PATH;
 
@@ -39,7 +40,13 @@ class PositionControllerTest {
 
     @BeforeEach
     void setUp() {
-        RestAssuredMockMvc.standaloneSetup(new PositionController(positionService));
+        RestAssuredMockMvc.standaloneSetup(new PositionApiController(positionService));
+    }
+
+    @Test
+    void getServiceTest() {
+        var apiController = new PositionApiController(positionService);
+        assertNotNull(apiController.getService());
     }
 
     @Test

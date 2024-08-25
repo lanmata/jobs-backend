@@ -4,6 +4,7 @@ import com.prx.jobs.backend.api.to.JobOfferDetailTO;
 import com.prx.jobs.backend.api.to.PostJobOfferDetailRequest;
 import com.prx.jobs.backend.api.to.PostJobOfferDetailResponse;
 import com.prx.jobs.backend.api.to.SimpleResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface JobOfferDetailService {
      * @return ResponseEntity<List < JobOfferDetailTO>>.
      */
     default ResponseEntity<List<JobOfferDetailTO>> findOfferDetailByJobOfferId(UUID jobOfferId) {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -56,6 +57,6 @@ public interface JobOfferDetailService {
      * @return ResponseEntity<SimpleResponse> The simple response.
      */
     default ResponseEntity<SimpleResponse> deleteOfferDetail(UUID jobOfferDetailId) {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 }

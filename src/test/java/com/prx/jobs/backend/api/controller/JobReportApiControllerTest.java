@@ -13,18 +13,25 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(value = {SpringExtension.class})
-class JobReportControllerTest {
+class JobReportApiControllerTest {
 
     @MockBean
     private JobReportServiceImpl jobReportService;
 
     @BeforeEach
     void setUp() {
-        RestAssuredMockMvc.standaloneSetup(new JobReportController(jobReportService));
+        RestAssuredMockMvc.standaloneSetup(new JobReportApiController(jobReportService));
+    }
+
+    @Test
+    void getServiceTest() {
+        var apiController = new JobReportApiController(jobReportService);
+        assertNotNull(apiController.getService());
     }
 
     @Test
@@ -33,7 +40,7 @@ class JobReportControllerTest {
         when(jobReportService.generateJobsReport(any(), any()))
                 .thenReturn(ResponseEntity.ok(new byte[0]));
 
-        given().when().get(JOBS_PATH + "/reports")
+        given().when().get(JOBS_PATH + "/reports?startDate=2024-01-01&endDate=2024-02-02")
                 .then().assertThat().statusCode(HttpStatus.OK.value());
     }
 

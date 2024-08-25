@@ -1,8 +1,8 @@
 package com.prx.jobs.backend.api.controller;
 
-import com.prx.jobs.backend.api.service.TermServiceImpl;
-import com.prx.jobs.backend.api.to.TermListResponse;
-import com.prx.jobs.backend.api.to.TermTO;
+import com.prx.jobs.backend.api.service.SourceTypeServiceImpl;
+import com.prx.jobs.backend.api.to.SourceTypeListResponse;
+import com.prx.jobs.backend.api.to.SourceTypeTO;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,40 +20,47 @@ import java.util.UUID;
 
 import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(value = {SpringExtension.class})
-class TermControllerTest {
+class SourceTypeApiControllerTest {
 
     private static final String PATH;
 
     static {
-        PATH = JOBS_PATH + "/terms";
+        PATH = JOBS_PATH + "/source-types";
     }
 
     @MockBean
-    private TermServiceImpl termService;
+    private SourceTypeServiceImpl sourceTypeService;
 
     @BeforeEach
     void setUp() {
-        RestAssuredMockMvc.standaloneSetup(new TermController(termService));
+        RestAssuredMockMvc.standaloneSetup(new SourceTypeApiController(sourceTypeService));
     }
 
     @Test
-    @DisplayName("Should return term list when includeInactive is true")
-    void listIncludesInactiveTermsWhenRequested() {
-        when(termService.list(true)).thenReturn(ResponseEntity.ok(new TermListResponse(
-                Collections.singletonList(new TermTO(UUID.randomUUID(), "Test", "Test", false)))));
+    void getServiceTest() {
+        var apiController = new SourceTypeApiController(sourceTypeService);
+        assertNotNull(apiController.getService());
+    }
+
+    @Test
+    @DisplayName("Should return source type list when includeInactive is true")
+    void listIncludesInactiveSourceTypesWhenRequested() {
+        when(sourceTypeService.list(true)).thenReturn(ResponseEntity.ok(new SourceTypeListResponse(
+                Collections.singletonList(new SourceTypeTO(UUID.randomUUID(), "Test", "Test", false)))));
 
         given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=false")
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=true")
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
     @Test
-    @DisplayName("Should return term list when includeInactive is false")
-    void listExcludesInactiveTermsWhenRequested() {
-        when(termService.list(false)).thenReturn(ResponseEntity.ok(new TermListResponse(
+    @DisplayName("Should return source type list when includeInactive is false")
+    void listExcludesInactiveSourceTypesWhenRequested() {
+        when(sourceTypeService.list(false)).thenReturn(ResponseEntity.ok(new SourceTypeListResponse(
                 Collections.emptyList())));
 
         given().contentType(MediaType.APPLICATION_JSON_VALUE)
