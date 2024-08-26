@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -25,9 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(value = {SpringExtension.class})
+@TestPropertySource(properties = {"app.api.endpoint=/api/v1"})
 class JobOfferDetailApiControllerTest {
 
-    private static final String PATH;
+    static String PATH;
 
     static {
         PATH = JOBS_PATH + "/job-offer-details";

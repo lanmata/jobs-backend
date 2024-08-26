@@ -9,10 +9,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Interface for the Company API.
@@ -43,7 +43,7 @@ public interface CompanyApi {
     @GetMapping(produces = MediaType.APPLICATION_JSON)
     default ResponseEntity<CompanyListResponse> list(
             @Parameter(name = "includeInactive", description = "Include the companies inactive in the list", required = true)
-            @PathParam(value = "includeInactive") boolean includeInactive) {
+            @RequestParam(value = "includeInactive") boolean includeInactive) {
         return this.getService().list(includeInactive);
     }
 }
