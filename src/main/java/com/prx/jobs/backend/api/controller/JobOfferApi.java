@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.ws.rs.PathParam;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +47,7 @@ public interface JobOfferApi {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     default ResponseEntity<GetJobOfferResponse> getJobOffer(
             @Parameter(name = "jobOfferId", description = "The job offer id", required = true)
-            @PathParam("jobOfferId") String jobOfferId) {
+            @RequestParam("jobOfferId") String jobOfferId) {
         return this.getService().findJobOfferContentByJobOfferId(UUID.fromString(jobOfferId));
     }
 

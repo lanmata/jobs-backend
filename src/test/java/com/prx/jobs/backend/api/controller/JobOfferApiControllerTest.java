@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(value = {SpringExtension.class})
 class JobOfferApiControllerTest {
 
-    private static final String PATH;
+    final static String PATH;
 
     static {
         PATH = JOBS_PATH + "/job-offers";
@@ -78,8 +78,8 @@ class JobOfferApiControllerTest {
         String jobOfferId = UUID.randomUUID().toString();
         when(jobOfferService.findJobOfferContentByJobOfferId(UUID.fromString(jobOfferId))).thenReturn(ResponseEntity.ok(getJobOfferResponse));
 
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?jobOfferId=" + jobOfferId)
+        given().queryParam("jobOfferId", jobOfferId).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 

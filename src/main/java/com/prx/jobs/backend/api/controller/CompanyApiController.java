@@ -11,7 +11,7 @@ import static com.prx.jobs.backend.util.JobsConstants.JOBS_PATH;
  * This class handles HTTP requests related to companies.
  */
 @RestController
-@RequestMapping(JOBS_PATH + "/companies")
+@RequestMapping(value = JOBS_PATH + "/companies")
 public class CompanyApiController implements CompanyApi {
 
     /**

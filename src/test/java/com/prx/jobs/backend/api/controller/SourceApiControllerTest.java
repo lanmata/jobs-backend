@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(value = {SpringExtension.class})
 class SourceApiControllerTest {
 
-    private static final String PATH;
+    static String PATH;
 
     static {
         PATH = JOBS_PATH + "/sources";
@@ -51,8 +51,8 @@ class SourceApiControllerTest {
     void listIncludesInactiveSourcesWhenRequested() {
         when(sourceService.list(true)).thenReturn(ResponseEntity.ok(new SourceListResponse(
                 Collections.singletonList(new SourceTO(UUID.randomUUID(), "Test", "Test", false, UUID.randomUUID())))));
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=true")
+        given().queryParam("includeInactive", true).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
@@ -61,8 +61,8 @@ class SourceApiControllerTest {
     void listExcludesInactiveSourcesWhenRequested() {
         when(sourceService.list(false)).thenReturn(ResponseEntity.ok(new SourceListResponse(
                 Collections.singletonList(new SourceTO(UUID.randomUUID(), "Test", "Test", true, UUID.randomUUID())))));
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=false")
+        given().queryParam("includeInactive", false).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 

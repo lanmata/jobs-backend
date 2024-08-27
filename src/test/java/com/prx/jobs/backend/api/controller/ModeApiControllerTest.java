@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(value = {SpringExtension.class})
 class ModeApiControllerTest {
 
-    private static final String PATH;
+    static String PATH;
 
     static {
         PATH = JOBS_PATH + "/modes";
@@ -54,8 +54,8 @@ class ModeApiControllerTest {
         modeCollection.add(new ModeTO(UUID.randomUUID(), "description", "Mode Description", true));
         when(modeService.list(true)).thenReturn(ResponseEntity.ok(new ModeListResponse(modeCollection)));
 
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=true")
+        given().queryParam("includeInactive", true).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
@@ -64,8 +64,8 @@ class ModeApiControllerTest {
     void listWithoutInactiveModesWhenRequested() {
         when(modeService.list(false)).thenReturn(ResponseEntity.ok(new ModeListResponse(Collections.emptyList())));
 
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=false")
+        given().queryParam("includeInactive", false).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
