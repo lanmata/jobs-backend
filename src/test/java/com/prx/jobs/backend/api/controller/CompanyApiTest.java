@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -24,10 +25,11 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+@ActiveProfiles("test")
 @ExtendWith(value = {SpringExtension.class})
 class CompanyApiTest {
 
-    private static final String PATH;
+    static String PATH;
 
     static {
         PATH = JOBS_PATH + "/companies";
@@ -43,7 +45,8 @@ class CompanyApiTest {
 
     @Test
     void getServiceTest() {
-        var companyApi = new CompanyApi(){};
+        var companyApi = new CompanyApi() {
+        };
         assertNotNull(companyApi.getService());
     }
 
@@ -53,9 +56,8 @@ class CompanyApiTest {
         CompanyTO companyTO = new CompanyTO(UUID.randomUUID(), "name", "description", false);
         CompanyListResponse companyListResponse = new CompanyListResponse(List.of(companyTO));
         when(companyService.list(true)).thenReturn(ResponseEntity.ok(companyListResponse));
-
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=true")
+        given().queryParam("includeInactive", true).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
@@ -65,8 +67,8 @@ class CompanyApiTest {
         CompanyListResponse companyListResponse = new CompanyListResponse(Collections.emptyList());
         when(companyService.list(false)).thenReturn(ResponseEntity.ok(companyListResponse));
 
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=false")
+        given().queryParam("includeInactive", false).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 

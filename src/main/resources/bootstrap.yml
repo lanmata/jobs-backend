@@ -3,13 +3,13 @@
 
 # Application specific configurations
 app:
+  # The environments for the application
+  api:
+    endpoint: /api/v1
   # The name of the application
   name: jobs-backend-api
   # The version of the application
   version: 0.0.1-2024
-  # The environments for the application
-  api:
-    endpoint: /api/jobs-backend/v1
 # Spring Boot specific configurations
 spring:
   mustache:

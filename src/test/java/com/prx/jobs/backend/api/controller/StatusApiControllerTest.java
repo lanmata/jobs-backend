@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(value = {SpringExtension.class})
 class StatusApiControllerTest {
 
-    private static final String PATH;
+    static String PATH;
 
     static {
         PATH = JOBS_PATH + "/status";
@@ -52,8 +52,8 @@ class StatusApiControllerTest {
         when(statusService.list(true)).thenReturn(ResponseEntity.ok(new StatusListResponse(
                 Collections.singletonList(new StatusTO(UUID.randomUUID(), "Test", "Test", false)))));
 
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=true")
+        given().queryParam("includeInactive", true).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
@@ -63,8 +63,8 @@ class StatusApiControllerTest {
         when(statusService.list(false)).thenReturn(ResponseEntity.ok(new StatusListResponse(
                 Collections.singletonList(new StatusTO(UUID.randomUUID(), "Test", "Test", true)))));
 
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=false")
+        given().queryParam("includeInactive", false).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 

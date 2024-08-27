@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(value = {SpringExtension.class})
 class PositionApiControllerTest {
 
-    private static final String PATH;
+    static String PATH;
 
     static {
         PATH = JOBS_PATH + "/positions";
@@ -54,8 +54,8 @@ class PositionApiControllerTest {
     void listIncludesInactivePositionsWhenRequested() {
         when(positionService.list(true)).thenReturn(ResponseEntity.ok(new PositionListResponse(
                 Collections.singletonList(new PositionTO(UUID.randomUUID(), "Test", "Test", false)))));
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=true")
+        given().queryParam("includeInactive", true).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
@@ -64,8 +64,8 @@ class PositionApiControllerTest {
     void listExcludesInactivePositionsWhenRequested() {
         when(positionService.list(false)).thenReturn(ResponseEntity.ok(new PositionListResponse(
                 Collections.singletonList(new PositionTO(UUID.randomUUID(), "Test", "Test", true)))));
-        given().contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "?includeInactive=false")
+        given().queryParam("includeInactive", false).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH)
                 .then().assertThat().statusCode(HttpStatus.OK.value()).expect(MvcResult::getResponse);
     }
 
