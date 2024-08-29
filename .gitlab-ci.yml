@@ -14,6 +14,12 @@ sonarcloud-check:
     key: "${CI_JOB_NAME}"
     paths:
       - .sonar/cache
+  only:
+    - merge_requests
+    - master
+    - develop
+  script:
+    - mvn verify sonar:sonar -Dspring.cloud.vault.enabled=false -Dsonar.projectKey=jobs-board_jobs-backend -s ci_settings.xml
 qodana:
   image:
     name: jetbrains/qodana-<linter>
@@ -28,7 +34,6 @@ qodana:
   variables:
     QODANA_TOKEN: $qodana_token    
   script:
-    - mvn verify sonar:sonar -Dspring.cloud.vault.enabled=false -Dsonar.projectKey=jobs-board_jobs-backend -s ci_settings.xml
     - qodana --save-report --results-dir=$CI_PROJECT_DIR/.qodana/results
          --cache-dir=$CI_PROJECT_DIR/.qodana/cache
   artifacts:
