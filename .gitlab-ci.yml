@@ -22,7 +22,7 @@ sonarcloud-check:
     - mvn verify sonar:sonar -Dspring.cloud.vault.enabled=false -Dsonar.projectKey=jobs-board_jobs-backend -s ci_settings.xml
 qodana:
   image:
-    name: jetbrains/qodana-<linter>
+    name: jetbrains/qodana-jvm-community:2024.1
     entrypoint: [""]
   cache:
     - key: qodana-2024.1-$CI_DEFAULT_BRANCH-$CI_COMMIT_REF_SLUG
