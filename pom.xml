@@ -421,7 +421,7 @@
         <repository>
             <id>PRX-Repsy</id>
             <name>My Private Maven Repository on Repsy</name>
-            <url>https://repo.repsy.io/mvn/${repsy.account.user}/${repsy.account.password}</url>
+            <url>https://repo.repsy.io/mvn/lmata/prx</url>
         </repository>
     </repositories>
 
