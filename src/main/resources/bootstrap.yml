@@ -11,7 +11,12 @@ app:
   # The version of the application
   version: 0.0.1-2024
 # Spring Boot specific configurations
+
 spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
   mustache:
     check-template-location: false
   test:
@@ -73,19 +78,23 @@ server:
     enabled: true
     # The SSL bundle for the server
     bundle: config-server
+    compression:
+      enabled: true
+      mime-types: text/html,text/xml,text/plain,text/css,application/json
+      min-response-size: 1024
 
 swagger:
-  base-package: 'com.prx.jobs.backend.api'
-api-info:
-  title: ${app.name}
-  description: ${app.description}
-  contact:
-    name: 'Luis Antonio Mata'
-    url: 'www.prx.test'
-    email: 'luis.antonio.mata@gmail.com'
-  version: ${app.version}
-  cache:
-    disabled: true
+  base-package: 'com.prx.jobs.backend.api.controller'
+  api-info:
+    title: ${app.name}
+    version: ${app.version}
+    description: ${app.description}
+    contact:
+      name: 'Luis Antonio Mata'
+      url: 'www.prx.test'
+      email: 'luis.antonio.mata@gmail.com'
+    cache:
+      disabled: true
 
 # Management specific configurations
 management:
