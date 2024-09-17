@@ -3,6 +3,7 @@
 
 # Application specific configurations
 app:
+  clientRoles: jobs-offer-frontend-client, jobs-offer-frontend-client_o
   # The environments for the application
   api:
     endpoint: /api/v1
@@ -31,6 +32,13 @@ spring:
   application:
     # The name of the Spring Boot application, taken from the app.name property
     name: ${app.name}
+  security:
+    # Disables the security for the Spring Boot application
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${AUTH_SERVER_URL}
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
   cloud:
     # The Spring Cloud Config specific configurations
     #<><><><><><><><><><><><><><> VAULT <><><><><><><><><><><><><><>
@@ -77,7 +85,7 @@ server:
     # Enables SSL for the server
     enabled: true
     # The SSL bundle for the server
-    bundle: config-server
+    bundle: prx-qa.tst
     compression:
       enabled: true
       mime-types: text/html,text/xml,text/plain,text/css,application/json
