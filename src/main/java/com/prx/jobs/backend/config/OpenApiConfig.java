@@ -16,8 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import static org.springdoc.core.utils.Constants.ALL_PATTERN;
-
 @Configuration
 public class OpenApiConfig {
 
@@ -29,15 +27,6 @@ public class OpenApiConfig {
     @Value("${swagger.api-info.version}")
     private String version;
 
-    private static final String[] SWAGGER_LIST = {
-            "/swagger-ui/**",
-            "/v3/api-docs/**",
-            "/swagger-resources/**",
-            "/swagger-resources",
-            "/api/v1/**",
-            "/api/v1"
-    };
-
     @Bean
     @Profile("!prod")
     public GroupedOpenApi actuatorApi(OpenApiCustomizer actuatorOpenApiCustomizer,
@@ -47,7 +36,10 @@ public class OpenApiConfig {
         LOGGER.info("Base path : {} ", endpointProperties.getBasePath());
         return GroupedOpenApi.builder()
                 .group("Actuator")
-                .pathsToMatch(endpointProperties.getBasePath() + ALL_PATTERN)
+                .pathsToMatch(endpointProperties.getBasePath() + "/swagger-ui/**")
+                .pathsToMatch(endpointProperties.getBasePath() + "/v3/api-docs/**")
+                .pathsToMatch(endpointProperties.getBasePath() + "/swagger-resources/**")
+                .pathsToMatch(endpointProperties.getBasePath() + "/swagger-resources")
                 .addOpenApiCustomizer(actuatorOpenApiCustomizer)
                 .addOpenApiCustomizer(openApi -> openApi.info(new Info().title("Actuator API").version(appVersion)))
                 .addOperationCustomizer(actuatorCustomizer)
