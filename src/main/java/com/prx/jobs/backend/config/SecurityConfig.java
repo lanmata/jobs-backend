@@ -59,6 +59,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(SWAGGER_LIST).permitAll()
                         .requestMatchers(GET, JOBS_PATH.concat("/**")).hasAnyRole(clientRoleList)
+                        .requestMatchers(GET, JOBS_PATH.concat("/**/**")).hasAnyRole(clientRoleList)
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter)));
 

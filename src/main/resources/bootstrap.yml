@@ -85,7 +85,7 @@ server:
     # Enables SSL for the server
     enabled: true
     # The SSL bundle for the server
-    bundle: prx-qa.tst
+    bundle: jobs-offer-security
     compression:
       enabled: true
       mime-types: text/html,text/xml,text/plain,text/css,application/json
