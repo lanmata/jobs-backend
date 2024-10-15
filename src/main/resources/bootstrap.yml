@@ -12,8 +12,30 @@ app:
   # The version of the application
   version: 0.0.1-2024
 # Spring Boot specific configurations
-
+# Server specific configurations
+server:
+  port: 8092
+  ssl:
+    # Enables SSL for the server
+    enabled: true
+    # The SSL bundle for the server
+    bundle: jobs-offer-security
+    enabled-protocols: TLSv1.3
+    compression:
+      enabled: true
+      mime-types: text/html,text/xml,text/plain,text/css,application/json
+      min-response-size: 1024
 spring:
+  ssl:
+    bundle:
+      jks:
+        jobs-offer-security:
+          key:
+            alias: ${SSL_KEY_ALIAS}
+          keystore:
+            location: classpath:${SSL_KEYSTORE_LOCATION}
+            password: ${SSL_KEYSTORE_PASSWORD}
+            type: ${SSL_KEYSTORE_TYPE}
   mvc:
     throw-exception-if-no-handler-found: true
   autoconfigure:
@@ -37,7 +59,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${AUTH_SERVER_URL}
+          issuer-uri: ${AUTH_SERVER_URI}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
   cloud:
     # The Spring Cloud Config specific configurations
@@ -60,9 +82,18 @@ spring:
       # The label for the Spring Cloud Config
       label: ${SPRING_CLOUD_CONFIG_LABEL}
       # The URI for the Spring Cloud Config server
-      uri: ${CONFIG_SERVER_URL}
+      uri: ${CNFS_URI}
       # Enables sending of state for the Spring Cloud Config
       send-state: true
+      tls:
+        enabled: true
+        key-store: classpath:${SSL_JKS_CNFS_KEYSTORE_LOCATION}
+        key-store-type: ${SSL_JKS_CNFS_KEYSTORE_TYPE}
+        key-store-password: ${SSL_JKS_CNFS_KEYSTORE_PASSWORD}
+        key-password: ${SSL_JKS_CNFS_KEYSTORE_PASSWORD}
+        trust-store: classpath:${SSL_JKS_CNFS_TRUSTSTORE_LOCATION}
+        trust-store-type: classpath:${SSL_JKS_CNFS_TRUSTSTORE_TYPE}
+        trust-store-password: ${SSL_JKS_CNFS_TRUSTSTORE_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -73,23 +104,12 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_DEFAULT_ZONE}
+      defaultZone: ${SRMN_DEFAULT_ZONE}
     enabled: false
   instance:
     preferIpAddress: true
     leaseRenewalIntervalInSeconds: 10
     leaseExpirationDurationInSeconds: 30
-# Server specific configurations
-server:
-  ssl:
-    # Enables SSL for the server
-    enabled: true
-    # The SSL bundle for the server
-    bundle: jobs-offer-security
-    compression:
-      enabled: true
-      mime-types: text/html,text/xml,text/plain,text/css,application/json
-      min-response-size: 1024
 
 swagger:
   base-package: 'com.prx.jobs.backend.api.controller'
