@@ -12,8 +12,32 @@ app:
   # The version of the application
   version: 0.0.1-2024
 # Spring Boot specific configurations
-
+# Server specific configurations
+server:
+  port: 8092
+  ssl:
+    # Enables SSL for the server
+    enabled: true
+    # The SSL bundle for the server
+    bundle: jobs-offer-security
+    enabled-protocols: TLSv1.3
+    compression:
+      enabled: true
+      mime-types: text/html,text/xml,text/plain,text/css,application/json
+      min-response-size: 1024
 spring:
+  ssl:
+    bundle:
+      jks:
+        jobs-offer-security:
+          keystore:
+            location: classpath:${SSL_KEYSTORE_LOCATION}
+            password: ${SSL_KEYSTORE_PASSWORD}
+            type: ${SSL_KEYSTORE_TYPE}
+          truststore:
+            location: classpath:${SSL_TRUSTSTORE_LOCATION}
+            password: ${SSL_TRUSTSTORE_PASSWORD}
+            type: ${SSL_TRUSTSTORE_TYPE}
   mvc:
     throw-exception-if-no-handler-found: true
   autoconfigure:
@@ -35,9 +59,17 @@ spring:
   security:
     # Disables the security for the Spring Boot application
     oauth2:
+      client:
+        registration:
+          keycloak:
+            redirect-uri: ${AUTH_SERVER_URI}
+            authorization-grant-type: password
+            scope: openid
+            client-secret: ${AUTH_CLIENT_SECRET}
+            client-id: ${AUTH_CLIENT_ID}
       resourceserver:
         jwt:
-          issuer-uri: ${AUTH_SERVER_URL}
+          issuer-uri: ${AUTH_SERVER_URI}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
   cloud:
     # The Spring Cloud Config specific configurations
@@ -56,11 +88,12 @@ spring:
     profile: ${SPRING_BOOT_PROFILE_ACTIVE}
     config:
       # The active profile for the Spring Cloud Config
-      profile: ${SPRING_BOOT_PROFILE_ACTIVE}
+      profile: dev
       # The label for the Spring Cloud Config
       label: ${SPRING_CLOUD_CONFIG_LABEL}
       # The URI for the Spring Cloud Config server
-      uri: ${CONFIG_SERVER_URL}
+      uri: ${CNFS_URI}
+      port: ${CNFS_PORT}
       # Enables sending of state for the Spring Cloud Config
       send-state: true
   jpa:
@@ -70,26 +103,6 @@ spring:
           allow_jdbc_metadata_access: true
     # Defers the initialization of the datasource
     defer-datasource-initialization: true
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_DEFAULT_ZONE}
-    enabled: false
-  instance:
-    preferIpAddress: true
-    leaseRenewalIntervalInSeconds: 10
-    leaseExpirationDurationInSeconds: 30
-# Server specific configurations
-server:
-  ssl:
-    # Enables SSL for the server
-    enabled: true
-    # The SSL bundle for the server
-    bundle: prx-qa.tst
-    compression:
-      enabled: true
-      mime-types: text/html,text/xml,text/plain,text/css,application/json
-      min-response-size: 1024
 
 swagger:
   base-package: 'com.prx.jobs.backend.api.controller'
@@ -103,9 +116,3 @@ swagger:
       email: 'luis.antonio.mata@gmail.com'
     cache:
       disabled: true
-
-# Management specific configurations
-management:
-  cloudfoundry:
-    # Enables or disables Cloud Foundry management
-    enabled: false

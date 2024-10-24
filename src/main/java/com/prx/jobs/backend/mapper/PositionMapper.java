@@ -2,7 +2,7 @@ package com.prx.jobs.backend.mapper;
 
 import com.prx.jobs.backend.api.to.PositionTO;
 import com.prx.jobs.backend.api.to.PostPositionRequest;
-import com.prx.jobs.backend.config.MapperAppConfig;
+import com.prx.jobs.backend.config.jackson.MapperAppConfig;
 import com.prx.jobs.backend.jpa.entity.PositionEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

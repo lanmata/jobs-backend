@@ -1,7 +1,7 @@
 package com.prx.jobs.backend.mapper;
 
 import com.prx.jobs.backend.api.to.SourceTypeTO;
-import com.prx.jobs.backend.config.MapperAppConfig;
+import com.prx.jobs.backend.config.jackson.MapperAppConfig;
 import com.prx.jobs.backend.jpa.entity.SourceTypeEntity;
 import org.mapstruct.Mapper;
 
