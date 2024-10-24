@@ -59,17 +59,14 @@ spring:
   security:
     # Disables the security for the Spring Boot application
     oauth2:
-      #      client:
-      #        provider:
-      #          keycloak:
-      #            issuer-uri:
-      #        registration:
-      #          keycloak:
-      #            redirect-uri: ${AUTH_SERVER_URI}
-      #            authorization-grant-type: password
-      #            scope: openid
-      #            client-secret: LCiN3vDUnAiVGD4KO1qWgcxHfdTlfJOB
-      #            client-id: jobs-offer-ui-client
+      client:
+        registration:
+          keycloak:
+            redirect-uri: ${AUTH_SERVER_URI}
+            authorization-grant-type: password
+            scope: openid
+            client-secret: ${AUTH_CLIENT_SECRET}
+            client-id: ${AUTH_CLIENT_ID}
       resourceserver:
         jwt:
           issuer-uri: ${AUTH_SERVER_URI}
@@ -106,15 +103,6 @@ spring:
           allow_jdbc_metadata_access: true
     # Defers the initialization of the datasource
     defer-datasource-initialization: true
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${SRMN_DEFAULT_ZONE}
-    enabled: false
-  instance:
-    preferIpAddress: true
-    leaseRenewalIntervalInSeconds: 10
-    leaseExpirationDurationInSeconds: 30
 
 swagger:
   base-package: 'com.prx.jobs.backend.api.controller'
@@ -128,36 +116,3 @@ swagger:
       email: 'luis.antonio.mata@gmail.com'
     cache:
       disabled: true
-
-# Management specific configurations
-management:
-  cloudfoundry:
-    # Enables or disables Cloud Foundry management
-    enabled: false
-prx:
-  security:
-    keystore:
-      location: ${SSL_JKS_CNFS_KEYSTORE_LOCATION}
-      type: ${SSL_JKS_CNFS_KEYSTORE_TYPE}
-      password: ${SSL_JKS_CNFS_KEYSTORE_PASSWORD}
-    truststore:
-      location: ${SSL_JKS_CNFS_TRUSTSTORE_LOCATION}
-      type: ${SSL_JKS_CNFS_TRUSTSTORE_TYPE}
-      password: ${SSL_JKS_CNFS_TRUSTSTORE_PASSWORD}
-    management-authenticator:
-      enabled: true
-      keystore:
-        location: ${SSL_JKS_CNFS_KEYSTORE_LOCATION}
-        type: ${SSL_JKS_CNFS_KEYSTORE_TYPE}
-        password: ${SSL_JKS_CNFS_KEYSTORE_PASSWORD}
-      truststore:
-        location: ${SSL_JKS_CNFS_KEYSTORE_LOCATION}
-        type: ${SSL_JKS_CNFS_TRUSTSTORE_TYPE}
-        password: ${SSL_JKS_CNFS_TRUSTSTORE_PASSWORD}
-info:
-paths:
-jwt:
-  auth:
-    converter:
-      resoucer-id: jobs-offer-ui-client
-      principal-claim-name: jobs-offer-frontend-client

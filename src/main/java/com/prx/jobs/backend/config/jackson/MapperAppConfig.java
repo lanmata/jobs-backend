@@ -1,10 +1,14 @@
-package com.prx.jobs.backend.config;
+package com.prx.jobs.backend.config.jackson;
 
 import org.mapstruct.MapperConfig;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
+/**
+ * Configuration interface for MapStruct mappers.
+ * This interface configures the MapStruct mappers with specific settings.
+ */
 @MapperConfig(
         // Specifies that the mapper should be a Spring bean.
         componentModel = MappingConstants.ComponentModel.SPRING,

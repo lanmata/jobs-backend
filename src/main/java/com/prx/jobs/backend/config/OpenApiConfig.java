@@ -16,10 +16,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+/**
+ * Configuration class for OpenAPI documentation.
+ * This class provides bean definitions for configuring OpenAPI documentation for the application.
+ */
 @Configuration
 public class OpenApiConfig {
 
-    private final static Logger LOGGER = LogManager.getLogger(OpenApiConfig.class);
+    private static final Logger LOGGER = LogManager.getLogger(OpenApiConfig.class);
 
     @Value("${swagger.api-info.title}")
     private String title;
@@ -27,6 +31,16 @@ public class OpenApiConfig {
     @Value("${swagger.api-info.version}")
     private String version;
 
+    /**
+     * Creates a GroupedOpenApi bean for actuator endpoints.
+     * This bean is only active in non-production profiles.
+     *
+     * @param actuatorOpenApiCustomizer the OpenApiCustomizer for actuator endpoints
+     * @param actuatorCustomizer the OperationCustomizer for actuator endpoints
+     * @param endpointProperties the WebEndpointProperties for actuator endpoints
+     * @param appVersion the application version
+     * @return a GroupedOpenApi instance for actuator endpoints
+     */
     @Bean
     @Profile("!prod")
     public GroupedOpenApi actuatorApi(OpenApiCustomizer actuatorOpenApiCustomizer,
@@ -47,6 +61,12 @@ public class OpenApiConfig {
                 .build();
     }
 
+    /**
+     * Creates a custom OpenAPI bean.
+     * This bean configures the OpenAPI documentation with security schemes and API information.
+     *
+     * @return an OpenAPI instance with custom configuration
+     */
     @Bean
     OpenAPI customOpenAPI() {
         return new OpenAPI()

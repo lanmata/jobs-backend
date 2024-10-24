@@ -5,11 +5,13 @@ LABEL mantainer="Luis Mata luis.antonio.mata@gmail.com"
 
 ENV SPRING_BOOT_PROFILE_ACTIVE local
 ENV SPRING_CLOUD_CONFIG_LABEL develop
-ENV CONFIG_SERVER_URL http://prx-qa.config-server.tst
+ENV CNFS_URI http://prx-qa.config-server.tst
+ENV CNFS_PORT 443
 ENV VAULT_SERVER_URL http://prx-qa.vault.tst
 ENV VAULT_TOKEN s.1XZ1Z1Z1Z1Z1Z1Z1Z1Z1Z1Z1
 ARG TARGET_FILE=target/
-ARG CRT_QA_DOCKER_FILE=prx-qa
+ARG KEYSTORE_FILE=keystore
+ARG APP_CRT_FILENAME=jobs-backend
 ARG RESOURCE_PATH=src/main/resources/
 WORKDIR /usr/local/runme
 COPY ${TARGET_FILE}${JAR_FILE} ${JAR_FILE}

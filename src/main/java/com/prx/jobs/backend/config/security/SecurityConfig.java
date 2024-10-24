@@ -1,8 +1,8 @@
-package com.prx.jobs.backend.config;
+package com.prx.jobs.backend.config.security;
 
-import com.prx.jobs.backend.config.converter.JwtConverter;
-import com.prx.jobs.backend.config.converter.JwtConverterProperties;
-import com.prx.jobs.backend.exceptions.CertException;
+import com.prx.jobs.backend.config.jwt.JwtConverter;
+import com.prx.jobs.backend.config.jwt.JwtConverterProperties;
+import com.prx.jobs.backend.exceptions.CertificateSecurityException;
 import com.prx.jobs.backend.util.KeyStoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,6 @@ public class SecurityConfig {
     private static final String[] SWAGGER_LIST = {
             "/swagger-ui/**",
             "/v3/api-docs/**",
-            "/**",
             "/swagger-resources/**",
             "/swagger-resources"
     };
@@ -47,17 +46,20 @@ public class SecurityConfig {
     @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
     private String jwkSetUri;
 
-    private final JwtConverter jwtConverter;
-
     private final SecurityProperties securityProperties;
+
+    private final JwtConverterProperties jwtConverterProperties;
 
     private final KeyStoreUtil keyStoreUtil = new KeyStoreUtil();
 
     /**
      * Constructor for SecurityConfig.
+     *
+     * @param securityProperties     the security properties
+     * @param jwtConverterProperties the JWT converter properties
      */
-    public SecurityConfig(JwtConverter jwtConverter, SecurityProperties securityProperties) {
-        this.jwtConverter = jwtConverter;
+    public SecurityConfig(SecurityProperties securityProperties, JwtConverterProperties jwtConverterProperties) {
+        this.jwtConverterProperties = jwtConverterProperties;
         this.securityProperties = securityProperties;
     }
 
@@ -71,6 +73,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         LOGGER.info("Loading SecurityFilterChain");
+        var jwtConverter = new JwtConverter(this.jwtConverterProperties);
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
@@ -87,13 +90,25 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Creates a JwtDecoder bean.
+     *
+     * @param restTemplate the RestTemplate to use
+     * @return the configured JwtDecoder
+     */
     @Bean
     public JwtDecoder jwtDecoder(RestTemplate restTemplate) {
         return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).restOperations(restTemplate).build();
     }
 
+    /**
+     * Creates a RestTemplate bean.
+     *
+     * @return the configured RestTemplate
+     * @throws CertificateSecurityException if an error occurs while configuring the SSL bundle
+     */
     @Bean
-    public RestTemplate getRestTemplate() throws CertException {
+    public RestTemplate getRestTemplate() throws CertificateSecurityException {
         RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
         return restTemplateBuilder.setSslBundle(keyStoreUtil.getSslBundle(securityProperties)).build();
     }
