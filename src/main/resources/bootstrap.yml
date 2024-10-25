@@ -88,7 +88,7 @@ spring:
     profile: ${SPRING_BOOT_PROFILE_ACTIVE}
     config:
       # The active profile for the Spring Cloud Config
-      profile: dev
+      profile: ${SPRING_BOOT_PROFILE_ACTIVE}
       # The label for the Spring Cloud Config
       label: ${SPRING_CLOUD_CONFIG_LABEL}
       # The URI for the Spring Cloud Config server
