@@ -128,6 +128,7 @@ public class JobOfferServiceImpl implements JobOfferService {
             if (Objects.nonNull(putJobOfferRequest.companyId())) {
                 var companyEntity = new CompanyEntity();
                 companyEntity.setId(putJobOfferRequest.companyId());
+                jobOfferEntity.setCompany(companyEntity);
             }
             if (Objects.nonNull(putJobOfferRequest.modeId())) {
                 var modeEntity = new ModeEntity();

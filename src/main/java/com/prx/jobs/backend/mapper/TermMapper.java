@@ -1,7 +1,7 @@
 package com.prx.jobs.backend.mapper;
 
 import com.prx.jobs.backend.api.to.TermTO;
-import com.prx.jobs.backend.config.MapperAppConfig;
+import com.prx.jobs.backend.config.jackson.MapperAppConfig;
 import com.prx.jobs.backend.jpa.entity.TermEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;

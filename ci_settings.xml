@@ -48,7 +48,7 @@ under the License.
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
     <servers>
         <server>
-            <username>luis.antonio.mata@gmail.com</username>
+            <username>lmata</username>
             <password>1$Pormenos</password>
             <id>repsy</id>
         </server>
