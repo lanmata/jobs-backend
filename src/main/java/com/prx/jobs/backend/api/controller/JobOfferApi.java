@@ -13,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "job-offers", description = "The Job Offers API")
@@ -32,7 +31,7 @@ public interface JobOfferApi {
         @ApiResponse(responseCode = "404", description = "Job offer content not found")
     })
     @GetMapping(path = "/collection", produces = MediaType.APPLICATION_JSON_VALUE)
-    default ResponseEntity<List<JobOfferContentTO>> findJobOfferContent() {
+    default ResponseEntity<JobOfferListResponse> findJobOfferContent() {
         return this.getService().findJobOfferContent();
     }
 

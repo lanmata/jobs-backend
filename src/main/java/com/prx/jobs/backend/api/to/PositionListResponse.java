@@ -9,6 +9,6 @@ import java.util.List;
  * The PositionListResponse record has one field:
  * - positionCollection: A List of PositionTO records. Each Position record in the list represents a unique position.
  */
-public record PositionListResponse(List<PositionTO> positionTOCollection) {
+public record PositionListResponse(List<PositionTO> list) {
 
 }

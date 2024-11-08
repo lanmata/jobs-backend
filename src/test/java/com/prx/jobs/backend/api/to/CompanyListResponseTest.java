@@ -15,7 +15,7 @@ class CompanyListResponseTest {
     void shouldReturnEmptyCollectionWhenNoCompaniesProvided() {
         CompanyListResponse response = new CompanyListResponse(Collections.emptyList());
 
-        assertTrue(response.companyTOCollection().isEmpty());
+        assertTrue(response.list().isEmpty());
     }
 
     @Test
@@ -23,8 +23,8 @@ class CompanyListResponseTest {
         CompanyTO companyTO = new CompanyTO(UUID.randomUUID(), "name", "description", false);
         CompanyListResponse response = new CompanyListResponse(List.of(companyTO));
 
-        assertEquals(1, response.companyTOCollection().size());
-        assertTrue(response.companyTOCollection().contains(companyTO));
+        assertEquals(1, response.list().size());
+        assertTrue(response.list().contains(companyTO));
     }
 
     @Test
@@ -33,8 +33,8 @@ class CompanyListResponseTest {
         CompanyTO companyTO2 = new CompanyTO(UUID.randomUUID(), "name", "description", false);
         CompanyListResponse response = new CompanyListResponse(List.of(companyTO1, companyTO2));
 
-        assertEquals(2, response.companyTOCollection().size());
-        assertTrue(response.companyTOCollection().contains(companyTO1));
-        assertTrue(response.companyTOCollection().contains(companyTO2));
+        assertEquals(2, response.list().size());
+        assertTrue(response.list().contains(companyTO1));
+        assertTrue(response.list().contains(companyTO2));
     }
 }

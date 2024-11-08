@@ -15,7 +15,7 @@ class SourceListResponseTest {
     void shouldReturnEmptyCollectionWhenNoSourceProvided() {
         SourceListResponse response = new SourceListResponse(Collections.emptyList());
 
-        assertTrue(response.sourceTOList().isEmpty());
+        assertTrue(response.list().isEmpty());
     }
 
     @Test
@@ -23,8 +23,8 @@ class SourceListResponseTest {
         SourceTO sourceTO = new SourceTO(UUID.randomUUID(), "name", "description", false, null);
         SourceListResponse response = new SourceListResponse(List.of(sourceTO));
 
-        assertEquals(1, response.sourceTOList().size());
-        assertTrue(response.sourceTOList().contains(sourceTO));
+        assertEquals(1, response.list().size());
+        assertTrue(response.list().contains(sourceTO));
     }
 
     @Test
@@ -33,9 +33,9 @@ class SourceListResponseTest {
         SourceTO source2 = new SourceTO(UUID.randomUUID(), "name", "description", false, null);
         SourceListResponse response = new SourceListResponse(List.of(sourceTO1, source2));
 
-        assertEquals(2, response.sourceTOList().size());
-        assertTrue(response.sourceTOList().contains(sourceTO1));
-        assertTrue(response.sourceTOList().contains(source2));
+        assertEquals(2, response.list().size());
+        assertTrue(response.list().contains(sourceTO1));
+        assertTrue(response.list().contains(source2));
     }
 
 }

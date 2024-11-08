@@ -15,7 +15,7 @@ class ModeListResponseTest {
     void shouldReturnEmptyCollectionWhenNoModesProvided() {
         ModeListResponse response = new ModeListResponse(Collections.emptyList());
 
-        assertTrue(response.modeTOCollection().isEmpty());
+        assertTrue(response.list().isEmpty());
     }
 
     @Test
@@ -23,8 +23,8 @@ class ModeListResponseTest {
         ModeTO modeTO = new ModeTO(UUID.randomUUID(), "name", "description", false);
         ModeListResponse response = new ModeListResponse(List.of(modeTO));
 
-        assertEquals(1, response.modeTOCollection().size());
-        assertTrue(response.modeTOCollection().contains(modeTO));
+        assertEquals(1, response.list().size());
+        assertTrue(response.list().contains(modeTO));
     }
 
     @Test
@@ -33,8 +33,8 @@ class ModeListResponseTest {
         ModeTO mode2 = new ModeTO(UUID.randomUUID(), "name", "description", false);
         ModeListResponse response = new ModeListResponse(List.of(mode1, mode2));
 
-        assertEquals(2, response.modeTOCollection().size());
-        assertTrue(response.modeTOCollection().contains(mode1));
-        assertTrue(response.modeTOCollection().contains(mode2));
+        assertEquals(2, response.list().size());
+        assertTrue(response.list().contains(mode1));
+        assertTrue(response.list().contains(mode2));
     }
 }
