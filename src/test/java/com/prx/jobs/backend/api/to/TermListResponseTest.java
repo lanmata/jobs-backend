@@ -15,7 +15,7 @@ class TermListResponseTest {
     void shouldReturnEmptyCollectionWhenNoTermProvided() {
         TermListResponse response = new TermListResponse(Collections.emptyList());
 
-        assertTrue(response.termTOCollection().isEmpty());
+        assertTrue(response.list().isEmpty());
     }
 
     @Test
@@ -23,8 +23,8 @@ class TermListResponseTest {
         TermTO termTO = new TermTO(UUID.randomUUID(), "name", "description", false);
         TermListResponse response = new TermListResponse(List.of(termTO));
 
-        assertEquals(1, response.termTOCollection().size());
-        assertTrue(response.termTOCollection().contains(termTO));
+        assertEquals(1, response.list().size());
+        assertTrue(response.list().contains(termTO));
     }
 
     @Test
@@ -33,8 +33,8 @@ class TermListResponseTest {
         TermTO termTO2 = new TermTO(UUID.randomUUID(), "name", "description", false);
         TermListResponse response = new TermListResponse(List.of(termTO1, termTO2));
 
-        assertEquals(2, response.termTOCollection().size());
-        assertTrue(response.termTOCollection().contains(termTO1));
-        assertTrue(response.termTOCollection().contains(termTO2));
+        assertEquals(2, response.list().size());
+        assertTrue(response.list().contains(termTO1));
+        assertTrue(response.list().contains(termTO2));
     }
 }

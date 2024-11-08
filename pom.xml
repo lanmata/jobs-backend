@@ -39,11 +39,11 @@
         <!--        MAVEN-->
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.plugin.javadoc.version>3.2.0</maven.plugin.javadoc.version>
-        <maven.plugin.jacoco.version>0.8.10</maven.plugin.jacoco.version>
-        <maven.plugin.pmd.version>3.19.0</maven.plugin.pmd.version>
+        <maven.plugin.javadoc.version>3.6.3</maven.plugin.javadoc.version>
+        <maven.plugin.jacoco.version>0.8.12</maven.plugin.jacoco.version>
+        <maven.plugin.pmd.version>3.21.2</maven.plugin.pmd.version>
         <maven.plugin.jxr.version>3.0.0</maven.plugin.jxr.version>
-        <maven.surefire.version>3.0.0</maven.surefire.version>
+        <maven.surefire.version>3.2.5</maven.surefire.version>
         <!--        REPOSITORY-->
         <repsy.account.user>lmata</repsy.account.user>
         <repsy.account.password>1$Pormenos</repsy.account.password>
@@ -69,7 +69,8 @@
         <mockito.version>5.14.2</mockito.version>
         <!--        Coverage and Sonar-->
         <sonar.organization>jobs-board</sonar.organization>
-        <sonar.exclusions>**/*.xml,**/*Application.*,**/exceptions/*, **/util/*, **/config/*,**/config/**/*, **/mapper/*, **/*Test.*
+        <sonar.exclusions>**/*.xml,**/*Application.*,**/exceptions/*, **/util/*, **/config/*,**/config/**/*,
+            **/mapper/*, **/*Test.*
         </sonar.exclusions>
         <project.ruleset>${project.basedir}/ruleset.xml</project.ruleset>
     </properties>
@@ -314,7 +315,6 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${maven.plugin.pmd.version}</version>
                 <configuration>
-                    <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
                     <targetJdk>${java.version}</targetJdk>
                     <linkXRef>false</linkXRef>
                     <rulesets>
@@ -345,22 +345,25 @@
                 <version>${maven.plugin.jacoco.version}</version>
                 <executions>
                     <execution>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <phase>initialize</phase>
                     </execution>
                     <execution>
-                        <id>jacoco-report</id>
-                        <phase>test</phase>
+                        <id>report</id>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <phase>test</phase>
                     </execution>
                     <execution>
                         <id>jacoco-check</id>
                         <goals>
                             <goal>check</goal>
                         </goals>
+                        <phase>test</phase>
                         <configuration>
                             <rules>
                                 <rule>

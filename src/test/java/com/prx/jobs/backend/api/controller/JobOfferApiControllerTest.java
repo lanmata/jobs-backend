@@ -59,7 +59,7 @@ class JobOfferApiControllerTest {
 
         JobOfferContentTO jobOfferContentTO = new JobOfferContentTO(id, mount, createdDate,
                 lastModifiedDate, status, company, position, term, mode, source);
-        when(jobOfferService.findJobOfferContent()).thenReturn(ResponseEntity.ok(Collections.singletonList(jobOfferContentTO)));
+        when(jobOfferService.findJobOfferContent()).thenReturn(ResponseEntity.ok(new JobOfferListResponse(Collections.singletonList(jobOfferContentTO))));
 
         given().contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE).when().get(PATH + "/collection")

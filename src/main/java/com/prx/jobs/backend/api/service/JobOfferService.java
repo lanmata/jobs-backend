@@ -4,7 +4,6 @@ import com.prx.jobs.backend.api.to.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,7 +17,7 @@ public interface JobOfferService {
      *
      * @return ResponseEntity<List < JobOfferContentTO>>.
      */
-    default ResponseEntity<List<JobOfferContentTO>> findJobOfferContent() {
+    default ResponseEntity<JobOfferListResponse> findJobOfferContent() {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 

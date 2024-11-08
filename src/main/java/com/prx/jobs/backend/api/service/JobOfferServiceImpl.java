@@ -73,7 +73,7 @@ public class JobOfferServiceImpl implements JobOfferService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<List<JobOfferContentTO>> findJobOfferContent() {
+    public ResponseEntity<JobOfferListResponse> findJobOfferContent() {
         var optionalResult = jobOfferRepository.findJobOfferEntities();
         return optionalResult.map(objects -> ResponseEntity.ok(mapToObjectArrayToJobOfferContentTO(objects.stream().toList()))).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -171,8 +171,19 @@ public class JobOfferServiceImpl implements JobOfferService {
      * @param list List of Object[][].
      * @return List of JobOfferContentTO.
      */
-    private List<JobOfferContentTO> mapToObjectArrayToJobOfferContentTO(List<Object[][]> list) {
+    private JobOfferListResponse mapToObjectArrayToJobOfferContentTO(List<Object[][]> list) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S", Locale.ROOT);
-        return list.stream().map(objects -> new JobOfferContentTO(UUID.fromString(objects[0][0].toString()), new BigDecimal(objects[1][0].toString()), LocalDateTime.parse(objects[2][0].toString(), dateTimeFormatter), LocalDateTime.parse(objects[3][0].toString(), dateTimeFormatter), objects[4][0].toString(), objects[5][0].toString(), objects[6][0].toString(), objects[7][0].toString(), objects[8][0].toString(), objects[9][0].toString())).collect(Collectors.toCollection(ArrayList::new));
+        return new JobOfferListResponse(list.stream().map(objects -> new JobOfferContentTO(
+                        UUID.fromString(objects[0][0].toString()),
+                        new BigDecimal(objects[1][0].toString()),
+                        LocalDateTime.parse(objects[2][0].toString(), dateTimeFormatter),
+                        LocalDateTime.parse(objects[3][0].toString(), dateTimeFormatter),
+                        objects[4][0].toString(),
+                        objects[5][0].toString(),
+                        objects[6][0].toString(),
+                        objects[7][0].toString(),
+                        objects[8][0].toString(),
+                        objects[9][0].toString()))
+                .collect(Collectors.toCollection(ArrayList::new)));
     }
 }

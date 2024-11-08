@@ -59,10 +59,12 @@ class JobOfferServiceImplTest {
         postEntities.add(objects);
         when(jobOfferRepository.findJobOfferEntities()).thenReturn(Optional.of(postEntities));
 
-        ResponseEntity<List<JobOfferContentTO>> response = jobOfferService.findJobOfferContent();
+        ResponseEntity<JobOfferListResponse> response = jobOfferService.findJobOfferContent();
 
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertFalse(response.getBody().isEmpty()); // Assuming the mapping function is not yet implemented
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody()); // Assuming the mapping function is not yet implemented
+        assertNotNull(response.getBody().list()); // Assuming the mapping function is not yet implemented
+        assertFalse(response.getBody().list().isEmpty()); // Assuming the mapping function is not yet implemented
     }
 
     @Test
@@ -70,7 +72,7 @@ class JobOfferServiceImplTest {
     void findPostContentReturnsNotFoundWhenPostDoesNotExist() {
         when(jobOfferRepository.findJobOfferEntities()).thenReturn(Optional.empty());
 
-        ResponseEntity<List<JobOfferContentTO>> response = jobOfferService.findJobOfferContent();
+        ResponseEntity<JobOfferListResponse> response = jobOfferService.findJobOfferContent();
 
         assertTrue(response.getStatusCode().is4xxClientError());
     }

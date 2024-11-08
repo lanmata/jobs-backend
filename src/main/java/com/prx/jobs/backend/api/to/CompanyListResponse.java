@@ -9,6 +9,6 @@ import java.util.List;
  * The CompanyListResponse record has one field:
  * - companyCollection: A List of Company records. Each Company record in the list represents a unique mode.
  */
-public record CompanyListResponse(List<CompanyTO> companyTOCollection) {
+public record CompanyListResponse(List<CompanyTO> list) {
 
 }

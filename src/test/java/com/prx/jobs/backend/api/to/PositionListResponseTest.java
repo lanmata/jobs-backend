@@ -15,7 +15,7 @@ class PositionListResponseTest {
     void shouldReturnEmptyCollectionWhenNoPositionsProvided() {
         PositionListResponse response = new PositionListResponse(Collections.emptyList());
 
-        assertTrue(response.positionTOCollection().isEmpty());
+        assertTrue(response.list().isEmpty());
     }
 
     @Test
@@ -23,8 +23,8 @@ class PositionListResponseTest {
         PositionTO positionTO = new PositionTO(UUID.randomUUID(), "name", "description", false);
         PositionListResponse response = new PositionListResponse(List.of(positionTO));
 
-        assertEquals(1, response.positionTOCollection().size());
-        assertTrue(response.positionTOCollection().contains(positionTO));
+        assertEquals(1, response.list().size());
+        assertTrue(response.list().contains(positionTO));
     }
 
     @Test
@@ -33,8 +33,8 @@ class PositionListResponseTest {
         PositionTO position2 = new PositionTO(UUID.randomUUID(), "name", "description", false);
         PositionListResponse response = new PositionListResponse(List.of(position1, position2));
 
-        assertEquals(2, response.positionTOCollection().size());
-        assertTrue(response.positionTOCollection().contains(position1));
-        assertTrue(response.positionTOCollection().contains(position2));
+        assertEquals(2, response.list().size());
+        assertTrue(response.list().contains(position1));
+        assertTrue(response.list().contains(position2));
     }
 }

@@ -15,7 +15,7 @@ class StatusListResponseTest {
     void shouldReturnEmptyCollectionWhenNoStatusProvided() {
         StatusListResponse response = new StatusListResponse(Collections.emptyList());
 
-        assertTrue(response.statusTOCollection().isEmpty());
+        assertTrue(response.list().isEmpty());
     }
 
     @Test
@@ -23,8 +23,8 @@ class StatusListResponseTest {
         StatusTO statusTO = new StatusTO(UUID.randomUUID(), "name", "description", false);
         StatusListResponse response = new StatusListResponse(List.of(statusTO));
 
-        assertEquals(1, response.statusTOCollection().size());
-        assertTrue(response.statusTOCollection().contains(statusTO));
+        assertEquals(1, response.list().size());
+        assertTrue(response.list().contains(statusTO));
     }
 
     @Test
@@ -33,9 +33,9 @@ class StatusListResponseTest {
         StatusTO statusTO2 = new StatusTO(UUID.randomUUID(), "name", "description", false);
         StatusListResponse response = new StatusListResponse(List.of(statusTO1, statusTO2));
 
-        assertEquals(2, response.statusTOCollection().size());
-        assertTrue(response.statusTOCollection().contains(statusTO1));
-        assertTrue(response.statusTOCollection().contains(statusTO2));
+        assertEquals(2, response.list().size());
+        assertTrue(response.list().contains(statusTO1));
+        assertTrue(response.list().contains(statusTO2));
     }
 
 }
