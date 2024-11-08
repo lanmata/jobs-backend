@@ -9,5 +9,5 @@ import java.util.List;
  * The StatusListResponse record has one field:
  * - statusCollection: A List of Status records. Each Status record in the list represents a unique status.
  */
-public record StatusListResponse(List<StatusTO> statusTOCollection) {
+public record StatusListResponse(List<StatusTO> list) {
 }

@@ -9,6 +9,6 @@ import java.util.List;
  * The ModeListResponse record has one field:
  * - modeCollection: A List of ModeTO records. Each ModeTO record in the list represents a unique mode.
  */
-public record ModeListResponse(List<ModeTO> modeTOCollection) {
+public record ModeListResponse(List<ModeTO> list) {
 
 }

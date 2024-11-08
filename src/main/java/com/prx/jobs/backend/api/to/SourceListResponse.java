@@ -9,5 +9,5 @@ import java.util.List;
  * The SourceListResponse record has one field:
  * - statusCollection: A List of SourceTO records. Each Source record in the list represents a unique source type.
  */
-public record SourceListResponse(List<SourceTO> sourceTOList) {
+public record SourceListResponse(List<SourceTO> list) {
 }
