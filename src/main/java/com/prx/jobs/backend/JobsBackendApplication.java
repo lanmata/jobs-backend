@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * The main class of the application.
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages =  {"com.prx.jobs.backend", "com.prx.commons.properties", "com.prx.security"})
 public class JobsBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(JobsBackendApplication.class, args);
