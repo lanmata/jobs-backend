@@ -72,7 +72,7 @@
         <!--        Coverage and Sonar-->
         <sonar.organization>jobs-board</sonar.organization>
         <sonar.exclusions>**/*.xml,**/*Application.*,**/exceptions/*, **/util/*, **/config/*,**/config/**/*,
-            **/mapper/*, **/*Test.*
+            **/mapper/*, **/*Test.*, **/cache/*
         </sonar.exclusions>
         <project.ruleset>${project.basedir}/ruleset.xml</project.ruleset>
     </properties>
