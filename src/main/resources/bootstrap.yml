@@ -23,6 +23,8 @@ app:
   # The environments for the application
   api:
     excludes: none
+    exclude:
+      methods: accessToken
     endpoint: /api/v1
   # The name of the application
   name: jobs-backend-api

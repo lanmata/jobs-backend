@@ -1,7 +1,7 @@
 package com.prx.jobs.backend.api.service;
 
 import com.prx.commons.util.DateUtil;
-import com.prx.jobs.backend.JobReportKey;
+import com.prx.jobs.backend.constant.JobReportKey;
 import com.prx.jobs.backend.jpa.entity.JobReportEntity;
 import com.prx.jobs.backend.jpa.repository.JobReportRepository;
 import org.apache.poi.ss.usermodel.DataFormat;

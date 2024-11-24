@@ -17,7 +17,6 @@ sonarcloud-check:
   only:
     - merge_requests
     - master
-    - develop
   script:
     - mvn verify sonar:sonar -Dspring.cloud.vault.enabled=false -Dsonar.projectKey=jobs-board_jobs-backend -s ci_settings.xml
 qodana:

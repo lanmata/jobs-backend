@@ -1,4 +1,4 @@
-package com.prx.jobs.backend;
+package com.prx.jobs.backend.constant;
 
 public enum JobReportKey {
     ID(0, "Id", 35),

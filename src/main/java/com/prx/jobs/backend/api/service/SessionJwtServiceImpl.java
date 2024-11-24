@@ -1,5 +1,6 @@
 package com.prx.jobs.backend.api.service;
 
+import com.prx.jobs.backend.constant.AuthKey;
 import com.prx.security.SessionJwtService;
 import com.prx.security.jwt.JwtConfigProperties;
 import io.jsonwebtoken.Claims;
@@ -11,8 +12,11 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.prx.security.constant.ConstantApp.SESSION_TOKEN_KEY;
 
 /**
  * Service class for handling JWT operations related to sessions.
@@ -22,7 +26,6 @@ public class SessionJwtServiceImpl implements SessionJwtService {
 
     private final JwtConfigProperties jwtConfigProperties;
     private final SecretKey key;
-    public static final String SESSION_KEY = "session-token";
 
     /**
      * Constructor to initialize SessionJwtService with JwtConfigProperties.
@@ -37,23 +40,22 @@ public class SessionJwtServiceImpl implements SessionJwtService {
     /**
      * Generates a session token for the given username.
      *
-     * @param username the username for which to generate the session token
+     * @param username   the username
+     * @param parameters the parameters
      * @return the generated session token
      */
-    public String generateSessionToken(String username) {
+    public String generateSessionToken(String username, Map<String, String> parameters) {
         Map<String, Object> claims = new ConcurrentHashMap<>();
-        claims.put("type", SESSION_KEY);
-        claims.put("sessionId", username);
-        claims.put("iat", new Date());
-        claims.put("jti", UUID.randomUUID().toString());
+        // Required
+        claims.put(AuthKey.JTI.value, UUID.randomUUID().toString());
+        claims.put(AuthKey.TYPE.value, SESSION_TOKEN_KEY);
+        claims.put(AuthKey.IAT.value, new Date());
+        // Optional
+        if (Objects.nonNull(parameters) && !parameters.isEmpty()) {
+            claims.putAll(parameters);
+        }
 
-        return Jwts.builder()
-                .claims(claims)
-                .subject(username)
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + jwtConfigProperties.getExpirationMs()))
-                .signWith(key)
-                .compact();
+        return Jwts.builder().claims(claims).subject(username).issuedAt(new Date()).expiration(new Date(System.currentTimeMillis() + jwtConfigProperties.getExpirationMs())).signWith(key).compact();
     }
 
     /**
@@ -64,11 +66,7 @@ public class SessionJwtServiceImpl implements SessionJwtService {
      */
     @Override
     public Claims getTokenClaims(String token) {
-        return Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
     }
 
     /**
@@ -78,12 +76,7 @@ public class SessionJwtServiceImpl implements SessionJwtService {
      * @return the username contained in the token
      */
     public String getUsernameFromToken(String token) {
-        return Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .getSubject();
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().getSubject();
     }
 
     /**
@@ -96,9 +89,4 @@ public class SessionJwtServiceImpl implements SessionJwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    //PENDING - IInclude implementation to call validate api operation of PRX Backbone project
-    @Override
-    public boolean isValid(String token) {
-        return true;
-    }
 }

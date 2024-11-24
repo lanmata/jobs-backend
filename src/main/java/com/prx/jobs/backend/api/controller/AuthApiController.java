@@ -2,6 +2,7 @@ package com.prx.jobs.backend.api.controller;
 
 import com.prx.jobs.backend.api.service.AuthService;
 import com.prx.jobs.backend.api.to.AuthRequest;
+import com.prx.jobs.backend.api.to.AuthResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,11 @@ public class AuthApiController implements AuthAPi {
     }
 
     @Override
-    public ResponseEntity<String> login(AuthRequest authRequest) {
-        return authService.access(authRequest);
+    public ResponseEntity<AuthResponse> accessToken(String sessionTokenBkd, AuthRequest authRequest) {
+        boolean isValid = authService.validate(sessionTokenBkd);
+        if(isValid){
+            return authService.token(authRequest);
+        }
+        return ResponseEntity.badRequest().build();
     }
 }

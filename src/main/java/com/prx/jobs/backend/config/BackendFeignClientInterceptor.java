@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Objects;
 import java.util.UUID;
 
-import static com.prx.jobs.backend.config.AuthKey.*;
+import static com.prx.jobs.backend.constant.ManagementAuthKey.*;
 import static org.apache.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.cloud.openfeign.security.OAuth2AccessTokenInterceptor.BEARER;
 
@@ -82,18 +82,4 @@ public class BackendFeignClientInterceptor {
         return userSession;
     }
 
-}
-
-enum AuthKey {
-    GRANT_TYPE("grant_type"),
-    CLIENT_ID("client_id"),
-    USERNAME("username"),
-    PASSWORD("password"),
-    CLIENT_SECRET("client_secret");
-
-    public final String value;
-
-    AuthKey(String key) {
-        this.value = key;
-    }
 }
