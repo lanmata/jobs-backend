@@ -32,6 +32,10 @@ public class PostJobEntity {
     @Column(name = "last_update", nullable = false)
     private LocalDate lastUpdate;
 
+    public PostJobEntity() {
+        // Default constructor
+    }
+
     public PostJobPK getId() {
         return id;
     }

@@ -22,6 +22,10 @@ public class PostJobPK implements Serializable {
     @Column(name = "fk_professional_profile", nullable = false)
     private UUID fkProfessionalProfile;
 
+    public PostJobPK() {
+        // Default constructor
+    }
+
     public UUID getFkJobOffer() {
         return fkJobOffer;
     }

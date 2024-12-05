@@ -37,6 +37,10 @@ public class ProfessionalProfileEntity {
     @Column(name = "active", nullable = false)
     private Boolean active = false;
 
+    public ProfessionalProfileEntity() {
+        // Default constructor
+    }
+
     public UUID getId() {
         return id;
     }

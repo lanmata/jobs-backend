@@ -32,6 +32,10 @@ public class PersonalInformationEntity {
     @Column(name = "day_of_birth", nullable = false)
     private LocalDate dayOfBirth;
 
+    public PersonalInformationEntity() {
+        // Default constructor
+    }
+
     public UUID getId() {
         return id;
     }
