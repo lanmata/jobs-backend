@@ -33,7 +33,7 @@ app:
 # Spring Boot specific configurations
 # Server specific configurations
 server:
-  port: ${APP_PORT}
+  port: ${JOBS_OFFER_PORT}
   ssl:
     # Enables SSL for the server
     enabled: true
