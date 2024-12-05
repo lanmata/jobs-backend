@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PostJobOfferDetailResponseTest {
+class PostJobEntityOfferDetailResponseTest {
 
     @Test
     @DisplayName("Should create PostJobOfferDetailResponse with all fields set")

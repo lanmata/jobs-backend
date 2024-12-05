@@ -80,4 +80,12 @@ public class OpenApiConfig {
                                         .bearerFormat("JWT"))
                 );
     }
+
+    @Bean
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("public")
+                .packagesToScan("com.prx.jobs.backend.api.controller")
+                .build();
+    }
 }

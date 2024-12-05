@@ -9,7 +9,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class PostJobOfferResponseTest {
+class PostJobEntityOfferResponseTest {
 
     @Test
     @DisplayName("Should create PostJobOfferResponse with all fields set")
