@@ -3,6 +3,7 @@ LABEL version="1.1"
 LABEL description="Jobs Backend API"
 LABEL mantainer="Luis Mata luis.antonio.mata@gmail.com"
 
+ARG RESOURCE_PATH=/
 ARG TARGET_FILE=target/
 ARG KEYSTORE_FILE=keystore
 ARG CNFS_CRT_NAME=prx-qa.config-server
