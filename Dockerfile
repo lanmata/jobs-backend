@@ -1,5 +1,5 @@
 FROM amazoncorretto:17.0.12-alpine3.19
-LABEL version="1.1"
+LABEL version="0.0.1"
 LABEL description="Jobs Backend API"
 LABEL mantainer="Luis Mata luis.antonio.mata@gmail.com"
 
@@ -10,8 +10,11 @@ ARG CNFS_CRT_NAME=prx-qa.config-server
 ARG AUTH_CRT_NAME=prx-qa.manager
 ARG SRMN_CRT_FILE_NAME=srmn
 ARG SRMN_CRT_ALIAS=servicemonitor
-ARG APP_CRT_NAME=jobs-backend
-ARG RESOURCE_PATH=src/main/resources/
+ARG APP_CRT_FILE_NAME=jobs-backend
+ARG APP_CRT_ALIAS=jobs-backend
+ARG BACKBONE_FILE_NAME=backbone
+ARG BACKBONE_ALIAS=backbone
+ARG JAR_FILE=jobs-backend.jar
 WORKDIR /usr/local/runme
 COPY ${TARGET_FILE}${JAR_FILE} ${JAR_FILE}
 COPY ${RESOURCE_PATH}${APP_CRT_FILE_NAME}.crt ${APP_CRT_FILE_NAME}.crt
